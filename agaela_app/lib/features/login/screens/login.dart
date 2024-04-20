@@ -1,5 +1,7 @@
 import 'package:agaela_app/common_widgets/agaela_image_appbar.dart';
+import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,10 +11,34 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _loginFormKey = GlobalKey<FormState>();
+
+  final _dniController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AgaelaImageAppbar(),
+      body: Form(
+        key: _loginFormKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            DefaultIconFormField(
+                controller: _dniController,
+                icon: const Icon(Icons.perm_identity),
+                text: AppLocalizations.of(context)!.loginDniField,
+                sensitiveInformation: false),
+            DefaultIconFormField(
+                controller: _passwordController,
+                icon: const Icon(Icons.lock),
+                text: AppLocalizations.of(context)!.loginPasswordField,
+                sensitiveInformation: true)
+          ],
+        ),
+      ),
     );
   }
 }

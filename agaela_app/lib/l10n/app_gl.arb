@@ -1,3 +1,6 @@
 {
-    "appTitle": "App AGAELA"
+    "appTitle": "App AGAELA",
+    "errorEmptyField": "Este campo non pode estar baleiro",
+    "loginDniField": "DNI",
+    "loginPasswordField": "Contrasinal"
 }
