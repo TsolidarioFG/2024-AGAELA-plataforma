@@ -39,7 +39,11 @@ class _LoginState extends State<Login> {
                 sensitiveInformation: true),
             DefaultButton(
                 function: () => {},
-                text: AppLocalizations.of(context)!.loginButton)
+                text: AppLocalizations.of(context)!.loginButton),
+            TextButton(
+                onPressed: () => {},
+                child:
+                    Text(AppLocalizations.of(context)!.loginPasswordRecovery))
           ],
         ),
       ),

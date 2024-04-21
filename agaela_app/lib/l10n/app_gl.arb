@@ -3,5 +3,6 @@
     "errorEmptyField": "Este campo non pode estar baleiro",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
-    "loginButton": "Autenticarse"
+    "loginButton": "Autenticarse",
+    "loginPasswordRecovery": "Esquecín o meu contrasinal"
 }

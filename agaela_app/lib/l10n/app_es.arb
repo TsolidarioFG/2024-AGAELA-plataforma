@@ -3,5 +3,6 @@
     "errorEmptyField": "Este campo no puede estar vacío",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
-    "loginButton": "Autenticarse"
+    "loginButton": "Autenticarse",
+    "loginPasswordRecovery": "Olvidé mi contraseña"
 }
