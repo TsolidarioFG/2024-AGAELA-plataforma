@@ -1,6 +1,5 @@
-import 'package:agaela_app/common_widgets/default_back_button.dart';
-import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
+import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -36,14 +35,9 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                 icon: const Icon(Icons.perm_identity),
                 text: AppLocalizations.of(context)!.passwordRecoveryDniField,
                 sensitiveInformation: false),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: DefaultBackButton(
-                  backPage: () => context.goNamed(RoutesNames.login.name),
-                ))
-              ],
-            )
+            DefaultSendButtons(
+                sendFunction: () => {},
+                backPage: () => context.goNamed(RoutesNames.login.name))
           ],
         ),
       ),
