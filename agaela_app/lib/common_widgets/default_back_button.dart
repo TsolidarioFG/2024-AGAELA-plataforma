@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DefaultBackButton extends StatelessWidget {
   const DefaultBackButton({super.key, required this.backPage});
 
-  final VoidCallback? backPage;
+  final VoidCallback backPage;
 
   @override
   Widget build(BuildContext context) {
