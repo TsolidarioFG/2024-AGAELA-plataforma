@@ -1,6 +1,7 @@
 {
     "appTitle": "App AGAELA",
     "commonBackButtonText": "Volver atrás",
+    "commonSendButtonText": "Enviar",
     "errorEmptyField": "Este campo non pode estar baleiro",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
