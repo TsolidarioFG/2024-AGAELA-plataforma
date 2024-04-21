@@ -4,5 +4,6 @@
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
-    "loginPasswordRecovery": "Esquecín o meu contrasinal"
+    "loginPasswordRecovery": "Esquecín o meu contrasinal",
+    "passwordRecoveryTitle": "Restablecer contrasinal"
 }

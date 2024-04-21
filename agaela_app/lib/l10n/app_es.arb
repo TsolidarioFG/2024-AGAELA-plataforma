@@ -4,5 +4,6 @@
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
-    "loginPasswordRecovery": "Olvidé mi contraseña"
+    "loginPasswordRecovery": "Olvidé mi contraseña",
+    "passwordRecoveryTitle": "Restablecer contraseña"
 }
