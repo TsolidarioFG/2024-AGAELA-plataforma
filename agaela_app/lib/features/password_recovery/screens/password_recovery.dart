@@ -1,6 +1,8 @@
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/features/password_recovery/services/password_recovery_service.dart';
+import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,6 +16,9 @@ class PasswordRecovery extends StatefulWidget {
 }
 
 class _PasswordRecoveryState extends State<PasswordRecovery> {
+  final PasswordRecoveryService _passwordRecoveryService =
+      locator<PasswordRecoveryService>();
+
   final _passwordRecoveryFormKey = GlobalKey<FormState>();
 
   final _dniController = TextEditingController();
