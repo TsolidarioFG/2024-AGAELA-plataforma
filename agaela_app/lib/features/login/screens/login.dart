@@ -1,4 +1,5 @@
 import 'package:agaela_app/common_widgets/agaela_image_appbar.dart';
+import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -35,7 +36,10 @@ class _LoginState extends State<Login> {
                 controller: _passwordController,
                 icon: const Icon(Icons.lock),
                 text: AppLocalizations.of(context)!.loginPasswordField,
-                sensitiveInformation: true)
+                sensitiveInformation: true),
+            DefaultButton(
+                function: () => {},
+                text: AppLocalizations.of(context)!.loginButton)
           ],
         ),
       ),
