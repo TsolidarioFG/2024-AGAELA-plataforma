@@ -1,3 +1,4 @@
+import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
@@ -23,6 +24,35 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
 
   final _dniController = TextEditingController();
 
+  bool _startedRequest = false;
+
+  void finishPasswordRecovery() {
+    setState(() {
+      _startedRequest = false;
+    });
+  }
+
+  void startPasswordRecovery() {
+    setState(() {
+      _startedRequest = true;
+      Future<void> request =
+          _passwordRecoveryService.restorePassword(_dniController.text);
+      request.whenComplete(() => finishPasswordRecovery());
+      request.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.check),
+              AppLocalizations.of(context)!
+                  .passwordRecoverySuccessfulDescription,
+              () => context.goNamed(RoutesNames.login.name)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.perm_identity),
+              AppLocalizations.of(context)!.passwordRecoveryErrorDescription,
+              () => GoRouter.of(context).pop()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,13 +66,16 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             DefaultIconFormField(
-                controller: _dniController,
-                icon: const Icon(Icons.perm_identity),
-                text: AppLocalizations.of(context)!.passwordRecoveryDniField,
-                sensitiveInformation: false),
-            DefaultSendButtons(
-                sendFunction: () => {},
-                backPage: () => context.goNamed(RoutesNames.login.name))
+              controller: _dniController,
+              icon: const Icon(Icons.perm_identity),
+              text: AppLocalizations.of(context)!.passwordRecoveryDniField,
+              sensitiveInformation: false,
+            ),
+            _startedRequest
+                ? const CircularProgressIndicator()
+                : DefaultSendButtons(
+                    sendFunction: () => startPasswordRecovery(),
+                    backPage: () => context.goNamed(RoutesNames.login.name))
           ],
         ),
       ),
