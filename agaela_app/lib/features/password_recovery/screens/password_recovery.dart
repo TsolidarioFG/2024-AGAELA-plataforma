@@ -26,18 +26,18 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
 
   bool _startedRequest = false;
 
-  void finishPasswordRecovery() {
+  void _finishPasswordRecovery() {
     setState(() {
       _startedRequest = false;
     });
   }
 
-  void startPasswordRecovery() {
+  void _startPasswordRecovery() {
     setState(() {
       _startedRequest = true;
       Future<void> request =
           _passwordRecoveryService.restorePassword(_dniController.text);
-      request.whenComplete(() => finishPasswordRecovery());
+      request.whenComplete(() => _finishPasswordRecovery());
       request.then(
           (_) => showDefaultAlertDialog(
               context,
@@ -74,7 +74,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
             _startedRequest
                 ? const CircularProgressIndicator()
                 : DefaultSendButtons(
-                    sendFunction: () => startPasswordRecovery(),
+                    sendFunction: () => _startPasswordRecovery(),
                     backPage: () => context.goNamed(RoutesNames.login.name))
           ],
         ),
