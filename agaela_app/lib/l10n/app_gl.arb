@@ -2,11 +2,14 @@
     "appTitle": "App AGAELA",
     "commonBackButtonText": "Volver atrás",
     "commonSendButtonText": "Enviar",
+    "commonOkText": "Vale",
     "errorEmptyField": "Este campo non pode estar baleiro",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
     "loginPasswordRecovery": "Esquecín o meu contrasinal",
     "passwordRecoveryTitle": "Restablecer contrasinal",
-    "passwordRecoveryDniField": "DNI"
+    "passwordRecoveryDniField": "DNI",
+    "passwordRecoverySuccessfulDescription": "Enviado correo para restablecemento",
+    "passwordRecoveryErrorDescription": "Erro ao restablecer a contrasinal"
 }

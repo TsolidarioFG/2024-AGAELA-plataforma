@@ -2,11 +2,14 @@
     "appTitle": "App AGAELA",
     "commonBackButtonText": "Volver atrás",
     "commonSendButtonText": "Enviar",
+    "commonOkText": "Vale",
     "errorEmptyField": "Este campo no puede estar vacío",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
     "loginPasswordRecovery": "Olvidé mi contraseña",
     "passwordRecoveryTitle": "Restablecer contraseña",
-    "passwordRecoveryDniField": "DNI"
+    "passwordRecoveryDniField": "DNI",
+    "passwordRecoverySuccessfulDescription": "Enviado correo para restablecimiento",
+    "passwordRecoveryErrorDescription": "Error al restablecer contraseña"
 }
