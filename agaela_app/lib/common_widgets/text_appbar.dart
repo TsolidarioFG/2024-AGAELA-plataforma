@@ -6,7 +6,8 @@ class TextAppbar extends AppBar {
   TextAppbar({super.key, required this.text})
       : super(
             title: Text(
-          text,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ));
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            automaticallyImplyLeading: false);
 }
