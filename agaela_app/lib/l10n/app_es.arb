@@ -26,5 +26,8 @@
     "editPasswordTitle": "Editar contraseña",
     "editPasswordOldPasswordField": "Antigua contraseña",
     "editPasswordNewPasswordField": "Nueva contraseña",
-    "editPasswordRepeatNewPassword": "Repite la nueva contraseña" 
+    "editPasswordRepeatNewPassword": "Repite la nueva contraseña",
+    "editPasswordErrorPasswordsNotMatch": "La contraseña repetida no es igual a la nueva contraseña",
+    "editPasswordSuccessfulDescription": "La contraseña ha sido cambiada correctamente",
+    "editPasswordErrorDescription": "Error al editar la contraseña"
 }

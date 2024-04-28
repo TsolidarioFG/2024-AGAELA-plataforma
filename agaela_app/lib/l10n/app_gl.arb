@@ -26,5 +26,8 @@
     "editPasswordTitle": "Editar contrasinal",
     "editPasswordOldPasswordField": "Antigua contrasinal",
     "editPasswordNewPasswordField": "Nova contrasinal",
-    "editPasswordRepeatNewPassword": "Repite a nova contrasinal"
+    "editPasswordRepeatNewPassword": "Repite a nova contrasinal",
+    "editPasswordErrorPasswordsNotMatch": "A contrasinal repetida non é igual á nova contrasinal",
+    "editPasswordSuccessfulDescription": "A contrasinal foi cambiada correctamente",
+    "editPasswordErrorDescription": "Error al editar la contraseña"
 }
