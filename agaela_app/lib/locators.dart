@@ -1,3 +1,5 @@
+import 'package:agaela_app/features/edit_password/services/edit_password_service.dart';
+import 'package:agaela_app/features/edit_password/services/edit_password_service_mock.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/login/services/login_service_mock.dart';
 import 'package:agaela_app/features/password_recovery/services/password_recovery_service.dart';
@@ -10,4 +12,6 @@ void initLocator() {
   locator.registerLazySingleton<PasswordRecoveryService>(
       () => PasswordRecoveryServiceMock());
   locator.registerLazySingleton<LoginService>(() => LoginServiceMock());
+  locator.registerLazySingleton<EditPasswordService>(
+      () => EditPasswordServiceMock());
 }
