@@ -12,5 +12,10 @@
     "passwordRecoveryTitle": "Restablecer contrasinal",
     "passwordRecoveryDniField": "DNI",
     "passwordRecoverySuccessfulDescription": "Enviado correo para restablecemento",
-    "passwordRecoveryErrorDescription": "Erro ao restablecer a contrasinal"
+    "passwordRecoveryErrorDescription": "Erro ao restablecer a contrasinal",
+    "homeFunctionalState": "Formularios estado funcional",
+    "homeSocialProcedures": "Trámites sociais",
+    "homeNotifications": "Notificacións",
+    "homeProfile": "Meu perfil",
+    "homeReportIncident": "Enviar incidencia"
 }

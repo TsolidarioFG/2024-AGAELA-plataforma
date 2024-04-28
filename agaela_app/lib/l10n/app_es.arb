@@ -12,5 +12,10 @@
     "passwordRecoveryTitle": "Restablecer contraseña",
     "passwordRecoveryDniField": "DNI",
     "passwordRecoverySuccessfulDescription": "Enviado correo para restablecimiento",
-    "passwordRecoveryErrorDescription": "Error al restablecer contraseña"
+    "passwordRecoveryErrorDescription": "Error al restablecer contraseña",
+    "homeFunctionalState": "Formularios estado funcional",
+    "homeSocialProcedures": "Trámites sociales",
+    "homeNotifications": "Notificaciones",
+    "homeProfile": "Mi perfil",
+    "homeReportIncident": "Enviar incidencia"
 }
