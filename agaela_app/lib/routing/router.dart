@@ -1,9 +1,10 @@
+import 'package:agaela_app/features/edit_profile/screens/edit_profile_home.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
 import 'package:agaela_app/features/login/screens/login.dart';
 import 'package:agaela_app/features/password_recovery/screens/password_recovery.dart';
 import 'package:go_router/go_router.dart';
 
-enum RoutesNames { login, passwordRecovery, home }
+enum RoutesNames { login, passwordRecovery, home, editProfile }
 
 final GoRouter router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
@@ -17,5 +18,9 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
       name: RoutesNames.home.name,
       path: '/home',
-      builder: (context, state) => const DefaultHome())
+      builder: (context, state) => const DefaultHome()),
+  GoRoute(
+      name: RoutesNames.editProfile.name,
+      path: '/edit_profile',
+      builder: (context, state) => const EditProfileHome())
 ]);

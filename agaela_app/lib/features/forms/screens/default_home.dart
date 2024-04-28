@@ -1,7 +1,9 @@
 import 'package:agaela_app/common_widgets/agaela_image_appbar.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
+import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class DefaultHome extends StatelessWidget {
   const DefaultHome({super.key});
@@ -37,7 +39,8 @@ class DefaultHome extends StatelessWidget {
               const Icon(Icons.account_circle),
               Expanded(
                   child: DefaultButton(
-                      function: () => {},
+                      function: () =>
+                          context.goNamed(RoutesNames.editProfile.name),
                       text: AppLocalizations.of(context)!.homeProfile))
             ],
           ),
