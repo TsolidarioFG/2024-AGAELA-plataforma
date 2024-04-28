@@ -46,7 +46,7 @@ class EditProfileHome extends StatelessWidget {
               )),
               Expanded(
                   child: DefaultButton(
-                function: () => {},
+                function: () => context.goNamed(RoutesNames.editPassword.name),
                 text: AppLocalizations.of(context)!.editPasswordButton,
               )),
             ],
