@@ -8,6 +8,7 @@
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
     "loginPasswordRecovery": "Esquecín o meu contrasinal",
+    "loginErrorDescription": "Erro na autenticación",
     "passwordRecoveryTitle": "Restablecer contrasinal",
     "passwordRecoveryDniField": "DNI",
     "passwordRecoverySuccessfulDescription": "Enviado correo para restablecemento",

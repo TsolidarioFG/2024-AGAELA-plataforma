@@ -8,6 +8,7 @@
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
     "loginPasswordRecovery": "Olvidé mi contraseña",
+    "loginErrorDescription": "Error en la autenticación",
     "passwordRecoveryTitle": "Restablecer contraseña",
     "passwordRecoveryDniField": "DNI",
     "passwordRecoverySuccessfulDescription": "Enviado correo para restablecimiento",
