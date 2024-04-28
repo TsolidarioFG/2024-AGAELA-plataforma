@@ -17,5 +17,10 @@
     "homeSocialProcedures": "Trámites sociales",
     "homeNotifications": "Notificaciones",
     "homeProfile": "Mi perfil",
-    "homeReportIncident": "Enviar incidencia"
+    "homeReportIncident": "Enviar incidencia",
+    "editProfileHomeTitle": "Mi perfil",
+    "editProfileIdentificationAndContact": "Identificación y contacto",
+    "editProfileLocalizationAndProfession": "Localización y profesión",
+    "editProfileBankDetailsAndPermissions": "Datos bancarios y permisos",
+    "editPasswordButton": "Editar contraseña"
 }
