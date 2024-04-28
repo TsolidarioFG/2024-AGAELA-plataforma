@@ -43,7 +43,10 @@ class _LoginState extends State<Login> {
       request.then(
           (loggedUser) => {
                 Provider.of<LoggedUserProvider>(context, listen: false)
-                    .setLoggedUser(loggedUser)
+                    .setLoggedUser(loggedUser),
+                loggedUser.isCarer
+                    ? () => {}
+                    : context.goNamed(RoutesNames.home.name)
               },
           onError: (_) => showDefaultAlertDialog(
               context,
