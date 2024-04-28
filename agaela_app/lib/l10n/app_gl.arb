@@ -22,5 +22,9 @@
     "editProfileIdentificationAndContact": "Identificación e contacto",
     "editProfileLocalizationAndProfession": "Localización e profesión",
     "editProfileBankDetailsAndPermissions": "Datos bancarios e permisos",
-    "editPasswordButton": "Editar contrasinal"
+    "editPasswordButton": "Editar contrasinal",
+    "editPasswordTitle": "Editar contrasinal",
+    "editPasswordOldPasswordField": "Antigua contrasinal",
+    "editPasswordNewPasswordField": "Nova contrasinal",
+    "editPasswordRepeatNewPassword": "Repite a nova contrasinal"
 }

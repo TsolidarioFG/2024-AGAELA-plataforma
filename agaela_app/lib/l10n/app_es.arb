@@ -22,5 +22,9 @@
     "editProfileIdentificationAndContact": "Identificación y contacto",
     "editProfileLocalizationAndProfession": "Localización y profesión",
     "editProfileBankDetailsAndPermissions": "Datos bancarios y permisos",
-    "editPasswordButton": "Editar contraseña"
+    "editPasswordButton": "Editar contraseña",
+    "editPasswordTitle": "Editar contraseña",
+    "editPasswordOldPasswordField": "Antigua contraseña",
+    "editPasswordNewPasswordField": "Nueva contraseña",
+    "editPasswordRepeatNewPassword": "Repite la nueva contraseña" 
 }
