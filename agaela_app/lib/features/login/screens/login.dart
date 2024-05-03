@@ -26,21 +26,13 @@ class _LoginState extends State<Login> {
   final _dniController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool _startedRequest = false;
-
-  void _finishLogin() {
-    setState(() {
-      _startedRequest = false;
-    });
-  }
+  Future<LoggedUser>? _request;
 
   void _startLogin() {
     setState(() {
-      _startedRequest = true;
-      Future<LoggedUser> request =
+      _request =
           _loginService.login(_dniController.text, _passwordController.text);
-      request.whenComplete(() => _finishLogin());
-      request.then(
+      _request!.then(
           (loggedUser) => {
                 Provider.of<LoggedUserProvider>(context, listen: false)
                     .setLoggedUser(loggedUser),
@@ -76,11 +68,15 @@ class _LoginState extends State<Login> {
                 icon: const Icon(Icons.lock),
                 text: AppLocalizations.of(context)!.loginPasswordField,
                 sensitiveInformation: true),
-            _startedRequest
-                ? const CircularProgressIndicator()
-                : DefaultButton(
-                    function: () => _startLogin(),
-                    text: AppLocalizations.of(context)!.loginButton),
+            FutureBuilder(
+                future: _request,
+                builder: (BuildContext context,
+                        AsyncSnapshot<LoggedUser> snapshot) =>
+                    snapshot.connectionState == ConnectionState.waiting
+                        ? const CircularProgressIndicator()
+                        : DefaultButton(
+                            function: () => _startLogin(),
+                            text: AppLocalizations.of(context)!.loginButton)),
             TextButton(
                 onPressed: () =>
                     context.goNamed(RoutesNames.passwordRecovery.name),
