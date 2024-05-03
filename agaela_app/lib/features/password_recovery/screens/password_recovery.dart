@@ -24,21 +24,12 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
 
   final _dniController = TextEditingController();
 
-  bool _startedRequest = false;
-
-  void _finishPasswordRecovery() {
-    setState(() {
-      _startedRequest = false;
-    });
-  }
+  Future<void>? _request;
 
   void _startPasswordRecovery() {
     setState(() {
-      _startedRequest = true;
-      Future<void> request =
-          _passwordRecoveryService.restorePassword(_dniController.text);
-      request.whenComplete(() => _finishPasswordRecovery());
-      request.then(
+      _request = _passwordRecoveryService.restorePassword(_dniController.text);
+      _request!.then(
           (_) => showDefaultAlertDialog(
               context,
               const Icon(Icons.check),
@@ -71,11 +62,15 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
               text: AppLocalizations.of(context)!.passwordRecoveryDniField,
               sensitiveInformation: false,
             ),
-            _startedRequest
-                ? const CircularProgressIndicator()
-                : DefaultSendButtons(
-                    sendFunction: () => _startPasswordRecovery(),
-                    backPage: () => context.goNamed(RoutesNames.login.name))
+            FutureBuilder(
+                future: _request,
+                builder: (BuildContext context, AsyncSnapshot<void> snapshot) =>
+                    snapshot.connectionState == ConnectionState.waiting
+                        ? const CircularProgressIndicator()
+                        : DefaultSendButtons(
+                            sendFunction: () => _startPasswordRecovery(),
+                            backPage: () =>
+                                context.goNamed(RoutesNames.login.name))),
           ],
         ),
       ),
