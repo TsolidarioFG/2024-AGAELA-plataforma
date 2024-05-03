@@ -27,7 +27,7 @@ class _EditPasswordState extends State<EditPassword> {
   final _newPasswordController = TextEditingController();
   final _repeatNewPasswordController = TextEditingController();
 
-  bool _startedRequest = false;
+  Future<void>? _request;
 
   bool _arePasswordsTheSame() {
     if (_newPasswordController.text != _repeatNewPasswordController.text) {
@@ -41,20 +41,12 @@ class _EditPasswordState extends State<EditPassword> {
     return true;
   }
 
-  void _finishEditPassword() {
-    setState(() {
-      _startedRequest = false;
-    });
-  }
-
   void _startEditPassword() {
     if (_arePasswordsTheSame()) {
       setState(() {
-        _startedRequest = true;
-        Future<void> request = _editPasswordService.editPassword(
+        _request = _editPasswordService.editPassword(
             _oldPasswordController.text, _newPasswordController.text);
-        request.whenComplete(() => _finishEditPassword());
-        request.then(
+        _request!.then(
             (_) => showDefaultAlertDialog(
                 context,
                 const Icon(Icons.done),
@@ -103,11 +95,15 @@ class _EditPasswordState extends State<EditPassword> {
                   text: AppLocalizations.of(context)!
                       .editPasswordRepeatNewPassword,
                   sensitiveInformation: true),
-              _startedRequest
-                  ? const CircularProgressIndicator()
-                  : DefaultSendButtons(
-                      sendFunction: () => _startEditPassword(),
-                      backPage: () => GoRouter.of(context).pop())
+              FutureBuilder(
+                  future: _request,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<void> snapshot) =>
+                          snapshot.connectionState == ConnectionState.waiting
+                              ? const CircularProgressIndicator()
+                              : DefaultSendButtons(
+                                  sendFunction: () => _startEditPassword(),
+                                  backPage: () => GoRouter.of(context).pop())),
             ],
           ),
         ));
