@@ -2,6 +2,7 @@
     "appTitle": "App AGAELA",
     "commonBackButtonText": "Volver atrás",
     "commonSendButtonText": "Enviar",
+    "commonErrorButtonText": "Cancelar",
     "commonOkText": "Vale",
     "errorEmptyField": "Este campo non pode estar baleiro",
     "loginDniField": "DNI",
