@@ -59,58 +59,58 @@ class _EditProfileHomeState extends State<EditProfileHome> {
       body: FutureBuilder(
         future: _request,
         builder: (BuildContext context,
-            AsyncSnapshot<UserProfileInformation> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: DefaultButton(
-                    function: () => context
-                        .goNamed(RoutesNames.identificationAndContact.name),
-                    text: AppLocalizations.of(context)!
-                        .editProfileIdentificationAndContact,
-                  )),
-                  Expanded(
-                      child: DefaultButton(
-                    function: () => {},
-                    text: AppLocalizations.of(context)!
-                        .editProfileLocalizationAndProfession,
-                  )),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                      child: DefaultButton(
-                    function: () => {},
-                    text: AppLocalizations.of(context)!
-                        .editProfileBankDetailsAndPermissions,
-                  )),
-                  Expanded(
-                      child: DefaultButton(
-                    function: () =>
-                        context.goNamed(RoutesNames.editPassword.name),
-                    text: AppLocalizations.of(context)!.editPasswordButton,
-                  )),
-                ],
-              ),
-              DefaultBackButton(
-                  backPage: () =>
-                      Provider.of<LoggedUserProvider>(context, listen: false)
-                              .loggedUser!
-                              .isCarer
-                          ? () => {}
-                          : context.goNamed(RoutesNames.home.name))
-            ],
-          );
-        },
+                AsyncSnapshot<UserProfileInformation> snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: DefaultButton(
+                            function: () => context.goNamed(
+                                RoutesNames.identificationAndContact.name),
+                            text: AppLocalizations.of(context)!
+                                .editProfileIdentificationAndContact,
+                          )),
+                          Expanded(
+                              child: DefaultButton(
+                            function: () => {},
+                            text: AppLocalizations.of(context)!
+                                .editProfileLocalizationAndProfession,
+                          )),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: DefaultButton(
+                            function: () => {},
+                            text: AppLocalizations.of(context)!
+                                .editProfileBankDetailsAndPermissions,
+                          )),
+                          Expanded(
+                              child: DefaultButton(
+                            function: () =>
+                                context.goNamed(RoutesNames.editPassword.name),
+                            text: AppLocalizations.of(context)!
+                                .editPasswordButton,
+                          )),
+                        ],
+                      ),
+                      DefaultBackButton(
+                          backPage: () => Provider.of<LoggedUserProvider>(
+                                      context,
+                                      listen: false)
+                                  .loggedUser!
+                                  .isCarer
+                              ? () => {}
+                              : context.goNamed(RoutesNames.home.name))
+                    ],
+                  ),
       ),
     );
   }
