@@ -2,11 +2,12 @@ import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:flutter/material.dart';
 
 class LoggedUserProvider extends ChangeNotifier {
-  LoggedUser? loggedUser;
-  LoggedUserProvider({this.loggedUser});
+  LoggedUser? _loggedUser;
+
+  LoggedUser? get loggedUser => _loggedUser;
 
   void setLoggedUser(LoggedUser user) {
-    loggedUser = user;
+    _loggedUser = user;
     notifyListeners();
   }
 }

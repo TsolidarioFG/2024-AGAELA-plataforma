@@ -11,13 +11,11 @@ class LoginServiceMock implements LoginService {
     const exampleName = 'example';
     const exampleFormId = 1;
     const exampleIsCarer = false;
-    List<PendingForm> pendingForms = [
-      PendingFormPersonWithAls(formId: exampleFormId)
-    ];
+    List<PendingForm> pendingForms = [PendingFormPersonWithAls(exampleFormId)];
     await Future.delayed(const Duration(seconds: 1));
     if (dni == errorText) throw Exception();
-    LoggedUser example = PersonWithAls(
-        name: exampleName, pendingForms: pendingForms, isCarer: exampleIsCarer);
+    LoggedUser example =
+        PersonWithAls(exampleName, pendingForms, exampleIsCarer);
     return example;
   }
 }

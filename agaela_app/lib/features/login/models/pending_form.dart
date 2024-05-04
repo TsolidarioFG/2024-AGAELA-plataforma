@@ -1,5 +1,7 @@
 abstract class PendingForm {
-  final int formId;
+  final int _formId;
 
-  PendingForm({required this.formId});
+  PendingForm(this._formId);
+
+  int get formId => _formId;
 }
