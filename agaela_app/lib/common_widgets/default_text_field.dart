@@ -5,12 +5,12 @@ class DefaultTextField extends StatelessWidget {
   const DefaultTextField(
       {super.key,
       required this.controller,
-      required this.text,
+      this.text,
       required this.sensitiveInformation});
 
   final TextEditingController controller;
 
-  final String text;
+  final String? text;
 
   final bool sensitiveInformation;
 
