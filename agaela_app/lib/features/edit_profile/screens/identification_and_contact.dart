@@ -72,11 +72,11 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                       .editProfileIdentificationAndContactDniField,
                   sensitiveInformation: false),
               const Divider(),
-              DefaultSendCancelButtons(
-                  sendFunction: () => {},
-                  cancelFunction: () => GoRouter.of(context).pop())
             ],
           )),
+      bottomNavigationBar: DefaultSendCancelButtons(
+          sendFunction: () => {},
+          cancelFunction: () => GoRouter.of(context).pop()),
     );
   }
 }
