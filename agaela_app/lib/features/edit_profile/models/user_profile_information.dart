@@ -46,7 +46,7 @@ class UserProfileInformation {
 
   String get dni => _dni;
 
-  DateTime get bithDate => _birthDate;
+  DateTime get birthDate => _birthDate;
 
   UnmodifiableListView<int> get telephoneNumbers =>
       UnmodifiableListView(_telephoneNumbers);
