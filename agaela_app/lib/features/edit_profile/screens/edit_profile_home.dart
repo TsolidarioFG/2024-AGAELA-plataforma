@@ -88,7 +88,8 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                         children: <Widget>[
                           Expanded(
                               child: DefaultButton(
-                            function: () => {},
+                            function: () => context.goNamed(
+                                RoutesNames.bankDetailsAndPermissions.name),
                             text: AppLocalizations.of(context)!
                                 .editProfileBankDetailsAndPermissions,
                           )),
