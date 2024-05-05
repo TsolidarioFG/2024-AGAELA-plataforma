@@ -30,6 +30,8 @@
     "editProfileIdentificationAndContactLastName2Field": "Apelido 2: ",
     "editProfileIdentificationAndContactDniField": "DNI: ",
     "editProfileIdentificationAndContactBirthDateField": "Data de nacemento: ",
+    "editProfileIdentificationAndContactTelephonesField": "Teléfonos: ",
+    "editProfileIdentificationAndContactEmailsField": "Correos: ",
     "editPasswordButton": "Editar contrasinal",
     "editPasswordTitle": "Editar contrasinal",
     "editPasswordOldPasswordField": "Antigua contrasinal",
