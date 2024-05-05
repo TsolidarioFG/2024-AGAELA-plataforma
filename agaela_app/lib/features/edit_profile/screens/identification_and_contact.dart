@@ -3,6 +3,7 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
+import 'package:agaela_app/features/edit_profile/widgets/add_remove_list_elements.dart';
 import 'package:agaela_app/features/edit_profile/widgets/birth_date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,6 +26,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   final _lastName2Controller = TextEditingController();
   final _dniController = TextEditingController();
   final _birthDateController = TextEditingController();
+  late final List<int> _telephones;
+  late final List<String> _emails;
 
   @override
   void initState() {
@@ -36,6 +39,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     _lastName1Controller.text = userInformation.lastName1;
     _lastName2Controller.text = userInformation.lastName2;
     _dniController.text = userInformation.dni;
+    _telephones = userInformation.telephoneNumbers;
+    _emails = userInformation.emails;
   }
 
   @override
@@ -75,6 +80,16 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                   sensitiveInformation: false),
               const Divider(),
               BirthDatePicker(dateController: _birthDateController),
+              const Divider(),
+              AddRemoveListElements(
+                  title: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactTelephonesField,
+                  elements: _telephones),
+              const Divider(),
+              AddRemoveListElements(
+                  title: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactEmailsField,
+                  elements: _emails),
               const Divider()
             ],
           )),
