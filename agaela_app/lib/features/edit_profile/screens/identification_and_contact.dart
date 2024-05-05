@@ -3,6 +3,7 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
+import 'package:agaela_app/features/edit_profile/widgets/birth_date_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   final _lastName1Controller = TextEditingController();
   final _lastName2Controller = TextEditingController();
   final _dniController = TextEditingController();
+  final _birthDateController = TextEditingController();
 
   @override
   void initState() {
@@ -72,6 +74,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                       .editProfileIdentificationAndContactDniField,
                   sensitiveInformation: false),
               const Divider(),
+              BirthDatePicker(dateController: _birthDateController),
+              const Divider()
             ],
           )),
       bottomNavigationBar: DefaultSendCancelButtons(
