@@ -33,6 +33,8 @@
     "editProfileIdentificationAndContactTelephonesField": "Teléfonos: ",
     "editProfileIdentificationAndContactEmailsField": "Correos: ",
     "editProfileBankDetailsAndPermissionsTitle": "Datos bancarios e permisos",
+    "editProfileBankDetailsAndPermissionsIbanField": "IBAN: ",
+    "editProfileBankDetailsAndPermissionsFeeField": "Importe cuota: ",
     "editPasswordButton": "Editar contrasinal",
     "editPasswordTitle": "Editar contrasinal",
     "editPasswordOldPasswordField": "Antigua contrasinal",
