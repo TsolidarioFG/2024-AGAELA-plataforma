@@ -29,6 +29,7 @@
     "editProfileIdentificationAndContactLastName1Field": "Apellido 1: ",
     "editProfileIdentificationAndContactLastName2Field": "Apellido 2: ",
     "editProfileIdentificationAndContactDniField": "DNI: ",
+    "editProfileIdentificationAndContactBirthDateField": "Fecha de nacimiento: ",
     "editPasswordButton": "Editar contraseña",
     "editPasswordTitle": "Editar contraseña",
     "editPasswordOldPasswordField": "Antigua contraseña",
