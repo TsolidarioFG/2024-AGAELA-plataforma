@@ -1,3 +1,4 @@
+import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:flutter/material.dart';
@@ -46,10 +47,9 @@ class _BirthDatePickerState extends State<BirthDatePicker> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Text(
-          AppLocalizations.of(context)!
+        TextBoldStyle(
+          text: AppLocalizations.of(context)!
               .editProfileIdentificationAndContactBirthDateField,
-          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Expanded(
             child: TextFormField(
