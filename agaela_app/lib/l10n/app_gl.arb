@@ -32,6 +32,7 @@
     "editProfileIdentificationAndContactBirthDateField": "Data de nacemento: ",
     "editProfileIdentificationAndContactTelephonesField": "Teléfonos: ",
     "editProfileIdentificationAndContactEmailsField": "Correos: ",
+    "editProfileBankDetailsAndPermissionsTitle": "Datos bancarios e permisos",
     "editPasswordButton": "Editar contrasinal",
     "editPasswordTitle": "Editar contrasinal",
     "editPasswordOldPasswordField": "Antigua contrasinal",
