@@ -1,4 +1,5 @@
 import 'package:agaela_app/common_widgets/default_text_field.dart';
+import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:flutter/material.dart';
 
 class DefaultNamedFormField extends StatelessWidget {
@@ -20,9 +21,8 @@ class DefaultNamedFormField extends StatelessWidget {
       padding: const EdgeInsets.only(left: 20.0, right: 20.0),
       child: Row(
         children: <Widget>[
-          Text(
-            name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+          TextBoldStyle(
+            text: name,
           ),
           Expanded(
             child: DefaultTextField(
