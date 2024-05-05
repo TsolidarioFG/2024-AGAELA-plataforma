@@ -1,3 +1,4 @@
+import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:flutter/material.dart';
 
 class TextAppbar extends AppBar {
@@ -5,9 +6,8 @@ class TextAppbar extends AppBar {
 
   TextAppbar({super.key, required this.text})
       : super(
-            title: Text(
-              text,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+            title: TextBoldStyle(
+              text: text,
             ),
             automaticallyImplyLeading: false);
 }
