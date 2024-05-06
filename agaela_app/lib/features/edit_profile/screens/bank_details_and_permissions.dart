@@ -63,7 +63,7 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
                     .editProfileBankDetailsAndPermissionsFeeField,
                 sensitiveInformation: false),
             ClickColorButton(
-                function: () => {_acceptNews = !_acceptNews},
+                function: () => _acceptNews = !_acceptNews,
                 clickedText: AppLocalizations.of(context)!
                     .editProfileBankDetailsAndPermissionsClickedNewsButton,
                 notClickedText: AppLocalizations.of(context)!
