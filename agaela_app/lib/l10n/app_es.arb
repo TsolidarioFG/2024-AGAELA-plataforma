@@ -40,6 +40,8 @@
     "editProfileBankDetailsAndPermissionsNotClickedNewsButton": "No acepto envío de noticias",
     "editProfileBankDetailsAndPermissionsNotClickedLegalNoticeButton": "No acepto aviso legal",
     "editProfileLocalizationAndProfessionTitle": "Localización y profesión",
+    "editProfileLocalizationAndProfessionCountriesError": "Error recuperando los países",
+    "editProfileLocalizationAndProfessionCountriesField": "País: ",
     "editProfileLocalizationAndProfessionCityField": "Ciudad: ",
     "editProfileLocalizationAndProfessionPostalCodeField": "CP: ",
     "editProfileLocalizationAndProfessionAddressField": "Dirección: ",
