@@ -1,3 +1,4 @@
+import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 
@@ -15,7 +16,7 @@ class EditProfileServiceMock implements EditProfileService {
     const feeAmount = 20;
     const acceptSendNews = false;
     const acceptLegalNotice = true;
-    const country = 'España';
+    Country country = Country(1, 'Spain');
     const province = 'A Coruña';
     const city = 'Coruña';
     const postalCode = '15009';
@@ -49,5 +50,20 @@ class EditProfileServiceMock implements EditProfileService {
   Future<void> setUserProfileInformation(
       String dni, UserProfileInformation userInformation) async {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Country>> getCountries() async {
+    const error = false;
+    Country spain = Country(1, 'España');
+    Country france = Country(2, 'Francia');
+    Country germany = Country(3, 'Alemania');
+    List<Country> countries = [];
+    countries.add(spain);
+    countries.add(france);
+    countries.add(germany);
+    await Future.delayed(const Duration(seconds: 1));
+    if (error) throw Exception();
+    return countries;
   }
 }
