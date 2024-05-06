@@ -2,6 +2,7 @@ import 'package:agaela_app/features/edit_password/screens/edit_password.dart';
 import 'package:agaela_app/features/edit_profile/screens/bank_details_and_permissions.dart';
 import 'package:agaela_app/features/edit_profile/screens/edit_profile_home.dart';
 import 'package:agaela_app/features/edit_profile/screens/identification_and_contact.dart';
+import 'package:agaela_app/features/edit_profile/screens/localization_and_profession.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
 import 'package:agaela_app/features/login/screens/login.dart';
 import 'package:agaela_app/features/password_recovery/screens/password_recovery.dart';
@@ -14,6 +15,7 @@ enum RoutesNames {
   editProfile,
   identificationAndContact,
   bankDetailsAndPermissions,
+  localizationAndProfession,
   editPassword
 }
 
@@ -43,6 +45,10 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
             name: RoutesNames.bankDetailsAndPermissions.name,
             path: 'bank_details_and_permissions',
             builder: (context, state) => const BankDetailsAndPermissions()),
+        GoRoute(
+            name: RoutesNames.localizationAndProfession.name,
+            path: 'localization_and_prodession',
+            builder: (context, state) => const LocalizationAndProfession()),
         GoRoute(
             name: RoutesNames.editPassword.name,
             path: 'edit_password',

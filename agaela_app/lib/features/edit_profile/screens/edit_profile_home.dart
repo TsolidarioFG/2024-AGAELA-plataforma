@@ -78,7 +78,8 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                           )),
                           Expanded(
                               child: DefaultButton(
-                            function: () => {},
+                            function: () => context.goNamed(
+                                RoutesNames.localizationAndProfession.name),
                             text: AppLocalizations.of(context)!
                                 .editProfileLocalizationAndProfession,
                           )),
