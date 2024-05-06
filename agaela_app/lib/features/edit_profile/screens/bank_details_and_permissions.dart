@@ -3,6 +3,7 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
+import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,10 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
   final _ibanController = TextEditingController();
   final _feeController = TextEditingController();
 
+  late bool _acceptNews;
+
+  late bool _acceptLegalNotice;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +35,8 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
             .userProfileInformation!;
     _ibanController.text = userInformation.iban;
     _feeController.text = userInformation.feeAmount.toString();
+    _acceptNews = userInformation.acceptSendNews;
+    _acceptLegalNotice = userInformation.acceptLegalNotice;
   }
 
   @override
@@ -55,6 +62,20 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
                 name: AppLocalizations.of(context)!
                     .editProfileBankDetailsAndPermissionsFeeField,
                 sensitiveInformation: false),
+            ClickColorButton(
+                function: () => {_acceptNews = !_acceptNews},
+                clickedText: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsClickedNewsButton,
+                notClickedText: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsNotClickedNewsButton,
+                initialState: _acceptNews),
+            ClickColorButton(
+                function: () => _acceptLegalNotice = !_acceptLegalNotice,
+                clickedText: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsClickedLegalNoticeButton,
+                notClickedText: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsNotClickedLegalNoticeButton,
+                initialState: _acceptLegalNotice),
           ],
         ),
       ),
