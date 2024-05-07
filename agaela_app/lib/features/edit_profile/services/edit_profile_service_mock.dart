@@ -1,4 +1,5 @@
 import 'package:agaela_app/features/edit_profile/models/country.dart';
+import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 
@@ -17,7 +18,7 @@ class EditProfileServiceMock implements EditProfileService {
     const acceptSendNews = false;
     const acceptLegalNotice = true;
     Country country = Country(1, 'Spain');
-    const province = 'A Coruña';
+    Province province = Province(1, 'A Coruña', 1);
     const city = 'Coruña';
     const postalCode = '15009';
     const address = 'C. Alcalde Marchesi, 6';
@@ -65,5 +66,19 @@ class EditProfileServiceMock implements EditProfileService {
     await Future.delayed(const Duration(seconds: 1));
     if (error) throw Exception();
     return countries;
+  }
+
+  @override
+  Future<List<Province>> getProvinces(int countryCode) async {
+    const error = false;
+    Province coruna = Province(1, 'A Coruña', 1);
+    Province lugo = Province(2, 'Lugo', 1);
+    Province ourense = Province(3, 'Ourense', 1);
+    Province pontevedra = Province(4, 'Pontevedra', 1);
+    List<Province> provinces = [];
+    provinces.addAll([coruna, lugo, ourense, pontevedra]);
+    await Future.delayed(const Duration(seconds: 1));
+    if (error) throw Exception();
+    return provinces;
   }
 }

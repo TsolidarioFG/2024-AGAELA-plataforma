@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:agaela_app/features/edit_profile/models/country.dart';
+import 'package:agaela_app/features/edit_profile/models/province.dart';
 
 class UserProfileInformation {
   final String _name;
@@ -15,7 +16,7 @@ class UserProfileInformation {
   final bool _acceptSendNews;
   final bool _acceptLegalNotice;
   final Country _country;
-  final String _province;
+  final Province _province;
   final String _city;
   final String _postalCode;
   final String _address;
@@ -65,7 +66,7 @@ class UserProfileInformation {
 
   Country get country => _country;
 
-  String get province => _province;
+  Province get province => _province;
 
   String get city => _city;
 
