@@ -19,6 +19,8 @@
     "homeNotifications": "Notificaciones",
     "homeProfile": "Mi perfil",
     "homeReportIncident": "Enviar incidencia",
+    "editProfileSavedChanges": "Los cambios han sido guardados",
+    "editProfileErrorSavingChanges": "Hubo un error guardando los cambios",
     "editProfileHomeTitle": "Mi perfil",
     "editProfileIdentificationAndContact": "Identificación y contacto",
     "editProfileLocalizationAndProfession": "Localización y profesión",
