@@ -1,13 +1,12 @@
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
-import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/add_remove_list_elements.dart';
 import 'package:agaela_app/features/edit_profile/widgets/birth_date_picker.dart';
+import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class IdentificationAndContact extends StatefulWidget {
@@ -41,6 +40,30 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     _dniController.text = userInformation.dni;
     _telephones = userInformation.telephoneNumbers;
     _emails = userInformation.emails;
+  }
+
+  UserProfileInformation _createUser() {
+    UserProfileInformation userInformation =
+        Provider.of<UserProfileInformationProvider>(context, listen: false)
+            .userProfileInformation!;
+    return UserProfileInformation(
+        _nameController.text,
+        _lastName1Controller.text,
+        _lastName2Controller.text,
+        _dniController.text,
+        userInformation.birthDate,
+        _telephones,
+        _emails,
+        userInformation.iban,
+        userInformation.feeAmount,
+        userInformation.acceptSendNews,
+        userInformation.acceptLegalNotice,
+        userInformation.country,
+        userInformation.province,
+        userInformation.city,
+        userInformation.postalCode,
+        userInformation.address,
+        userInformation.profession);
   }
 
   @override
@@ -93,9 +116,9 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
               const Divider()
             ],
           )),
-      bottomNavigationBar: DefaultSendCancelButtons(
-          sendFunction: () => {},
-          cancelFunction: () => GoRouter.of(context).pop()),
+      bottomNavigationBar: SendCancelButtonsEditProfile(
+        createUser: () => _createUser(),
+      ),
     );
   }
 }
