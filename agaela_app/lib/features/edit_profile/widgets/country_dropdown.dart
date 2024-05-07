@@ -8,8 +8,13 @@ class CountryDropdown extends StatefulWidget {
 
   final Country initialValue;
 
+  final Function onChanged;
+
   const CountryDropdown(
-      {super.key, required this.countries, required this.initialValue});
+      {super.key,
+      required this.countries,
+      required this.initialValue,
+      required this.onChanged});
 
   @override
   State<CountryDropdown> createState() => _CountryDropdownState();
@@ -47,6 +52,7 @@ class _CountryDropdownState extends State<CountryDropdown> {
             }).toList(),
             onSelected: (Country? value) {
               changeDropdownValue(value);
+              widget.onChanged(value!.countryCode);
             }),
       ],
     );

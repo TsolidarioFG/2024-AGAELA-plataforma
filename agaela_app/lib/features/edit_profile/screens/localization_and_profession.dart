@@ -3,10 +3,12 @@ import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/country.dart';
+import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/features/edit_profile/widgets/country_dropdown.dart';
+import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
   final _localizationAndProfessionFormKey = GlobalKey<FormState>();
   final EditProfileService _editProfileService = locator<EditProfileService>();
   Future<List<Country>>? _countriesRequest;
+  Future<List<Province>>? _provincesRequest;
 
   final _cityController = TextEditingController();
   final _postalCodeController = TextEditingController();
@@ -34,7 +37,11 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
 
   late Country _country;
 
+  late Province _province;
+
   List<Country>? _countries;
+
+  List<Province>? _provinces;
 
   @override
   void initState() {
@@ -47,10 +54,16 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
     _addressController.text = userInformation.address;
     _professionController.text = userInformation.profession;
     _country = userInformation.country;
+    _province = userInformation.province;
+    _getCountries();
+    _getProvinces(_country.countryCode);
+  }
+
+  void _getCountries() {
     _countriesRequest = _editProfileService.getCountries();
     _countriesRequest!.then(
-        (value) => setState(() {
-              _countries = value;
+        (countries) => setState(() {
+              _countries = countries;
             }),
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -58,6 +71,22 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
             AppLocalizations.of(context)!
                 .editProfileLocalizationAndProfessionCountriesError,
             () => context.goNamed(RoutesNames.editProfile.name)));
+  }
+
+  void _getProvinces(int countryCode) {
+    setState(() {
+      _provincesRequest = _editProfileService.getProvinces(countryCode);
+      _provincesRequest!.then(
+          (provinces) => setState(() {
+                _provinces = provinces;
+              }),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.warning),
+              AppLocalizations.of(context)!
+                  .editProfileLocalizationAndProfessionProvincesError,
+              () => context.goNamed(RoutesNames.editProfile.name)));
+    });
   }
 
   @override
@@ -81,7 +110,21 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                         children: <Widget>[
                           if (_countries != null)
                             CountryDropdown(
-                                countries: _countries!, initialValue: _country),
+                                countries: _countries!,
+                                initialValue: _country,
+                                onChanged: _getProvinces),
+                          if (_provinces != null)
+                            FutureBuilder(
+                                future: _provincesRequest,
+                                builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) =>
+                                    snapshot.connectionState ==
+                                            ConnectionState.waiting
+                                        ? const CircularProgressIndicator()
+                                        : ProvinceDropdown(
+                                            provinces: _provinces!,
+                                            initialValue: _province,
+                                          )),
                           DefaultNamedFormField(
                               controller: _cityController,
                               name: AppLocalizations.of(context)!
