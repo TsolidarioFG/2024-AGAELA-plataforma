@@ -1,6 +1,5 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
-import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
@@ -9,6 +8,7 @@ import 'package:agaela_app/features/edit_profile/models/user_profile_information
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/features/edit_profile/widgets/country_dropdown.dart';
 import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart';
+import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -89,68 +89,95 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
     });
   }
 
+  UserProfileInformation _createUser() {
+    UserProfileInformation userInformation =
+        Provider.of<UserProfileInformationProvider>(context, listen: false)
+            .userProfileInformation!;
+    return UserProfileInformation(
+        userInformation.name,
+        userInformation.lastName1,
+        userInformation.lastName2,
+        userInformation.dni,
+        userInformation.birthDate,
+        userInformation.telephoneNumbers,
+        userInformation.emails,
+        userInformation.iban,
+        userInformation.feeAmount,
+        userInformation.acceptSendNews,
+        userInformation.acceptLegalNotice,
+        _country,
+        _province,
+        _cityController.text,
+        _postalCodeController.text,
+        _addressController.text,
+        _professionController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TextAppbar(
-          text: AppLocalizations.of(context)!
-              .editProfileLocalizationAndProfessionTitle),
-      body: Form(
-          key: _localizationAndProfessionFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: FutureBuilder(
-            future: _countriesRequest,
-            builder: (BuildContext context, AsyncSnapshot snapshot) =>
-                snapshot.connectionState == ConnectionState.waiting
-                    ? const Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          if (_countries != null)
-                            CountryDropdown(
-                                countries: _countries!,
-                                initialValue: _country,
-                                onChanged: _getProvinces),
-                          if (_provinces != null)
-                            FutureBuilder(
-                                future: _provincesRequest,
-                                builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) =>
-                                    snapshot.connectionState ==
-                                            ConnectionState.waiting
-                                        ? const CircularProgressIndicator()
-                                        : ProvinceDropdown(
-                                            provinces: _provinces!,
-                                            initialValue: _province,
-                                          )),
-                          DefaultNamedFormField(
-                              controller: _cityController,
-                              name: AppLocalizations.of(context)!
-                                  .editProfileLocalizationAndProfessionCityField,
-                              sensitiveInformation: false),
-                          DefaultNamedFormField(
-                              controller: _postalCodeController,
-                              name: AppLocalizations.of(context)!
-                                  .editProfileLocalizationAndProfessionPostalCodeField,
-                              sensitiveInformation: false),
-                          DefaultNamedFormField(
-                              controller: _addressController,
-                              name: AppLocalizations.of(context)!
-                                  .editProfileLocalizationAndProfessionAddressField,
-                              sensitiveInformation: false),
-                          DefaultNamedFormField(
-                              controller: _professionController,
-                              name: AppLocalizations.of(context)!
-                                  .editProfileLocalizationAndProfessionProfessionField,
-                              sensitiveInformation: false)
-                        ],
-                      ),
-          )),
-      bottomNavigationBar: DefaultSendCancelButtons(
-          sendFunction: () => {},
-          cancelFunction: () => GoRouter.of(context).pop()),
-    );
+        appBar: TextAppbar(
+            text: AppLocalizations.of(context)!
+                .editProfileLocalizationAndProfessionTitle),
+        body: Form(
+            key: _localizationAndProfessionFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: FutureBuilder(
+              future: _countriesRequest,
+              builder: (BuildContext context, AsyncSnapshot snapshot) =>
+                  snapshot.connectionState == ConnectionState.waiting
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            if (_countries != null)
+                              CountryDropdown(
+                                  countries: _countries!,
+                                  initialValue: _country,
+                                  onChanged: _getProvinces,
+                                  setCountry: (Country country) =>
+                                      _country = country),
+                            if (_provinces != null)
+                              FutureBuilder(
+                                  future: _provincesRequest,
+                                  builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) =>
+                                      snapshot.connectionState ==
+                                              ConnectionState.waiting
+                                          ? const CircularProgressIndicator()
+                                          : ProvinceDropdown(
+                                              provinces: _provinces!,
+                                              initialValue: _province,
+                                              setProvince:
+                                                  (Province province) =>
+                                                      _province = province)),
+                            DefaultNamedFormField(
+                                controller: _cityController,
+                                name: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionCityField,
+                                sensitiveInformation: false),
+                            DefaultNamedFormField(
+                                controller: _postalCodeController,
+                                name: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionPostalCodeField,
+                                sensitiveInformation: false),
+                            DefaultNamedFormField(
+                                controller: _addressController,
+                                name: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionAddressField,
+                                sensitiveInformation: false),
+                            DefaultNamedFormField(
+                                controller: _professionController,
+                                name: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionProfessionField,
+                                sensitiveInformation: false)
+                          ],
+                        ),
+            )),
+        bottomNavigationBar: SendCancelButtonsEditProfile(
+          createUser: () => _createUser(),
+        ));
   }
 }

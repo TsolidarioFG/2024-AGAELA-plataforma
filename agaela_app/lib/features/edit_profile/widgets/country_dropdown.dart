@@ -3,6 +3,8 @@ import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+typedef SetCountry = Country Function(Country country);
+
 class CountryDropdown extends StatefulWidget {
   final List<Country> countries;
 
@@ -10,11 +12,14 @@ class CountryDropdown extends StatefulWidget {
 
   final Function onChanged;
 
+  final SetCountry setCountry;
+
   const CountryDropdown(
       {super.key,
       required this.countries,
       required this.initialValue,
-      required this.onChanged});
+      required this.onChanged,
+      required this.setCountry});
 
   @override
   State<CountryDropdown> createState() => _CountryDropdownState();
@@ -53,6 +58,7 @@ class _CountryDropdownState extends State<CountryDropdown> {
             onSelected: (Country? value) {
               changeDropdownValue(value);
               widget.onChanged(value!.countryCode);
+              widget.setCountry(value);
             }),
       ],
     );

@@ -3,16 +3,20 @@ import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+typedef SetProvince = Province Function(Province province);
+
 class ProvinceDropdown extends StatefulWidget {
   final List<Province> provinces;
 
   final Province initialValue;
 
-  const ProvinceDropdown({
-    super.key,
-    required this.provinces,
-    required this.initialValue,
-  });
+  final SetProvince setProvince;
+
+  const ProvinceDropdown(
+      {super.key,
+      required this.provinces,
+      required this.initialValue,
+      required this.setProvince});
 
   @override
   State<ProvinceDropdown> createState() => _ProvinceDropdownState();
@@ -50,6 +54,7 @@ class _ProvinceDropdownState extends State<ProvinceDropdown> {
             }).toList(),
             onSelected: (Province? value) {
               changeDropdownValue(value);
+              widget.setProvince(value!);
             }),
       ],
     );
