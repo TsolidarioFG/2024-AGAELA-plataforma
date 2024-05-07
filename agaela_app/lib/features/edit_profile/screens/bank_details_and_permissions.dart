@@ -1,12 +1,11 @@
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
-import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
+import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class BankDetailsAndPermissions extends StatefulWidget {
@@ -37,6 +36,32 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
     _feeController.text = userInformation.feeAmount.toString();
     _acceptNews = userInformation.acceptSendNews;
     _acceptLegalNotice = userInformation.acceptLegalNotice;
+  }
+
+  UserProfileInformation _createUser() {
+    int? feeAmount = int.tryParse(_feeController.text);
+    UserProfileInformation userInformation =
+        Provider.of<UserProfileInformationProvider>(context, listen: false)
+            .userProfileInformation!;
+    feeAmount ??= userInformation.feeAmount;
+    return UserProfileInformation(
+        userInformation.name,
+        userInformation.lastName1,
+        userInformation.lastName2,
+        userInformation.dni,
+        userInformation.birthDate,
+        userInformation.telephoneNumbers,
+        userInformation.emails,
+        _ibanController.text,
+        feeAmount,
+        _acceptNews,
+        _acceptLegalNotice,
+        userInformation.country,
+        userInformation.province,
+        userInformation.city,
+        userInformation.postalCode,
+        userInformation.address,
+        userInformation.profession);
   }
 
   @override
@@ -79,9 +104,8 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
           ],
         ),
       ),
-      bottomNavigationBar: DefaultSendCancelButtons(
-        sendFunction: () => {},
-        cancelFunction: () => GoRouter.of(context).pop(),
+      bottomNavigationBar: SendCancelButtonsEditProfile(
+        createUser: () => _createUser(),
       ),
     );
   }
