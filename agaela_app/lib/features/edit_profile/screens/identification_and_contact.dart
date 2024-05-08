@@ -113,8 +113,6 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                   int? number = int.tryParse(element);
                   if (number != null) _telephones.add(number);
                 },
-                onAddedText: AppLocalizations.of(context)!
-                    .editProfileIdentificationAndContactAddTelephoneField,
               ),
               const Divider(),
               AddRemoveListElements(
@@ -122,9 +120,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                       .editProfileIdentificationAndContactEmailsField,
                   elements: _emails,
                   onRemove: (int index) => _emails.removeAt(index),
-                  onAdded: (String element) => _emails.add(element),
-                  onAddedText: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactAddEmailField),
+                  onAdded: (String element) => _emails.add(element)),
               const Divider()
             ],
           )),

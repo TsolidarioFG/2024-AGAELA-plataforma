@@ -12,15 +12,13 @@ class AddRemoveListElements extends StatefulWidget {
 
   final Function onAdded;
 
-  final String onAddedText;
-
-  const AddRemoveListElements(
-      {super.key,
-      required this.elements,
-      required this.title,
-      required this.onAdded,
-      required this.onRemove,
-      required this.onAddedText});
+  const AddRemoveListElements({
+    super.key,
+    required this.elements,
+    required this.title,
+    required this.onAdded,
+    required this.onRemove,
+  });
 
   @override
   State<AddRemoveListElements> createState() => _AddRemoveListElementsState();
