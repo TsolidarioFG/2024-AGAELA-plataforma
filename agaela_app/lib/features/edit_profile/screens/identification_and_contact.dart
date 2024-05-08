@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/add_remove_list_elements.dart';
@@ -97,10 +98,16 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                   sensitiveInformation: false),
               const Divider(),
               DefaultNamedFormField(
-                  controller: _dniController,
-                  name: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactDniField,
-                  sensitiveInformation: false),
+                controller: _dniController,
+                name: AppLocalizations.of(context)!
+                    .editProfileIdentificationAndContactDniField,
+                sensitiveInformation: false,
+                validator: (String? dni) {
+                  return !dni!.isValidDni
+                      ? AppLocalizations.of(context)!.errorDniNotValid
+                      : null;
+                },
+              ),
               const Divider(),
               BirthDatePicker(dateController: _birthDateController),
               const Divider(),

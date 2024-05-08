@@ -7,13 +7,16 @@ class DefaultNamedFormField extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.name,
-      required this.sensitiveInformation});
+      required this.sensitiveInformation,
+      this.validator});
 
   final TextEditingController controller;
 
   final String name;
 
   final bool sensitiveInformation;
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,10 @@ class DefaultNamedFormField extends StatelessWidget {
           ),
           Expanded(
             child: DefaultTextField(
-                controller: controller,
-                sensitiveInformation: sensitiveInformation),
+              controller: controller,
+              sensitiveInformation: sensitiveInformation,
+              validator: validator,
+            ),
           )
         ],
       ),
