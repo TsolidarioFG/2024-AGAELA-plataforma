@@ -74,19 +74,20 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
       body: Form(
         key: _bankDetailsAndPermissionsFormKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: ListView(
           children: <Widget>[
             DefaultNamedFormField(
                 controller: _ibanController,
                 name: AppLocalizations.of(context)!
                     .editProfileBankDetailsAndPermissionsIbanField,
                 sensitiveInformation: false),
+            const Divider(),
             DefaultNamedFormField(
                 controller: _feeController,
                 name: AppLocalizations.of(context)!
                     .editProfileBankDetailsAndPermissionsFeeField,
                 sensitiveInformation: false),
+            const Divider(),
             ClickColorButton(
                 function: () => _acceptNews = !_acceptNews,
                 clickedText: AppLocalizations.of(context)!
@@ -94,6 +95,7 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
                 notClickedText: AppLocalizations.of(context)!
                     .editProfileBankDetailsAndPermissionsNotClickedNewsButton,
                 initialState: _acceptNews),
+            const Divider(),
             ClickColorButton(
                 function: () => _acceptLegalNotice = !_acceptLegalNotice,
                 clickedText: AppLocalizations.of(context)!
