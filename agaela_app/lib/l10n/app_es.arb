@@ -6,6 +6,7 @@
     "commonOkText": "Vale",
     "errorEmptyField": "Este campo no puede estar vacío",
     "errorDniNotValid": "El DNI tiene un formato incorrecto",
+    "errorPasswordNotValid": "La contraseña tiene que tener 8 caracteres mínimo",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
