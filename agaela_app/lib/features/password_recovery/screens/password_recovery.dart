@@ -2,6 +2,7 @@ import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/password_recovery/services/password_recovery_service.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
@@ -61,6 +62,11 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
               icon: const Icon(Icons.perm_identity),
               text: AppLocalizations.of(context)!.passwordRecoveryDniField,
               sensitiveInformation: false,
+              validator: (String? dni) {
+                return !dni!.isValidDni
+                    ? AppLocalizations.of(context)!.errorDniNotValid
+                    : null;
+              },
             ),
             FutureBuilder(
                 future: _request,
@@ -68,7 +74,11 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                     snapshot.connectionState == ConnectionState.waiting
                         ? const CircularProgressIndicator()
                         : DefaultSendButtons(
-                            sendFunction: () => _startPasswordRecovery(),
+                            sendFunction: () => {
+                                  if (_passwordRecoveryFormKey.currentState!
+                                      .validate())
+                                    _startPasswordRecovery()
+                                },
                             backPage: () =>
                                 context.goNamed(RoutesNames.login.name))),
           ],
