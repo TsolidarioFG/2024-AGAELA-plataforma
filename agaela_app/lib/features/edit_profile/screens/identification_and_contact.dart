@@ -25,8 +25,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   final _lastName2Controller = TextEditingController();
   final _dniController = TextEditingController();
   final _birthDateController = TextEditingController();
-  late final List<int> _telephones;
-  late final List<String> _emails;
+  final List<int> _telephones = [];
+  final List<String> _emails = [];
 
   @override
   void initState() {
@@ -38,8 +38,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     _lastName1Controller.text = userInformation.lastName1;
     _lastName2Controller.text = userInformation.lastName2;
     _dniController.text = userInformation.dni;
-    _telephones = userInformation.telephoneNumbers;
-    _emails = userInformation.emails;
+    _telephones.addAll(userInformation.telephoneNumbers);
+    _emails.addAll(userInformation.emails);
   }
 
   UserProfileInformation _createUser() {
@@ -107,12 +107,17 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
               AddRemoveListElements(
                   title: AppLocalizations.of(context)!
                       .editProfileIdentificationAndContactTelephonesField,
-                  elements: _telephones),
+                  elements: _telephones,
+                  onRemove: (int index) => _telephones.removeAt(index),
+                  onAdded: (element) => _telephones.add(element)),
               const Divider(),
               AddRemoveListElements(
-                  title: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactEmailsField,
-                  elements: _emails),
+                title: AppLocalizations.of(context)!
+                    .editProfileIdentificationAndContactEmailsField,
+                elements: _emails,
+                onRemove: (int index) => _emails.removeAt(index),
+                onAdded: (element) => _emails.add(element),
+              ),
               const Divider()
             ],
           )),

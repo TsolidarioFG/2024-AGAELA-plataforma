@@ -6,14 +6,45 @@ class AddRemoveListElements extends StatefulWidget {
   final List elements;
 
   final String title;
+
+  final Function onRemove;
+
+  final Function onAdded;
+
   const AddRemoveListElements(
-      {super.key, required this.elements, required this.title});
+      {super.key,
+      required this.elements,
+      required this.title,
+      required this.onAdded,
+      required this.onRemove});
 
   @override
   State<AddRemoveListElements> createState() => _AddRemoveListElementsState();
 }
 
 class _AddRemoveListElementsState extends State<AddRemoveListElements> {
+  final List _actualElements = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _actualElements.addAll(widget.elements);
+  }
+
+  void _removeElement(int index) {
+    widget.onRemove(index);
+    setState(() {
+      _actualElements.removeAt(index);
+    });
+  }
+
+  void _addElement(element) {
+    widget.onAdded(element);
+    setState(() {
+      _actualElements.add(element);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,12 +55,12 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
         ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: widget.elements.length,
+          itemCount: _actualElements.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              title: TextBoldStyle(text: widget.elements[index].toString()),
+              title: TextBoldStyle(text: _actualElements[index].toString()),
               trailing: IconButtonEditProfile(
-                function: () => {},
+                function: () => _removeElement(index),
                 newIcon: const Icon(Icons.remove),
               ),
             );
