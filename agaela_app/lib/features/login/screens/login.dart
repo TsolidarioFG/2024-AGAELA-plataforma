@@ -71,10 +71,16 @@ class _LoginState extends State<Login> {
               },
             ),
             DefaultIconFormField(
-                controller: _passwordController,
-                icon: const Icon(Icons.lock),
-                text: AppLocalizations.of(context)!.loginPasswordField,
-                sensitiveInformation: true),
+              controller: _passwordController,
+              icon: const Icon(Icons.lock),
+              text: AppLocalizations.of(context)!.loginPasswordField,
+              sensitiveInformation: true,
+              validator: (String? password) {
+                return !password!.isValidPassword
+                    ? AppLocalizations.of(context)!.errorPasswordNotValid
+                    : null;
+              },
+            ),
             FutureBuilder(
                 future: _request,
                 builder: (BuildContext context,
