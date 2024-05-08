@@ -2,6 +2,7 @@ import 'package:agaela_app/common_widgets/agaela_image_appbar.dart';
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
+import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
@@ -59,10 +60,16 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             DefaultIconFormField(
-                controller: _dniController,
-                icon: const Icon(Icons.perm_identity),
-                text: AppLocalizations.of(context)!.loginDniField,
-                sensitiveInformation: false),
+              controller: _dniController,
+              icon: const Icon(Icons.perm_identity),
+              text: AppLocalizations.of(context)!.loginDniField,
+              sensitiveInformation: false,
+              validator: (String? dni) {
+                return !dni!.isValidDni
+                    ? AppLocalizations.of(context)!.errorDniNotValid
+                    : null;
+              },
+            ),
             DefaultIconFormField(
                 controller: _passwordController,
                 icon: const Icon(Icons.lock),
@@ -75,7 +82,10 @@ class _LoginState extends State<Login> {
                     snapshot.connectionState == ConnectionState.waiting
                         ? const CircularProgressIndicator()
                         : DefaultButton(
-                            function: () => _startLogin(),
+                            function: () => {
+                                  if (_loginFormKey.currentState!.validate())
+                                    _startLogin()
+                                },
                             text: AppLocalizations.of(context)!.loginButton)),
             TextButton(
                 onPressed: () =>

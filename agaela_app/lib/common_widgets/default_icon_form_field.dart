@@ -7,7 +7,8 @@ class DefaultIconFormField extends StatelessWidget {
       required this.controller,
       required this.icon,
       required this.text,
-      required this.sensitiveInformation});
+      required this.sensitiveInformation,
+      this.validator});
 
   final TextEditingController controller;
 
@@ -16,6 +17,8 @@ class DefaultIconFormField extends StatelessWidget {
   final String text;
 
   final bool sensitiveInformation;
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +29,11 @@ class DefaultIconFormField extends StatelessWidget {
           icon,
           Expanded(
             child: DefaultTextField(
-                controller: controller,
-                text: text,
-                sensitiveInformation: sensitiveInformation),
+              controller: controller,
+              text: text,
+              sensitiveInformation: sensitiveInformation,
+              validator: validator,
+            ),
           )
         ],
       ),

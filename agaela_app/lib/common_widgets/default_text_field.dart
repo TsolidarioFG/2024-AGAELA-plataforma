@@ -6,13 +6,16 @@ class DefaultTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       this.text,
-      required this.sensitiveInformation});
+      required this.sensitiveInformation,
+      this.validator});
 
   final TextEditingController controller;
 
   final String? text;
 
   final bool sensitiveInformation;
+
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +30,13 @@ class DefaultTextField extends StatelessWidget {
         decoration: TextDecoration.none,
       ),
       validator: (String? value) {
-        return (value == null || value.isEmpty)
-            ? AppLocalizations.of(context)!.errorEmptyField
-            : null;
+        if (value == null || value.isEmpty) {
+          return AppLocalizations.of(context)!.errorEmptyField;
+        }
+        if (validator != null) {
+          return validator!(value);
+        }
+        return null;
       },
     );
   }
