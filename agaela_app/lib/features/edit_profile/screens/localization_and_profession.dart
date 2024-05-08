@@ -129,8 +129,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      : ListView(
                           children: <Widget>[
                             if (_countries != null)
                               CountryDropdown(
@@ -139,6 +138,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                   onChanged: _getProvinces,
                                   setCountry: (Country country) =>
                                       _country = country),
+                            const Divider(),
                             if (_provinces != null)
                               FutureBuilder(
                                   future: _provincesRequest,
@@ -146,28 +146,35 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                           AsyncSnapshot snapshot) =>
                                       snapshot.connectionState ==
                                               ConnectionState.waiting
-                                          ? const CircularProgressIndicator()
+                                          ? const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
                                           : ProvinceDropdown(
                                               provinces: _provinces!,
                                               initialValue: _province,
                                               setProvince:
                                                   (Province province) =>
                                                       _province = province)),
+                            const Divider(),
                             DefaultNamedFormField(
                                 controller: _cityController,
                                 name: AppLocalizations.of(context)!
                                     .editProfileLocalizationAndProfessionCityField,
                                 sensitiveInformation: false),
+                            const Divider(),
                             DefaultNamedFormField(
                                 controller: _postalCodeController,
                                 name: AppLocalizations.of(context)!
                                     .editProfileLocalizationAndProfessionPostalCodeField,
                                 sensitiveInformation: false),
+                            const Divider(),
                             DefaultNamedFormField(
                                 controller: _addressController,
                                 name: AppLocalizations.of(context)!
                                     .editProfileLocalizationAndProfessionAddressField,
                                 sensitiveInformation: false),
+                            const Divider(),
                             DefaultNamedFormField(
                                 controller: _professionController,
                                 name: AppLocalizations.of(context)!
