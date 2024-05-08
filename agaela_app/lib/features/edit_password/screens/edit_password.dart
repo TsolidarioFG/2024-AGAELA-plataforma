@@ -2,6 +2,7 @@ import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/edit_password/services/edit_password_service.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
@@ -29,40 +30,26 @@ class _EditPasswordState extends State<EditPassword> {
 
   Future<void>? _request;
 
-  bool _arePasswordsTheSame() {
-    if (_newPasswordController.text != _repeatNewPasswordController.text) {
-      showDefaultAlertDialog(
-          context,
-          const Icon(Icons.no_encryption),
-          AppLocalizations.of(context)!.editPasswordErrorPasswordsNotMatch,
-          () => GoRouter.of(context).pop());
-      return false;
-    }
-    return true;
-  }
-
   void _startEditPassword() {
-    if (_arePasswordsTheSame()) {
-      setState(() {
-        _request = _editPasswordService.editPassword(
-            _oldPasswordController.text, _newPasswordController.text);
-        _request!.then(
-            (_) => showDefaultAlertDialog(
-                context,
-                const Icon(Icons.done),
-                AppLocalizations.of(context)!.editPasswordSuccessfulDescription,
-                () => Provider.of<LoggedUserProvider>(context, listen: false)
-                        .loggedUser!
-                        .isCarer
-                    ? () => {}
-                    : context.goNamed(RoutesNames.home.name)),
-            onError: (_) => showDefaultAlertDialog(
-                context,
-                const Icon(Icons.priority_high),
-                AppLocalizations.of(context)!.editPasswordErrorDescription,
-                () => GoRouter.of(context).pop()));
-      });
-    }
+    setState(() {
+      _request = _editPasswordService.editPassword(
+          _oldPasswordController.text, _newPasswordController.text);
+      _request!.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.done),
+              AppLocalizations.of(context)!.editPasswordSuccessfulDescription,
+              () => Provider.of<LoggedUserProvider>(context, listen: false)
+                      .loggedUser!
+                      .isCarer
+                  ? () => {}
+                  : context.goNamed(RoutesNames.home.name)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.priority_high),
+              AppLocalizations.of(context)!.editPasswordErrorDescription,
+              () => GoRouter.of(context).pop()));
+    });
   }
 
   @override
@@ -82,19 +69,42 @@ class _EditPasswordState extends State<EditPassword> {
                   icon: const Icon(Icons.lock),
                   text: AppLocalizations.of(context)!
                       .editPasswordOldPasswordField,
-                  sensitiveInformation: true),
+                  sensitiveInformation: true,
+                  validator: (String? newPassword) {
+                    return !newPassword!.isValidPassword
+                        ? AppLocalizations.of(context)!.errorPasswordNotValid
+                        : null;
+                  }),
               DefaultIconFormField(
-                  controller: _newPasswordController,
-                  icon: const Icon(Icons.lock),
-                  text: AppLocalizations.of(context)!
-                      .editPasswordNewPasswordField,
-                  sensitiveInformation: true),
+                controller: _newPasswordController,
+                icon: const Icon(Icons.lock),
+                text:
+                    AppLocalizations.of(context)!.editPasswordNewPasswordField,
+                sensitiveInformation: true,
+                validator: (String? newPassword) {
+                  if (!newPassword!.isValidPassword) {
+                    return AppLocalizations.of(context)!.errorPasswordNotValid;
+                  }
+                  if (newPassword == _oldPasswordController.text) {
+                    return AppLocalizations.of(context)!
+                        .editPasswordErrorPasswordsAreTheSame;
+                  }
+                  return null;
+                },
+              ),
               DefaultIconFormField(
-                  controller: _repeatNewPasswordController,
-                  icon: const Icon(Icons.lock),
-                  text: AppLocalizations.of(context)!
-                      .editPasswordRepeatNewPassword,
-                  sensitiveInformation: true),
+                controller: _repeatNewPasswordController,
+                icon: const Icon(Icons.lock),
+                text:
+                    AppLocalizations.of(context)!.editPasswordRepeatNewPassword,
+                sensitiveInformation: true,
+                validator: (String? newPasswordRepeated) {
+                  return newPasswordRepeated! != _newPasswordController.text
+                      ? AppLocalizations.of(context)!
+                          .editPasswordErrorPasswordsNotMatch
+                      : null;
+                },
+              ),
               FutureBuilder(
                   future: _request,
                   builder:
@@ -102,7 +112,11 @@ class _EditPasswordState extends State<EditPassword> {
                           snapshot.connectionState == ConnectionState.waiting
                               ? const CircularProgressIndicator()
                               : DefaultSendButtons(
-                                  sendFunction: () => _startEditPassword(),
+                                  sendFunction: () => {
+                                        if (_editPasswordFormKey.currentState!
+                                            .validate())
+                                          _startEditPassword()
+                                      },
                                   backPage: () => GoRouter.of(context).pop())),
             ],
           ),
