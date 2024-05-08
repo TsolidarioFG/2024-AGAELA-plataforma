@@ -105,19 +105,26 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
               BirthDatePicker(dateController: _birthDateController),
               const Divider(),
               AddRemoveListElements(
-                  title: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactTelephonesField,
-                  elements: _telephones,
-                  onRemove: (int index) => _telephones.removeAt(index),
-                  onAdded: (element) => _telephones.add(element)),
+                title: AppLocalizations.of(context)!
+                    .editProfileIdentificationAndContactTelephonesField,
+                elements: _telephones,
+                onRemove: (int index) => _telephones.removeAt(index),
+                onAdded: (String element) {
+                  int? number = int.tryParse(element);
+                  if (number != null) _telephones.add(number);
+                },
+                onAddedText: AppLocalizations.of(context)!
+                    .editProfileIdentificationAndContactAddTelephoneField,
+              ),
               const Divider(),
               AddRemoveListElements(
-                title: AppLocalizations.of(context)!
-                    .editProfileIdentificationAndContactEmailsField,
-                elements: _emails,
-                onRemove: (int index) => _emails.removeAt(index),
-                onAdded: (element) => _emails.add(element),
-              ),
+                  title: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactEmailsField,
+                  elements: _emails,
+                  onRemove: (int index) => _emails.removeAt(index),
+                  onAdded: (String element) => _emails.add(element),
+                  onAddedText: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactAddEmailField),
               const Divider()
             ],
           )),
