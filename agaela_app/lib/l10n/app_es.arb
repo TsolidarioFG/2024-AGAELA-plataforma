@@ -5,6 +5,7 @@
     "commonErrorButtonText": "Cancelar",
     "commonOkText": "Vale",
     "errorEmptyField": "Este campo no puede estar vacío",
+    "errorDniNotValid": "El DNI tiene un formato incorrecto",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
