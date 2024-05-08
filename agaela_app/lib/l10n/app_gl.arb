@@ -58,6 +58,7 @@
     "editPasswordNewPasswordField": "Nova contrasinal",
     "editPasswordRepeatNewPassword": "Repite a nova contrasinal",
     "editPasswordErrorPasswordsNotMatch": "A contrasinal repetida non é igual á nova contrasinal",
+    "editPasswordErrorPasswordsAreTheSame": "A contrasinal antiga é igual á nova",
     "editPasswordSuccessfulDescription": "A contrasinal foi cambiada correctamente",
     "editPasswordErrorDescription": "Error al editar la contraseña"
 }

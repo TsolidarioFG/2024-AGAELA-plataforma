@@ -58,6 +58,7 @@
     "editPasswordNewPasswordField": "Nueva contraseña",
     "editPasswordRepeatNewPassword": "Repite la nueva contraseña",
     "editPasswordErrorPasswordsNotMatch": "La contraseña repetida no es igual a la nueva contraseña",
+    "editPasswordErrorPasswordsAreTheSame": "La contraseña antigua es igual a la nueva",
     "editPasswordSuccessfulDescription": "La contraseña ha sido cambiada correctamente",
     "editPasswordErrorDescription": "Error al editar la contraseña"
 }
