@@ -11,6 +11,7 @@ import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart'
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -164,10 +165,17 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                 sensitiveInformation: false),
                             const Divider(),
                             DefaultNamedFormField(
-                                controller: _postalCodeController,
-                                name: AppLocalizations.of(context)!
-                                    .editProfileLocalizationAndProfessionPostalCodeField,
-                                sensitiveInformation: false),
+                              controller: _postalCodeController,
+                              name: AppLocalizations.of(context)!
+                                  .editProfileLocalizationAndProfessionPostalCodeField,
+                              sensitiveInformation: false,
+                              validator: (String? postalCode) {
+                                return !postalCode!.isValidPostalCode
+                                    ? AppLocalizations.of(context)!
+                                        .errorPostalCodeNotValid
+                                    : null;
+                              },
+                            ),
                             const Divider(),
                             DefaultNamedFormField(
                                 controller: _addressController,
