@@ -9,19 +9,18 @@ extension StringUtils on String {
     return emailRegExp.hasMatch(this);
   }
 
-  bool get isValidName {
-    final nameRegExp =
-        RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
-    return nameRegExp.hasMatch(this);
-  }
-
   bool get isValidPassword {
     final passwordRegExp = RegExp(r'^[a-zA-Z0-9]{8,}$');
     return passwordRegExp.hasMatch(this);
   }
 
+  bool get isValidString {
+    final phoneRegExp = RegExp(r'^[a-zA-Z]+$');
+    return phoneRegExp.hasMatch(this);
+  }
+
   bool get isValidPhone {
-    final phoneRegExp = RegExp(r'^\+?0[0-9]{10}$');
+    final phoneRegExp = RegExp(r'^\d{9}$');
     return phoneRegExp.hasMatch(this);
   }
 }
