@@ -23,4 +23,10 @@ extension StringUtils on String {
     final phoneRegExp = RegExp(r'^\d{9}$');
     return phoneRegExp.hasMatch(this);
   }
+
+  bool get isValidIban {
+    final phoneRegExp =
+        RegExp(r'^(?:[A-Z]{2}\d{2}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{1,12})$');
+    return phoneRegExp.hasMatch(this);
+  }
 }
