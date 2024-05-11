@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
@@ -77,10 +78,16 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
         child: ListView(
           children: <Widget>[
             DefaultNamedFormField(
-                controller: _ibanController,
-                name: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsIbanField,
-                sensitiveInformation: false),
+              controller: _ibanController,
+              name: AppLocalizations.of(context)!
+                  .editProfileBankDetailsAndPermissionsIbanField,
+              sensitiveInformation: false,
+              validator: (String? iban) {
+                return !iban!.isValidIban
+                    ? AppLocalizations.of(context)!.errorIbanNotValid
+                    : null;
+              },
+            ),
             const Divider(),
             DefaultNamedFormField(
                 controller: _feeController,
