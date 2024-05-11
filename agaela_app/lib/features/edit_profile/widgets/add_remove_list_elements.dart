@@ -68,8 +68,10 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
         TextBoldStyle(
           text: widget.title,
         ),
-        ListView.builder(
+        ListView.separated(
           shrinkWrap: true,
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(),
           physics: const ClampingScrollPhysics(),
           itemCount: _actualElements.length,
           itemBuilder: (BuildContext context, int index) {
@@ -82,6 +84,7 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
             );
           },
         ),
+        const Divider(),
         _plusButtonPressed
             ? Row(
                 children: <Widget>[
