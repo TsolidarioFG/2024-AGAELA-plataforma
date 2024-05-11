@@ -23,9 +23,9 @@ class DefaultTextField extends StatelessWidget {
       controller: controller,
       obscureText: sensitiveInformation,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: text,
-      ),
+          border: const OutlineInputBorder(),
+          labelText: text,
+          errorMaxLines: 3),
       style: const TextStyle(
         decoration: TextDecoration.none,
       ),
