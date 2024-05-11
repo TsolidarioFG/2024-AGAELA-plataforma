@@ -5,18 +5,13 @@ extension StringUtils on String {
   }
 
   bool get isValidDni {
-    final emailRegExp = RegExp(r'^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$');
-    return emailRegExp.hasMatch(this);
+    final dniRegExp = RegExp(r'^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$');
+    return dniRegExp.hasMatch(this);
   }
 
   bool get isValidPassword {
     final passwordRegExp = RegExp(r'^[a-zA-Z0-9]{8,}$');
     return passwordRegExp.hasMatch(this);
-  }
-
-  bool get isValidString {
-    final phoneRegExp = RegExp(r'^[a-zA-Z]+$');
-    return phoneRegExp.hasMatch(this);
   }
 
   bool get isValidPhone {
@@ -25,8 +20,13 @@ extension StringUtils on String {
   }
 
   bool get isValidIban {
-    final phoneRegExp =
+    final ibanRegExp =
         RegExp(r'^(?:[A-Z]{2}\d{2}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{1,12})$');
-    return phoneRegExp.hasMatch(this);
+    return ibanRegExp.hasMatch(this);
+  }
+
+  bool get isValidNumber {
+    final numberRegExp = RegExp(r'^[0-9]+$');
+    return numberRegExp.hasMatch(this);
   }
 }
