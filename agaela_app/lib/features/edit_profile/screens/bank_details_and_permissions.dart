@@ -90,10 +90,16 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
             ),
             const Divider(),
             DefaultNamedFormField(
-                controller: _feeController,
-                name: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsFeeField,
-                sensitiveInformation: false),
+              controller: _feeController,
+              name: AppLocalizations.of(context)!
+                  .editProfileBankDetailsAndPermissionsFeeField,
+              sensitiveInformation: false,
+              validator: (String? fee) {
+                return !fee!.isValidNumber
+                    ? AppLocalizations.of(context)!.errorNumberNotValid
+                    : null;
+              },
+            ),
             const Divider(),
             ClickColorButton(
                 function: () => _acceptNews = !_acceptNews,
