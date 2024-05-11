@@ -80,9 +80,11 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
                 Expanded(
                   child: TextBoldStyle(text: _actualElements[index].toString()),
                 ),
-                IconButtonEditProfile(
-                  function: () => _removeElement(index),
-                  newIcon: const Icon(Icons.remove),
+                Expanded(
+                  child: IconButtonEditProfile(
+                    function: () => _removeElement(index),
+                    newIcon: const Icon(Icons.remove),
+                  ),
                 ),
               ],
             );
@@ -99,9 +101,11 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
                       validator: widget.validator,
                     ),
                   ),
-                  IconButtonEditProfile(
-                      function: () => _addElement(_controller.text),
-                      newIcon: const Icon(Icons.add))
+                  Expanded(
+                    child: IconButtonEditProfile(
+                        function: () => _addElement(_controller.text),
+                        newIcon: const Icon(Icons.add)),
+                  )
                 ],
               )
             : IconButtonEditProfile(
