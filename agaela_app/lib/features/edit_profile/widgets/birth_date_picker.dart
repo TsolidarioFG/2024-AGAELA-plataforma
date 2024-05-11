@@ -6,9 +6,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class BirthDatePicker extends StatefulWidget {
-  const BirthDatePicker({super.key, required this.dateController});
+  const BirthDatePicker(
+      {super.key, required this.dateController, required this.onChanged});
 
   final TextEditingController dateController;
+
+  final Function onChanged;
 
   @override
   State<BirthDatePicker> createState() => _BirthDatePickerState();
@@ -36,6 +39,7 @@ class _BirthDatePickerState extends State<BirthDatePicker> {
       lastDate: today,
     );
     if (picked != null && picked != _selectedDate) {
+      widget.onChanged(picked);
       setState(() {
         _selectedDate = picked;
         widget.dateController.text = _selectedDate.toIso8601String();

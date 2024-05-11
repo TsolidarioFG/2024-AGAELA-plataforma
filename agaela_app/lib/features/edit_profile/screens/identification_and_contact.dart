@@ -26,6 +26,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   final _lastName2Controller = TextEditingController();
   final _dniController = TextEditingController();
   final _birthDateController = TextEditingController();
+  late DateTime _birthDate;
   final List<int> _telephones = [];
   final List<String> _emails = [];
 
@@ -39,6 +40,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     _lastName1Controller.text = userInformation.lastName1;
     _lastName2Controller.text = userInformation.lastName2;
     _dniController.text = userInformation.dni;
+    _birthDate = userInformation.birthDate;
     _telephones.addAll(userInformation.telephoneNumbers);
     _emails.addAll(userInformation.emails);
   }
@@ -52,7 +54,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
         _lastName1Controller.text,
         _lastName2Controller.text,
         _dniController.text,
-        userInformation.birthDate,
+        _birthDate,
         _telephones,
         _emails,
         userInformation.iban,
@@ -109,7 +111,9 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                 },
               ),
               const Divider(),
-              BirthDatePicker(dateController: _birthDateController),
+              BirthDatePicker(
+                  dateController: _birthDateController,
+                  onChanged: (DateTime newDate) => _birthDate = newDate),
               const Divider(),
               AddRemoveListElements(
                 title: AppLocalizations.of(context)!
