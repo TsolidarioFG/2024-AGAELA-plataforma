@@ -7,6 +7,8 @@
     "errorEmptyField": "Este campo no puede estar vacío",
     "errorDniNotValid": "El DNI tiene un formato incorrecto",
     "errorPasswordNotValid": "La contraseña tiene que tener 8 caracteres mínimo",
+    "errorPhoneNotValid": "9 números",
+    "errorEmailNotValid": "Formato incorrecto",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",
