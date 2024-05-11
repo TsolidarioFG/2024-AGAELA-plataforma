@@ -75,12 +75,16 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
           physics: const ClampingScrollPhysics(),
           itemCount: _actualElements.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: TextBoldStyle(text: _actualElements[index].toString()),
-              trailing: IconButtonEditProfile(
-                function: () => _removeElement(index),
-                newIcon: const Icon(Icons.remove),
-              ),
+            return Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextBoldStyle(text: _actualElements[index].toString()),
+                ),
+                IconButtonEditProfile(
+                  function: () => _removeElement(index),
+                  newIcon: const Icon(Icons.remove),
+                ),
+              ],
             );
           },
         ),
