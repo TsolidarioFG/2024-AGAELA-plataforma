@@ -11,6 +11,7 @@
     "errorEmailNotValid": "Formato incorreto",
     "errorIbanNotValid": "O formato do IBAN é incorreto",
     "errorNumberNotValid": "Ten que ser un número",
+    "errorPostalCodeNotValid": "O CP ten un formato incorreto",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
