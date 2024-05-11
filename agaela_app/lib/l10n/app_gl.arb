@@ -9,6 +9,7 @@
     "errorPasswordNotValid": "A contrasinal ten que ter 8 caracteres mínimo",
     "errorPhoneNotValid": "9 números",
     "errorEmailNotValid": "Formato incorreto",
+    "errorIbanNotValid": "O formato do IBAN é incorreto",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
