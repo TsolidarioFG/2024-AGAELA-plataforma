@@ -3,6 +3,7 @@ import 'package:agaela_app/features/edit_profile/screens/bank_details_and_permis
 import 'package:agaela_app/features/edit_profile/screens/edit_profile_home.dart';
 import 'package:agaela_app/features/edit_profile/screens/identification_and_contact.dart';
 import 'package:agaela_app/features/edit_profile/screens/localization_and_profession.dart';
+import 'package:agaela_app/features/forms/screens/carer_home.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
 import 'package:agaela_app/features/login/screens/login.dart';
 import 'package:agaela_app/features/password_recovery/screens/password_recovery.dart';
@@ -12,6 +13,7 @@ enum RoutesNames {
   login,
   passwordRecovery,
   home,
+  carerHome,
   editProfile,
   identificationAndContact,
   bankDetailsAndPermissions,
@@ -32,6 +34,10 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
       name: RoutesNames.home.name,
       path: '/home',
       builder: (context, state) => const DefaultHome()),
+  GoRoute(
+      name: RoutesNames.carerHome.name,
+      path: '/carer_home',
+      builder: (context, state) => const CarerHome()),
   GoRoute(
       name: RoutesNames.editProfile.name,
       path: '/edit_profile',
