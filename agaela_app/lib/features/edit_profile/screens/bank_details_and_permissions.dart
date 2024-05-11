@@ -1,10 +1,10 @@
 import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
-import 'package:agaela_app/constants/string_utils.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
+import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
