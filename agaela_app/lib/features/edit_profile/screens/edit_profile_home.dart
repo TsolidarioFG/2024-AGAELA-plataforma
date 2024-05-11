@@ -109,7 +109,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                                       listen: false)
                                   .loggedUser!
                                   .isCarer
-                              ? () => {}
+                              ? context.goNamed(RoutesNames.carerHome.name)
                               : context.goNamed(RoutesNames.home.name))
                     ],
                   ),
