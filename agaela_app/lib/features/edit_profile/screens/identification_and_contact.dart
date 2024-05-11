@@ -143,8 +143,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
             ],
           )),
       bottomNavigationBar: SendCancelButtonsEditProfile(
-        createUser: () => _createUser(),
-      ),
+          createUser: () => _createUser(),
+          formKey: _identificationAndContactFormKey),
     );
   }
 }

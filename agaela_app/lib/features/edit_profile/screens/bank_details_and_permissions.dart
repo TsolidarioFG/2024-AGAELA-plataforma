@@ -108,6 +108,7 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
       ),
       bottomNavigationBar: SendCancelButtonsEditProfile(
         createUser: () => _createUser(),
+        formKey: _bankDetailsAndPermissionsFormKey,
       ),
     );
   }

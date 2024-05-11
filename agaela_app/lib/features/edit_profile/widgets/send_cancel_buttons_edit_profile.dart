@@ -15,7 +15,10 @@ typedef CreateUserFunction = UserProfileInformation Function();
 class SendCancelButtonsEditProfile extends StatefulWidget {
   final CreateUserFunction createUser;
 
-  const SendCancelButtonsEditProfile({super.key, required this.createUser});
+  final GlobalKey<FormState> formKey;
+
+  const SendCancelButtonsEditProfile(
+      {super.key, required this.createUser, required this.formKey});
 
   @override
   State<SendCancelButtonsEditProfile> createState() =>
@@ -64,7 +67,10 @@ class _SendCancelButtonsEditProfileState
                   child: CircularProgressIndicator(),
                 )
               : DefaultSendCancelButtons(
-                  sendFunction: () => _saveChanges(),
+                  sendFunction: () => {
+                        if (widget.formKey.currentState!.validate())
+                          _saveChanges()
+                      },
                   cancelFunction: () => GoRouter.of(context).pop()),
     );
   }
