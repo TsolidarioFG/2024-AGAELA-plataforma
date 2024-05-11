@@ -12,13 +12,15 @@ class AddRemoveListElements extends StatefulWidget {
 
   final Function onAdded;
 
-  const AddRemoveListElements({
-    super.key,
-    required this.elements,
-    required this.title,
-    required this.onAdded,
-    required this.onRemove,
-  });
+  final String? Function(String?)? validator;
+
+  const AddRemoveListElements(
+      {super.key,
+      required this.elements,
+      required this.title,
+      required this.onAdded,
+      required this.onRemove,
+      required this.validator});
 
   @override
   State<AddRemoveListElements> createState() => _AddRemoveListElementsState();
@@ -49,12 +51,14 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
   }
 
   void _addElement(element) {
-    widget.onAdded(element);
-    setState(() {
-      _actualElements.add(element);
-    });
-    _pressPlusButton();
-    _controller.text = '';
+    if (widget.validator!(_controller.text) == null) {
+      widget.onAdded(element);
+      setState(() {
+        _actualElements.add(element);
+      });
+      _pressPlusButton();
+      _controller.text = '';
+    }
   }
 
   @override
@@ -83,7 +87,10 @@ class _AddRemoveListElementsState extends State<AddRemoveListElements> {
                 children: <Widget>[
                   Expanded(
                     child: DefaultTextField(
-                        controller: _controller, sensitiveInformation: false),
+                      controller: _controller,
+                      sensitiveInformation: false,
+                      validator: widget.validator,
+                    ),
                   ),
                   IconButtonEditProfile(
                       function: () => _addElement(_controller.text),

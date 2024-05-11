@@ -120,14 +120,25 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                   int? number = int.tryParse(element);
                   if (number != null) _telephones.add(number);
                 },
+                validator: (String? telephone) {
+                  return !telephone!.isValidPhone
+                      ? AppLocalizations.of(context)!.errorPhoneNotValid
+                      : null;
+                },
               ),
               const Divider(),
               AddRemoveListElements(
-                  title: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactEmailsField,
-                  elements: _emails,
-                  onRemove: (int index) => _emails.removeAt(index),
-                  onAdded: (String element) => _emails.add(element)),
+                title: AppLocalizations.of(context)!
+                    .editProfileIdentificationAndContactEmailsField,
+                elements: _emails,
+                onRemove: (int index) => _emails.removeAt(index),
+                onAdded: (String element) => _emails.add(element),
+                validator: (String? email) {
+                  return !email!.isValidEmail
+                      ? AppLocalizations.of(context)!.errorEmailNotValid
+                      : null;
+                },
+              ),
               const Divider()
             ],
           )),
