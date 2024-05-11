@@ -29,4 +29,9 @@ extension StringUtils on String {
     final numberRegExp = RegExp(r'^[0-9]+$');
     return numberRegExp.hasMatch(this);
   }
+
+  bool get isValidPostalCode {
+    final postalCodeRegExp = RegExp(r'^(?:0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$');
+    return postalCodeRegExp.hasMatch(this);
+  }
 }
