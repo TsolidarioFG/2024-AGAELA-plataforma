@@ -10,6 +10,7 @@
     "errorPhoneNotValid": "9 números",
     "errorEmailNotValid": "Formato incorreto",
     "errorIbanNotValid": "O formato do IBAN é incorreto",
+    "errorNumberNotValid": "Ten que ser un número",
     "loginDniField": "DNI",
     "loginPasswordField": "Contrasinal",
     "loginButton": "Autenticarse",
