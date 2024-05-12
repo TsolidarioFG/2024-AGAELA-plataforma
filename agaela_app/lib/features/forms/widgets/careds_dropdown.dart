@@ -32,7 +32,12 @@ class _CaredsDropdownState extends State<CaredsDropdown> {
     _carer = Provider.of<LoggedUserProvider>(context, listen: false).loggedUser
         as Carer;
     _careds = _carer.careds;
-    _dropdownValue = _careds.first;
+    if (_carer.selectedId != _carer.id) {
+      _dropdownValue = _carer.careds
+          .firstWhere((element) => element.id == _carer.selectedId);
+    } else {
+      _dropdownValue = _careds.first;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _setSelectedUserId(_dropdownValue.id);
     });
