@@ -5,6 +5,8 @@ import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
+import 'package:agaela_app/features/login/models/cared.dart';
+import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
@@ -59,12 +61,20 @@ class _EditProfileHomeState extends State<EditProfileHome> {
     }
   }
 
+  String getCaredNameAndLastname() {
+    Cared cared = (_actualUser as Carer)
+        .careds
+        .firstWhere((element) => element.id == _actualUser.selectedId);
+    return '${cared.name} ${cared.lastName}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TextAppbar(
-        text: AppLocalizations.of(context)!.editProfileHomeTitle,
-      ),
+          text: _actualUser.id == _actualUser.selectedId
+              ? AppLocalizations.of(context)!.editProfileHomeTitle
+              : getCaredNameAndLastname()),
       body: FutureBuilder(
         future: _request,
         builder: (BuildContext context,
