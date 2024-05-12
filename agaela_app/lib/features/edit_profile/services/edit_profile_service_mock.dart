@@ -5,8 +5,10 @@ import 'package:agaela_app/features/edit_profile/services/edit_profile_service.d
 
 class EditProfileServiceMock implements EditProfileService {
   @override
-  Future<UserProfileInformation> getUserProfileInformation(String dni) async {
-    const name = 'test';
+  Future<UserProfileInformation> getUserProfileInformation(int id) async {
+    String name = 'test';
+    if (id == 2) name = 'cared2';
+    if (id == 3) name = 'cared3';
     const lastName1 = 'test2';
     const lastName2 = 'test3';
     const dni = '1234567A';

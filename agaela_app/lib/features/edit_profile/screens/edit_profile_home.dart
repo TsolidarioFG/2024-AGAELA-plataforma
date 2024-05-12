@@ -5,6 +5,7 @@ import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
+import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
@@ -28,26 +29,24 @@ class _EditProfileHomeState extends State<EditProfileHome> {
   @override
   void initState() {
     super.initState();
-    if (Provider.of<UserProfileInformationProvider>(context, listen: false)
-            .userProfileInformation ==
-        null) {
-      _request = _editProfileService.getUserProfileInformation('1234567A');
-      _request!.then(
-          (userInformation) => Provider.of<UserProfileInformationProvider>(
-                  context,
-                  listen: false)
-              .setUserProfileInformation(userInformation),
-          onError: (_) => showDefaultAlertDialog(
-              context,
-              const Icon(Icons.report_problem),
-              AppLocalizations.of(context)!
-                  .editProfileErrorGettingUserInformation,
-              () => Provider.of<LoggedUserProvider>(context, listen: false)
-                      .loggedUser!
-                      .isCarer
-                  ? () => {}
-                  : context.goNamed(RoutesNames.home.name)));
-    }
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    _request =
+        _editProfileService.getUserProfileInformation(actualUser.selectedId);
+    _request!.then(
+        (userInformation) =>
+            Provider.of<UserProfileInformationProvider>(context, listen: false)
+                .setUserProfileInformation(userInformation),
+        onError: (_) => showDefaultAlertDialog(
+            context,
+            const Icon(Icons.report_problem),
+            AppLocalizations.of(context)!
+                .editProfileErrorGettingUserInformation,
+            () => Provider.of<LoggedUserProvider>(context, listen: false)
+                    .loggedUser!
+                    .isCarer
+                ? () => {}
+                : context.goNamed(RoutesNames.home.name)));
   }
 
   @override
@@ -103,14 +102,18 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                           )),
                         ],
                       ),
-                      DefaultBackButton(
-                          backPage: () => Provider.of<LoggedUserProvider>(
-                                      context,
-                                      listen: false)
-                                  .loggedUser!
-                                  .isCarer
-                              ? context.goNamed(RoutesNames.carerHome.name)
-                              : context.goNamed(RoutesNames.home.name))
+                      Consumer<LoggedUserProvider>(
+                          builder: (context, user, child) {
+                        return DefaultBackButton(
+                            backPage: () => user.loggedUser!.isCarer
+                                ? user.loggedUser!.id !=
+                                        user.loggedUser!.selectedId
+                                    ? context
+                                        .goNamed(RoutesNames.caredHome.name)
+                                    : context
+                                        .goNamed(RoutesNames.carerHome.name)
+                                : context.goNamed(RoutesNames.home.name));
+                      })
                     ],
                   ),
       ),
