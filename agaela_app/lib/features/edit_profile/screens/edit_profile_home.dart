@@ -123,10 +123,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                             )),
                         ],
                       ),
-                      Consumer<LoggedUserProvider>(
-                          builder: (context, user, child) {
-                        return DefaultBackButton(backPage: _goToHome);
-                      })
+                      DefaultBackButton(backPage: _goToHome)
                     ],
                   ),
       ),
