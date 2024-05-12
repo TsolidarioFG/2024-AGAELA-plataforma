@@ -33,6 +33,9 @@ class _CaredsDropdownState extends State<CaredsDropdown> {
         as Carer;
     _careds = _carer.careds;
     _dropdownValue = _careds.first;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setSelectedUserId(_dropdownValue.id);
+    });
   }
 
   void _changeDropdownValue(Cared? value) {
