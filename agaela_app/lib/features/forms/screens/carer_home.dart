@@ -20,7 +20,7 @@ class CarerHome extends StatelessWidget {
               const Icon(Icons.edit),
               Expanded(
                 child: DefaultButton(
-                  function: () => {},
+                  function: () => context.goNamed(RoutesNames.caredHome.name),
                   text: AppLocalizations.of(context)!.carerHomeCaredForms,
                 ),
               ),
