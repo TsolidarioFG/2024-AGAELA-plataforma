@@ -19,6 +19,13 @@ class _CaredsDropdownState extends State<CaredsDropdown> {
 
   late Cared _dropdownValue;
 
+  void _setSelectedUserId(int selectedUserId) {
+    Carer newCarer = Carer(_carer.careds, _carer.id, _carer.name,
+        _carer.pendingForms, _carer.isCarer, selectedUserId);
+    Provider.of<LoggedUserProvider>(context, listen: false)
+        .setLoggedUser(newCarer);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +53,7 @@ class _CaredsDropdownState extends State<CaredsDropdown> {
                   value: value, label: '${value.name} ${value.lastName}');
             }).toList(),
             onSelected: (Cared? value) {
+              _setSelectedUserId(value!.id);
               _changeDropdownValue(value);
             });
   }
