@@ -26,13 +26,15 @@ class _EditProfileHomeState extends State<EditProfileHome> {
 
   Future<UserProfileInformation>? _request;
 
+  late LoggedUser _actualUser;
+
   @override
   void initState() {
     super.initState();
-    LoggedUser actualUser =
+    _actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     _request =
-        _editProfileService.getUserProfileInformation(actualUser.selectedId);
+        _editProfileService.getUserProfileInformation(_actualUser.selectedId);
     _request!.then(
         (userInformation) =>
             Provider.of<UserProfileInformationProvider>(context, listen: false)
@@ -46,10 +48,8 @@ class _EditProfileHomeState extends State<EditProfileHome> {
   }
 
   void _goToHome() {
-    LoggedUser user =
-        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    if (user.isCarer) {
-      if (user.id != user.selectedId) {
+    if (_actualUser.isCarer) {
+      if (_actualUser.id != _actualUser.selectedId) {
         context.goNamed(RoutesNames.caredHome.name);
       } else {
         context.goNamed(RoutesNames.carerHome.name);
@@ -103,13 +103,14 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                             text: AppLocalizations.of(context)!
                                 .editProfileBankDetailsAndPermissions,
                           )),
-                          Expanded(
-                              child: DefaultButton(
-                            function: () =>
-                                context.goNamed(RoutesNames.editPassword.name),
-                            text: AppLocalizations.of(context)!
-                                .editPasswordButton,
-                          )),
+                          if (_actualUser.id == _actualUser.selectedId)
+                            Expanded(
+                                child: DefaultButton(
+                              function: () => context
+                                  .goNamed(RoutesNames.editPassword.name),
+                              text: AppLocalizations.of(context)!
+                                  .editPasswordButton,
+                            )),
                         ],
                       ),
                       Consumer<LoggedUserProvider>(
