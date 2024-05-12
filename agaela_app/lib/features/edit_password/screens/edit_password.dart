@@ -3,14 +3,12 @@ import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_password/services/edit_password_service.dart';
-import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class EditPassword extends StatefulWidget {
   const EditPassword({super.key});
@@ -39,11 +37,7 @@ class _EditPasswordState extends State<EditPassword> {
               context,
               const Icon(Icons.done),
               AppLocalizations.of(context)!.editPasswordSuccessfulDescription,
-              () => Provider.of<LoggedUserProvider>(context, listen: false)
-                      .loggedUser!
-                      .isCarer
-                  ? () => {}
-                  : context.goNamed(RoutesNames.home.name)),
+              () => context.goNamed(RoutesNames.editProfile.name)),
           onError: (_) => showDefaultAlertDialog(
               context,
               const Icon(Icons.priority_high),
