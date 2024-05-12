@@ -42,11 +42,21 @@ class _EditProfileHomeState extends State<EditProfileHome> {
             const Icon(Icons.report_problem),
             AppLocalizations.of(context)!
                 .editProfileErrorGettingUserInformation,
-            () => Provider.of<LoggedUserProvider>(context, listen: false)
-                    .loggedUser!
-                    .isCarer
-                ? () => {}
-                : context.goNamed(RoutesNames.home.name)));
+            _goToHome));
+  }
+
+  void _goToHome() {
+    LoggedUser user =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    if (user.isCarer) {
+      if (user.id != user.selectedId) {
+        context.goNamed(RoutesNames.caredHome.name);
+      } else {
+        context.goNamed(RoutesNames.carerHome.name);
+      }
+    } else {
+      context.goNamed(RoutesNames.home.name);
+    }
   }
 
   @override
@@ -104,15 +114,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                       ),
                       Consumer<LoggedUserProvider>(
                           builder: (context, user, child) {
-                        return DefaultBackButton(
-                            backPage: () => user.loggedUser!.isCarer
-                                ? user.loggedUser!.id !=
-                                        user.loggedUser!.selectedId
-                                    ? context
-                                        .goNamed(RoutesNames.caredHome.name)
-                                    : context
-                                        .goNamed(RoutesNames.carerHome.name)
-                                : context.goNamed(RoutesNames.home.name));
+                        return DefaultBackButton(backPage: _goToHome);
                       })
                     ],
                   ),
