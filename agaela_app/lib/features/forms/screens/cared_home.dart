@@ -1,10 +1,13 @@
 import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/features/forms/widgets/careds_dropdown.dart';
+import 'package:agaela_app/features/login/models/carer.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class CaredHome extends StatelessWidget {
   const CaredHome({super.key});
@@ -50,7 +53,16 @@ class CaredHome extends StatelessWidget {
                           .caredHomeReportIncident)),
             ],
           ),
-          DefaultBackButton(backPage: () => GoRouter.of(context).pop())
+          DefaultBackButton(backPage: () {
+            Carer carer =
+                Provider.of<LoggedUserProvider>(context, listen: false)
+                    .loggedUser! as Carer;
+            Carer newCarer = Carer(carer.careds, carer.id, carer.name,
+                carer.pendingForms, carer.isCarer, carer.id);
+            Provider.of<LoggedUserProvider>(context, listen: false)
+                .setLoggedUser(newCarer);
+            GoRouter.of(context).pop();
+          })
         ],
       ),
     );
