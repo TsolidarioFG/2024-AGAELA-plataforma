@@ -7,7 +7,7 @@ class DefaultSendCancelButtons extends StatelessWidget {
   const DefaultSendCancelButtons(
       {super.key, required this.sendFunction, required this.cancelFunction});
 
-  final VoidCallback sendFunction;
+  final VoidCallback? sendFunction;
 
   final VoidCallback cancelFunction;
 
