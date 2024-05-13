@@ -51,7 +51,7 @@ class EditProfileServiceMock implements EditProfileService {
 
   @override
   Future<void> setUserProfileInformation(
-      String dni, UserProfileInformation userInformation) async {
+      int id, UserProfileInformation userInformation) async {
     const error = false;
     await Future.delayed(const Duration(seconds: 1));
     if (error) throw Exception();

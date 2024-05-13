@@ -3,6 +3,8 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
+import 'package:agaela_app/features/login/models/logged_user.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +33,12 @@ class _SendCancelButtonsEditProfileState
   Future<void>? _saveChangesRequest;
 
   void _saveChanges() {
-    UserProfileInformation userInformation =
-        Provider.of<UserProfileInformationProvider>(context, listen: false)
-            .userProfileInformation!;
+    LoggedUser userInformation =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     UserProfileInformation user = widget.createUser();
     setState(() {
       _saveChangesRequest = _editProfileService.setUserProfileInformation(
-          userInformation.dni, user);
+          userInformation.selectedId, user);
       _saveChangesRequest!.then(
           (_) => {
                 Provider.of<UserProfileInformationProvider>(context,
