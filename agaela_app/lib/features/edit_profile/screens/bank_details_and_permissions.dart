@@ -27,6 +27,8 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
 
   late bool _acceptLegalNotice;
 
+  final ValueNotifier<bool> _formChanged = ValueNotifier<bool>(false);
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,12 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
     _feeController.text = userInformation.feeAmount.toString();
     _acceptNews = userInformation.acceptSendNews;
     _acceptLegalNotice = userInformation.acceptLegalNotice;
+  }
+
+  void _changeForm() {
+    setState(() {
+      _formChanged.value = true;
+    });
   }
 
   UserProfileInformation _createUser() {
@@ -75,6 +83,7 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
       body: Form(
         key: _bankDetailsAndPermissionsFormKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
+        onChanged: () => _changeForm(),
         child: ListView(
           children: <Widget>[
             DefaultNamedFormField(
@@ -122,6 +131,7 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
       bottomNavigationBar: SendCancelButtonsEditProfile(
         createUser: () => _createUser(),
         formKey: _bankDetailsAndPermissionsFormKey,
+        formChanged: _formChanged,
       ),
     );
   }

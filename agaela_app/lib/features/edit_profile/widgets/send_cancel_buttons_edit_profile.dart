@@ -19,8 +19,13 @@ class SendCancelButtonsEditProfile extends StatefulWidget {
 
   final GlobalKey<FormState> formKey;
 
+  final ValueNotifier<bool> formChanged;
+
   const SendCancelButtonsEditProfile(
-      {super.key, required this.createUser, required this.formKey});
+      {super.key,
+      required this.createUser,
+      required this.formKey,
+      required this.formChanged});
 
   @override
   State<SendCancelButtonsEditProfile> createState() =>
@@ -61,18 +66,19 @@ class _SendCancelButtonsEditProfileState
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _saveChangesRequest,
-      builder: (BuildContext context, AsyncSnapshot snapshot) =>
-          snapshot.connectionState == ConnectionState.waiting
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : DefaultSendCancelButtons(
-                  sendFunction: () => {
-                        if (widget.formKey.currentState!.validate())
-                          _saveChanges()
-                      },
-                  cancelFunction: () => GoRouter.of(context).pop()),
-    );
+        future: _saveChangesRequest,
+        builder: (BuildContext context, AsyncSnapshot snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : DefaultSendCancelButtons(
+                    sendFunction: widget.formChanged.value
+                        ? () => {
+                              if (widget.formKey.currentState!.validate())
+                                _saveChanges()
+                            }
+                        : null,
+                    cancelFunction: () => GoRouter.of(context).pop()));
   }
 }

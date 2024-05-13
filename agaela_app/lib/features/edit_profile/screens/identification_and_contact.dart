@@ -27,6 +27,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   final _dniController = TextEditingController();
   final _birthDateController = TextEditingController();
   late DateTime _birthDate;
+  final ValueNotifier<bool> _formChanged = ValueNotifier<bool>(false);
   final List<int> _telephones = [];
   final List<String> _emails = [];
 
@@ -69,6 +70,12 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
         userInformation.profession);
   }
 
+  void _changeForm() {
+    setState(() {
+      _formChanged.value = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +86,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
       body: Form(
           key: _identificationAndContactFormKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          onChanged: () => _changeForm(),
           child: ListView(
             children: <Widget>[
               DefaultNamedFormField(
@@ -148,7 +156,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
           )),
       bottomNavigationBar: SendCancelButtonsEditProfile(
           createUser: () => _createUser(),
-          formKey: _identificationAndContactFormKey),
+          formKey: _identificationAndContactFormKey,
+          formChanged: _formChanged),
     );
   }
 }

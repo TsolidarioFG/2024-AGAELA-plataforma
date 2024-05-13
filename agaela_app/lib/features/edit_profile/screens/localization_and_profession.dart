@@ -44,6 +44,8 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
 
   List<Province>? _provinces;
 
+  final ValueNotifier<bool> _formChanged = ValueNotifier<bool>(false);
+
   @override
   void initState() {
     super.initState();
@@ -90,6 +92,12 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
     });
   }
 
+  void _changeForm() {
+    setState(() {
+      _formChanged.value = true;
+    });
+  }
+
   UserProfileInformation _createUser() {
     UserProfileInformation userInformation =
         Provider.of<UserProfileInformationProvider>(context, listen: false)
@@ -123,6 +131,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
         body: Form(
             key: _localizationAndProfessionFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: () => _changeForm(),
             child: FutureBuilder(
               future: _countriesRequest,
               builder: (BuildContext context, AsyncSnapshot snapshot) =>
@@ -194,6 +203,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
         bottomNavigationBar: SendCancelButtonsEditProfile(
           createUser: () => _createUser(),
           formKey: _localizationAndProfessionFormKey,
+          formChanged: _formChanged,
         ));
   }
 }
