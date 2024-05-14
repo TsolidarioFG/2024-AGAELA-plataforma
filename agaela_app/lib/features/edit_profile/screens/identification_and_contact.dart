@@ -137,7 +137,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                   int? number = int.tryParse(element);
                   if (number != null) _telephones.add(number);
                 },
-                validator: (String? telephone) {
+                elementValidator: (String? telephone) {
                   return !telephone!.isValidPhone
                       ? AppLocalizations.of(context)!.errorPhoneNotValid
                       : null;
@@ -150,7 +150,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                 elements: _emails,
                 onRemove: (int index) => _emails.removeAt(index),
                 onAdded: (String element) => _emails.add(element),
-                validator: (String? email) {
+                elementValidator: (String? email) {
                   return !email!.isValidEmail
                       ? AppLocalizations.of(context)!.errorEmailNotValid
                       : null;

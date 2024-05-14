@@ -1,9 +1,9 @@
-import 'package:agaela_app/common_widgets/default_text_field.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
+import 'package:agaela_app/features/edit_profile/widgets/add_button_list.dart';
 import 'package:agaela_app/features/edit_profile/widgets/icon_button_edit_profile.dart';
 import 'package:flutter/material.dart';
 
-class AddRemoveListElements extends StatefulWidget {
+class AddRemoveListElements extends FormField<List> {
   final List elements;
 
   final String title;
@@ -12,106 +12,58 @@ class AddRemoveListElements extends StatefulWidget {
 
   final Function onAdded;
 
-  final String? Function(String?)? validator;
+  final String? Function(String?)? elementValidator;
 
-  const AddRemoveListElements(
+  AddRemoveListElements(
       {super.key,
       required this.elements,
       required this.title,
       required this.onAdded,
       required this.onRemove,
-      required this.validator});
+      required this.elementValidator})
+      : super(
+            initialValue: elements.sublist(0),
+            builder: (FormFieldState<List> state) {
+              void removeElement(int index, FormFieldState<List> state) {
+                onRemove(index);
+                state.value!.removeAt(index);
+                state.didChange(state.value!);
+              }
 
-  @override
-  State<AddRemoveListElements> createState() => _AddRemoveListElementsState();
-}
-
-class _AddRemoveListElementsState extends State<AddRemoveListElements> {
-  final List _actualElements = [];
-  bool _plusButtonPressed = false;
-  final _controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _actualElements.addAll(widget.elements);
-  }
-
-  void _pressPlusButton() {
-    setState(() {
-      _plusButtonPressed = !_plusButtonPressed;
-    });
-  }
-
-  void _removeElement(int index) {
-    widget.onRemove(index);
-    setState(() {
-      _actualElements.removeAt(index);
-    });
-  }
-
-  void _addElement(element) {
-    if (widget.validator!(_controller.text) == null) {
-      widget.onAdded(element);
-      setState(() {
-        _actualElements.add(element);
-      });
-      _pressPlusButton();
-      _controller.text = '';
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TextBoldStyle(
-          text: widget.title,
-        ),
-        ListView.separated(
-          shrinkWrap: true,
-          separatorBuilder: (BuildContext context, int index) =>
-              const Divider(),
-          physics: const ClampingScrollPhysics(),
-          itemCount: _actualElements.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextBoldStyle(text: _actualElements[index].toString()),
-                ),
-                Expanded(
-                  child: IconButtonEditProfile(
-                    function: () => _removeElement(index),
-                    newIcon: const Icon(Icons.remove),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        const Divider(),
-        _plusButtonPressed
-            ? Row(
+              return Column(
                 children: <Widget>[
-                  Expanded(
-                    child: DefaultTextField(
-                      controller: _controller,
-                      sensitiveInformation: false,
-                      validator: widget.validator,
-                    ),
+                  TextBoldStyle(
+                    text: title,
                   ),
-                  Expanded(
-                    child: IconButtonEditProfile(
-                        function: () => _addElement(_controller.text),
-                        newIcon: const Icon(Icons.add)),
-                  )
+                  ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(),
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: state.value!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextBoldStyle(
+                                text: state.value![index].toString()),
+                          ),
+                          Expanded(
+                            child: IconButtonEditProfile(
+                              function: () => removeElement(index, state),
+                              newIcon: const Icon(Icons.remove),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const Divider(),
+                  AddButtonList(
+                      elementValidator: elementValidator,
+                      state: state,
+                      onAdded: onAdded)
                 ],
-              )
-            : IconButtonEditProfile(
-                function: () => _pressPlusButton(),
-                newIcon: const Icon(Icons.add)),
-      ],
-    );
-  }
+              );
+            });
 }
