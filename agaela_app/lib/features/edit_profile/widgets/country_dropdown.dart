@@ -5,62 +5,44 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 typedef SetCountry = Country Function(Country country);
 
-class CountryDropdown extends StatefulWidget {
+class CountryDropdown extends FormField<Country> {
   final List<Country> countries;
 
-  final Country initialValue;
+  final Country initialState;
 
   final Function onChanged;
 
   final SetCountry setCountry;
 
-  const CountryDropdown(
+  CountryDropdown(
       {super.key,
       required this.countries,
-      required this.initialValue,
+      required this.initialState,
       required this.onChanged,
-      required this.setCountry});
-
-  @override
-  State<CountryDropdown> createState() => _CountryDropdownState();
-}
-
-class _CountryDropdownState extends State<CountryDropdown> {
-  late Country _dropdownValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _dropdownValue = widget.initialValue;
-  }
-
-  void changeDropdownValue(Country? value) {
-    setState(() {
-      _dropdownValue = value!;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        TextBoldStyle(
-            text: AppLocalizations.of(context)!
-                .editProfileLocalizationAndProfessionCountriesField),
-        DropdownMenu<Country>(
-            initialSelection: widget.countries.firstWhere(
-                (element) => element.countryCode == _dropdownValue.countryCode),
-            dropdownMenuEntries: widget.countries
-                .map<DropdownMenuEntry<Country>>((Country value) {
-              return DropdownMenuEntry(value: value, label: value.countryName);
-            }).toList(),
-            onSelected: (Country? value) {
-              changeDropdownValue(value);
-              widget.onChanged(value!.countryCode);
-              widget.setCountry(value);
-            }),
-      ],
-    );
-  }
+      required this.setCountry})
+      : super(
+            initialValue: initialState,
+            builder: (FormFieldState<Country> state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextBoldStyle(
+                      text: AppLocalizations.of(state.context)!
+                          .editProfileLocalizationAndProfessionCountriesField),
+                  DropdownMenu<Country>(
+                      initialSelection: countries.firstWhere((element) =>
+                          element.countryCode == state.value!.countryCode),
+                      dropdownMenuEntries: countries
+                          .map<DropdownMenuEntry<Country>>((Country value) {
+                        return DropdownMenuEntry(
+                            value: value, label: value.countryName);
+                      }).toList(),
+                      onSelected: (Country? value) {
+                        state.didChange(value);
+                        onChanged(value!.countryCode);
+                        setCountry(value);
+                      }),
+                ],
+              );
+            });
 }

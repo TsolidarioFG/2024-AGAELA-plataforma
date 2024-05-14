@@ -144,7 +144,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                             if (_countries != null)
                               CountryDropdown(
                                   countries: _countries!,
-                                  initialValue: _country,
+                                  initialState: _country,
                                   onChanged: _getProvinces,
                                   setCountry: (Country country) =>
                                       _country = country),
