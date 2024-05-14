@@ -30,6 +30,11 @@ class _AddButtonListState extends State<AddButtonList> {
     });
   }
 
+  void _closeAddElement() {
+    _pressPlusButton();
+    _controller.text = '';
+  }
+
   void _addElement(element) {
     if (widget.elementValidator!(_controller.text) == null) {
       widget.onAdded(element);
@@ -39,8 +44,7 @@ class _AddButtonListState extends State<AddButtonList> {
         widget.state.value!.add(int.tryParse(element));
       }
       widget.state.didChange(widget.state.value!);
-      _pressPlusButton();
-      _controller.text = '';
+      _closeAddElement();
     }
   }
 
@@ -60,6 +64,12 @@ class _AddButtonListState extends State<AddButtonList> {
                 child: IconButtonEditProfile(
                     function: () => _addElement(_controller.text),
                     newIcon: const Icon(Icons.add)),
+              ),
+              Expanded(
+                child: IconButtonEditProfile(
+                  function: () => _closeAddElement(),
+                  newIcon: const Icon(Icons.close),
+                ),
               )
             ],
           )
