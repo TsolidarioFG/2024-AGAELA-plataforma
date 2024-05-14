@@ -8,6 +8,7 @@ import 'package:agaela_app/features/forms/screens/carer_home.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
 import 'package:agaela_app/features/login/screens/login.dart';
 import 'package:agaela_app/features/password_recovery/screens/password_recovery.dart';
+import 'package:agaela_app/features/report_incident/screens/report_incident.dart';
 import 'package:go_router/go_router.dart';
 
 enum RoutesNames {
@@ -20,7 +21,8 @@ enum RoutesNames {
   identificationAndContact,
   bankDetailsAndPermissions,
   localizationAndProfession,
-  editPassword
+  editPassword,
+  reportIncident
 }
 
 final GoRouter router = GoRouter(initialLocation: '/login', routes: [
@@ -67,5 +69,9 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
             name: RoutesNames.editPassword.name,
             path: 'edit_password',
             builder: (context, state) => const EditPassword())
-      ])
+      ]),
+  GoRoute(
+      name: RoutesNames.reportIncident.name,
+      path: '/report_incident',
+      builder: (context, state) => const ReportIncident())
 ]);
