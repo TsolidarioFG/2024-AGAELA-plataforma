@@ -75,5 +75,7 @@
     "editPasswordErrorPasswordsAreTheSame": "A contrasinal antiga é igual á nova",
     "editPasswordSuccessfulDescription": "A contrasinal foi cambiada correctamente",
     "editPasswordErrorDescription": "Error al editar la contraseña",
-    "reportIncidentTitle": "Enviar incidencia"
+    "reportIncidentTitle": "Enviar incidencia",
+    "reportIncidentSuccessfulDescription": "A incidencia foi enviada correctamente",
+    "reportIncidentErrorDescription": "Houbo un erro enviando a incidencia"
 }
