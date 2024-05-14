@@ -11,6 +11,7 @@ import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -46,19 +47,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
             const Icon(Icons.report_problem),
             AppLocalizations.of(context)!
                 .editProfileErrorGettingUserInformation,
-            _goToHome));
-  }
-
-  void _goToHome() {
-    if (_actualUser.isCarer) {
-      if (_actualUser.id != _actualUser.selectedId) {
-        context.goNamed(RoutesNames.caredHome.name);
-      } else {
-        context.goNamed(RoutesNames.carerHome.name);
-      }
-    } else {
-      context.goNamed(RoutesNames.home.name);
-    }
+            () => goToHome(context)));
   }
 
   String getCaredNameAndLastname() {
@@ -123,7 +112,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                             )),
                         ],
                       ),
-                      DefaultBackButton(backPage: _goToHome)
+                      DefaultBackButton(backPage: () => goToHome(context))
                     ],
                   ),
       ),
