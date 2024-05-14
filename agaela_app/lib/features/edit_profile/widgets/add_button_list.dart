@@ -1,4 +1,3 @@
-import 'package:agaela_app/common_widgets/default_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/icon_button_edit_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +23,8 @@ class _AddButtonListState extends State<AddButtonList> {
 
   final _controller = TextEditingController();
 
+  String? _errorText;
+
   void _pressPlusButton() {
     setState(() {
       _plusButtonPressed = !_plusButtonPressed;
@@ -48,18 +49,23 @@ class _AddButtonListState extends State<AddButtonList> {
     }
   }
 
+  void _validate(String text) {
+    setState(() {
+      _errorText = widget.elementValidator!(_controller.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return _plusButtonPressed
         ? Row(
             children: <Widget>[
               Expanded(
-                child: DefaultTextField(
-                  controller: _controller,
-                  sensitiveInformation: false,
-                  validator: widget.elementValidator,
-                ),
-              ),
+                  child: TextField(
+                controller: _controller,
+                onChanged: _validate,
+                decoration: InputDecoration(errorText: _errorText),
+              )),
               Expanded(
                 child: IconButtonEditProfile(
                     function: () => _addElement(_controller.text),
