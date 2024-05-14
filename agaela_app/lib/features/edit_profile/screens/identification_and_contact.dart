@@ -8,6 +8,7 @@ import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edi
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class IdentificationAndContact extends StatefulWidget {
@@ -42,6 +43,8 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     _lastName2Controller.text = userInformation.lastName2;
     _dniController.text = userInformation.dni;
     _birthDate = userInformation.birthDate;
+    DateFormat formatter = DateFormat('dd/MM/yyyy');
+    _birthDateController.text = formatter.format(_birthDate);
     _telephones.addAll(userInformation.telephoneNumbers);
     _emails.addAll(userInformation.emails);
   }
@@ -120,8 +123,10 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
               ),
               const Divider(),
               BirthDatePicker(
-                  dateController: _birthDateController,
-                  onChanged: (DateTime newDate) => _birthDate = newDate),
+                dateController: _birthDateController,
+                onChanged: (DateTime newDate) => _birthDate = newDate,
+                initialState: _birthDate,
+              ),
               const Divider(),
               AddRemoveListElements(
                 title: AppLocalizations.of(context)!
