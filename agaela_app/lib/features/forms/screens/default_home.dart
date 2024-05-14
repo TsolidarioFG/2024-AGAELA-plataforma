@@ -49,7 +49,8 @@ class DefaultHome extends StatelessWidget {
               const Icon(Icons.receipt),
               Expanded(
                   child: DefaultButton(
-                      function: () => {},
+                      function: () =>
+                          context.goNamed(RoutesNames.reportIncident.name),
                       text: AppLocalizations.of(context)!.homeReportIncident)),
             ],
           ),
