@@ -5,58 +5,40 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 typedef SetProvince = Province Function(Province province);
 
-class ProvinceDropdown extends StatefulWidget {
+class ProvinceDropdown extends FormField<Province> {
   final List<Province> provinces;
 
-  final Province initialValue;
+  final Province initialState;
 
   final SetProvince setProvince;
 
-  const ProvinceDropdown(
+  ProvinceDropdown(
       {super.key,
       required this.provinces,
-      required this.initialValue,
-      required this.setProvince});
-
-  @override
-  State<ProvinceDropdown> createState() => _ProvinceDropdownState();
-}
-
-class _ProvinceDropdownState extends State<ProvinceDropdown> {
-  late Province _dropdownValue;
-
-  @override
-  void initState() {
-    super.initState();
-    _dropdownValue = widget.initialValue;
-  }
-
-  void changeDropdownValue(Province? value) {
-    setState(() {
-      _dropdownValue = value!;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        TextBoldStyle(
-            text: AppLocalizations.of(context)!
-                .editProfileLocalizationAndProfessionProvincesField),
-        DropdownMenu<Province>(
-            initialSelection: widget.provinces.firstWhere((element) =>
-                element.provinceCode == _dropdownValue.provinceCode),
-            dropdownMenuEntries: widget.provinces
-                .map<DropdownMenuEntry<Province>>((Province value) {
-              return DropdownMenuEntry(value: value, label: value.provinceName);
-            }).toList(),
-            onSelected: (Province? value) {
-              changeDropdownValue(value);
-              widget.setProvince(value!);
-            }),
-      ],
-    );
-  }
+      required this.initialState,
+      required this.setProvince})
+      : super(
+            initialValue: initialState,
+            builder: (FormFieldState<Province> state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextBoldStyle(
+                      text: AppLocalizations.of(state.context)!
+                          .editProfileLocalizationAndProfessionProvincesField),
+                  DropdownMenu<Province>(
+                      initialSelection: provinces.firstWhere((element) =>
+                          element.provinceCode == state.value!.provinceCode),
+                      dropdownMenuEntries: provinces
+                          .map<DropdownMenuEntry<Province>>((Province value) {
+                        return DropdownMenuEntry(
+                            value: value, label: value.provinceName);
+                      }).toList(),
+                      onSelected: (Province? value) {
+                        state.didChange(value);
+                        setProvince(value!);
+                      }),
+                ],
+              );
+            });
 }

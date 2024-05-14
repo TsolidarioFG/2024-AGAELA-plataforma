@@ -162,7 +162,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                             )
                                           : ProvinceDropdown(
                                               provinces: _provinces!,
-                                              initialValue: _province,
+                                              initialState: _province,
                                               setProvince:
                                                   (Province province) =>
                                                       _province = province)),
