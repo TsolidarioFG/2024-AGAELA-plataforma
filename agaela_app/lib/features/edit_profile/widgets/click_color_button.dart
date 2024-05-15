@@ -18,21 +18,26 @@ class ClickColorButton extends FormField<bool> {
       : super(
             initialValue: initialState,
             builder: (FormFieldState<bool> state) {
-              return ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: state.value!
-                          ? MaterialStateProperty.all<Color>(Colors.deepPurple)
-                          : MaterialStateProperty.all<Color>(Colors.grey),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      overlayColor: state.value!
-                          ? MaterialStateProperty.all<Color>(Colors.purple)
-                          : MaterialStateProperty.all<Color>(Colors.blueGrey),
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(const Size(200, 100)),
-                      maximumSize: MaterialStateProperty.all<Size>(
-                          const Size(300, 200))),
-                  onPressed: () => {function(), state.didChange(!state.value!)},
-                  child: Text(state.value! ? clickedText : notClickedText));
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: state.value!
+                            ? MaterialStateProperty.all<Color>(
+                                Colors.deepPurple)
+                            : MaterialStateProperty.all<Color>(Colors.grey),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        overlayColor: state.value!
+                            ? MaterialStateProperty.all<Color>(Colors.purple)
+                            : MaterialStateProperty.all<Color>(Colors.blueGrey),
+                        minimumSize: MaterialStateProperty.all<Size>(
+                            const Size(200, 100)),
+                        maximumSize: MaterialStateProperty.all<Size>(
+                            const Size(300, 200))),
+                    onPressed: () =>
+                        {function(), state.didChange(!state.value!)},
+                    child: Text(state.value! ? clickedText : notClickedText)),
+              );
             });
 }
