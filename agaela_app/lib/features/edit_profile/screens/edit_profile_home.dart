@@ -102,14 +102,15 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                             text: AppLocalizations.of(context)!
                                 .editProfileBankDetailsAndPermissions,
                           )),
-                          if (_actualUser.id == _actualUser.selectedId)
-                            Expanded(
-                                child: DefaultButton(
-                              function: () => context
-                                  .goNamed(RoutesNames.editPassword.name),
-                              text: AppLocalizations.of(context)!
-                                  .editPasswordButton,
-                            )),
+                          _actualUser.id == _actualUser.selectedId
+                              ? Expanded(
+                                  child: DefaultButton(
+                                  function: () => context
+                                      .goNamed(RoutesNames.editPassword.name),
+                                  text: AppLocalizations.of(context)!
+                                      .editPasswordButton,
+                                ))
+                              : const Expanded(child: SizedBox(child: null))
                         ],
                       ),
                       DefaultBackButton(backPage: () => goToHome(context))
