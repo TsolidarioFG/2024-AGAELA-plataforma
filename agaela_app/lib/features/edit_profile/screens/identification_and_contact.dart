@@ -1,9 +1,9 @@
-import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/widgets/add_remove_list_elements.dart';
 import 'package:agaela_app/features/edit_profile/widgets/birth_date_picker.dart';
+import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
@@ -92,42 +92,33 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
           onChanged: () => _changeForm(),
           child: ListView(
             children: <Widget>[
-              DefaultNamedFormField(
+              EditProfileTextField(
                   controller: _nameController,
-                  name: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactNameField,
-                  sensitiveInformation: false),
-              const Divider(),
-              DefaultNamedFormField(
+                  text: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactNameField),
+              EditProfileTextField(
                   controller: _lastName1Controller,
-                  name: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactLastName1Field,
-                  sensitiveInformation: false),
-              const Divider(),
-              DefaultNamedFormField(
+                  text: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactLastName1Field),
+              EditProfileTextField(
                   controller: _lastName2Controller,
-                  name: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactLastName2Field,
-                  sensitiveInformation: false),
-              const Divider(),
-              DefaultNamedFormField(
+                  text: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactLastName2Field),
+              EditProfileTextField(
                 controller: _dniController,
-                name: AppLocalizations.of(context)!
+                text: AppLocalizations.of(context)!
                     .editProfileIdentificationAndContactDniField,
-                sensitiveInformation: false,
                 validator: (String? dni) {
                   return !dni!.isValidDni
                       ? AppLocalizations.of(context)!.errorDniNotValid
                       : null;
                 },
               ),
-              const Divider(),
               BirthDatePicker(
                 dateController: _birthDateController,
                 onChanged: (DateTime newDate) => _birthDate = newDate,
                 initialState: _birthDate,
               ),
-              const Divider(),
               AddRemoveListElements(
                 title: AppLocalizations.of(context)!
                     .editProfileIdentificationAndContactTelephonesField,
