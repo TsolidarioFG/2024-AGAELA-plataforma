@@ -64,7 +64,10 @@ class _AddButtonListState extends State<AddButtonList> {
                   child: TextField(
                 controller: _controller,
                 onChanged: _validate,
-                decoration: InputDecoration(errorText: _errorText),
+                decoration: InputDecoration(
+                    errorText: _errorText,
+                    border: const OutlineInputBorder(),
+                    errorMaxLines: 3),
               )),
               Expanded(
                 child: IconButtonEditProfile(
