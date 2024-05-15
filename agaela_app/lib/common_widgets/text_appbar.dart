@@ -8,6 +8,7 @@ class TextAppbar extends AppBar {
       : super(
             title: TextBoldStyle(
               text: text,
+              textMaxLines: 3,
             ),
             automaticallyImplyLeading: false);
 }
