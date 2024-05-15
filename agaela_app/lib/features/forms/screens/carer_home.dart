@@ -58,6 +58,7 @@ class CarerHome extends StatelessWidget {
                           context.goNamed(RoutesNames.reportIncident.name),
                       text: AppLocalizations.of(context)!
                           .carerHomeReportIncident)),
+              const Expanded(child: SizedBox(child: null))
             ],
           ),
         ],

@@ -52,6 +52,7 @@ class DefaultHome extends StatelessWidget {
                       function: () =>
                           context.goNamed(RoutesNames.reportIncident.name),
                       text: AppLocalizations.of(context)!.homeReportIncident)),
+              const Expanded(child: SizedBox(child: null))
             ],
           ),
         ],
