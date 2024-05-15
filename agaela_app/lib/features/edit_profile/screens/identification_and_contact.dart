@@ -134,7 +134,6 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                       : null;
                 },
               ),
-              const Divider(),
               AddRemoveListElements(
                 title: AppLocalizations.of(context)!
                     .editProfileIdentificationAndContactEmailsField,
@@ -147,7 +146,6 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
                       : null;
                 },
               ),
-              const Divider()
             ],
           )),
       bottomNavigationBar: SendCancelButtonsEditProfile(

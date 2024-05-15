@@ -14,7 +14,7 @@ class IconButtonEditProfile extends IconButton {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 overlayColor: MaterialStateProperty.all<Color>(Colors.purple),
                 minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(200, 100)),
+                    MaterialStateProperty.all<Size>(const Size(100, 50)),
                 maximumSize:
                     MaterialStateProperty.all<Size>(const Size(300, 200))),
             onPressed: function,

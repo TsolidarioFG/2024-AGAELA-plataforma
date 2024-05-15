@@ -31,38 +31,41 @@ class AddRemoveListElements extends FormField<List> {
               }
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextBoldStyle(
                     text: title,
                   ),
-                  ListView.separated(
+                  ListView.builder(
                     shrinkWrap: true,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
                     physics: const ClampingScrollPhysics(),
                     itemCount: state.value!.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: TextBoldStyle(
-                                text: state.value![index].toString()),
-                          ),
-                          Expanded(
-                            child: IconButtonEditProfile(
-                              function: () => removeElement(index, state),
-                              newIcon: const Icon(Icons.remove),
-                            ),
-                          ),
-                        ],
-                      );
+                      return Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: TextBoldStyle(
+                                    text: state.value![index].toString()),
+                              ),
+                              Expanded(
+                                child: IconButtonEditProfile(
+                                  function: () => removeElement(index, state),
+                                  newIcon: const Icon(Icons.remove),
+                                ),
+                              )
+                            ],
+                          ));
                     },
                   ),
-                  const Divider(),
-                  AddButtonList(
-                      elementValidator: elementValidator,
-                      state: state,
-                      onAdded: onAdded)
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: AddButtonList(
+                        elementValidator: elementValidator,
+                        state: state,
+                        onAdded: onAdded),
+                  )
                 ],
               );
             });
