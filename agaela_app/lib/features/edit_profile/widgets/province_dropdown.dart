@@ -1,4 +1,3 @@
-import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,13 +19,12 @@ class ProvinceDropdown extends FormField<Province> {
       : super(
             initialValue: initialState,
             builder: (FormFieldState<Province> state) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextBoldStyle(
-                      text: AppLocalizations.of(state.context)!
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: DropdownMenu<Province>(
+                      label: Text(AppLocalizations.of(state.context)!
                           .editProfileLocalizationAndProfessionProvincesField),
-                  DropdownMenu<Province>(
                       initialSelection: provinces.firstWhere((element) =>
                           element.provinceCode == state.value!.provinceCode),
                       dropdownMenuEntries: provinces
@@ -38,7 +36,7 @@ class ProvinceDropdown extends FormField<Province> {
                         state.didChange(value);
                         setProvince(value!);
                       }),
-                ],
+                ),
               );
             });
 }

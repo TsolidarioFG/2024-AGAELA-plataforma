@@ -1,5 +1,4 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
-import 'package:agaela_app/common_widgets/default_named_form_field.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
@@ -7,6 +6,7 @@ import 'package:agaela_app/features/edit_profile/models/user_profile_information
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/features/edit_profile/widgets/country_dropdown.dart';
+import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/locators.dart';
@@ -148,7 +148,6 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                   onChanged: _getProvinces,
                                   setCountry: (Country country) =>
                                       _country = country),
-                            const Divider(),
                             if (_provinces != null)
                               FutureBuilder(
                                   future: _provincesRequest,
@@ -166,18 +165,14 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                               setProvince:
                                                   (Province province) =>
                                                       _province = province)),
-                            const Divider(),
-                            DefaultNamedFormField(
+                            EditProfileTextField(
                                 controller: _cityController,
-                                name: AppLocalizations.of(context)!
-                                    .editProfileLocalizationAndProfessionCityField,
-                                sensitiveInformation: false),
-                            const Divider(),
-                            DefaultNamedFormField(
+                                text: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionCityField),
+                            EditProfileTextField(
                               controller: _postalCodeController,
-                              name: AppLocalizations.of(context)!
+                              text: AppLocalizations.of(context)!
                                   .editProfileLocalizationAndProfessionPostalCodeField,
-                              sensitiveInformation: false,
                               validator: (String? postalCode) {
                                 return !postalCode!.isValidPostalCode
                                     ? AppLocalizations.of(context)!
@@ -185,18 +180,14 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                                     : null;
                               },
                             ),
-                            const Divider(),
-                            DefaultNamedFormField(
+                            EditProfileTextField(
                                 controller: _addressController,
-                                name: AppLocalizations.of(context)!
-                                    .editProfileLocalizationAndProfessionAddressField,
-                                sensitiveInformation: false),
-                            const Divider(),
-                            DefaultNamedFormField(
+                                text: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionAddressField),
+                            EditProfileTextField(
                                 controller: _professionController,
-                                name: AppLocalizations.of(context)!
-                                    .editProfileLocalizationAndProfessionProfessionField,
-                                sensitiveInformation: false)
+                                text: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfessionProfessionField),
                           ],
                         ),
             )),
