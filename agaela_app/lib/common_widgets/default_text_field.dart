@@ -6,7 +6,7 @@ class DefaultTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       this.text,
-      required this.sensitiveInformation,
+      this.sensitiveInformation = false,
       this.validator});
 
   final TextEditingController controller;
