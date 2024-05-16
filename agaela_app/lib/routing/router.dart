@@ -1,3 +1,4 @@
+import 'package:agaela_app/features/edit_functional_state/screens/edit_functional_state_home.dart';
 import 'package:agaela_app/features/edit_password/screens/edit_password.dart';
 import 'package:agaela_app/features/edit_profile/screens/bank_details_and_permissions.dart';
 import 'package:agaela_app/features/edit_profile/screens/edit_profile_home.dart';
@@ -22,7 +23,8 @@ enum RoutesNames {
   bankDetailsAndPermissions,
   localizationAndProfession,
   editPassword,
-  reportIncident
+  reportIncident,
+  editFunctionalState
 }
 
 final GoRouter router = GoRouter(initialLocation: '/login', routes: [
@@ -73,5 +75,9 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
   GoRoute(
       name: RoutesNames.reportIncident.name,
       path: '/report_incident',
-      builder: (context, state) => const ReportIncident())
+      builder: (context, state) => const ReportIncident()),
+  GoRoute(
+      name: RoutesNames.editFunctionalState.name,
+      path: '/edit_functional_state',
+      builder: (context, state) => const EditFunctionalStateHome())
 ]);
