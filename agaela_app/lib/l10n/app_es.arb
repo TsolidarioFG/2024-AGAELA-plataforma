@@ -77,5 +77,6 @@
     "editPasswordErrorDescription": "Error al editar la contraseña",
     "reportIncidentTitle": "Enviar incidencia",
     "reportIncidentSuccessfulDescription": "La incidencia fue enviada correctamente",
-    "reportIncidentErrorDescription": "Hubo un error enviando la incidencia"
+    "reportIncidentErrorDescription": "Hubo un error enviando la incidencia",
+    "editFunctionalStateHomeTitle": "Estado funcional"
 }
