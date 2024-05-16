@@ -79,6 +79,7 @@
     "reportIncidentSuccessfulDescription": "La incidencia fue enviada correctamente",
     "reportIncidentErrorDescription": "Hubo un error enviando la incidencia",
     "editFunctionalStateHomeTitle": "Estado funcional",
+    "editFunctionalStateHomeErrorDescription": "Error recuperando el formulario",
     "editFunctionalStateRatingScale": "Escala funcional",
     "editFunctionalStateBarthelIndex": "Índice de Barthel",
     "editFunctionalStateRatingScaleTitle": "Escala funcional",
