@@ -26,7 +26,8 @@ class CaredHome extends StatelessWidget {
               const Icon(Icons.feed),
               Expanded(
                   child: DefaultButton(
-                      function: () => {},
+                      function: () =>
+                          context.goNamed(RoutesNames.editFunctionalState.name),
                       text: AppLocalizations.of(context)!
                           .caredHomeFunctionalState)),
               const Icon(Icons.contact_page),
