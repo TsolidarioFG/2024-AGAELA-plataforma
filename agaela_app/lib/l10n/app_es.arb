@@ -80,5 +80,7 @@
     "reportIncidentErrorDescription": "Hubo un error enviando la incidencia",
     "editFunctionalStateHomeTitle": "Estado funcional",
     "editFunctionalStateRatingScale": "Escala funcional",
-    "editFunctionalStateBarthelIndex": "Índice de Barthel"
+    "editFunctionalStateBarthelIndex": "Índice de Barthel",
+    "editFunctionalStateRatingScaleTitle": "Escala funcional",
+    "editFunctionalStateBarthelIndexTitle": "Índice de Barthel"
 }
