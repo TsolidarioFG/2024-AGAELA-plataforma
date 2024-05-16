@@ -1,3 +1,4 @@
+import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
@@ -35,7 +36,13 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
         Provider.of<ActualFormProvider>(context, listen: false)
             .setActualForm(actualForm);
         context.goNamed(RoutesNames.editFunctionalStateForm.name);
-      }, onError: (_) => {});
+      },
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.error),
+              AppLocalizations.of(context)!
+                  .editFunctionalStateHomeErrorDescription,
+              () => GoRouter.of(context).pop()));
     });
   }
 
