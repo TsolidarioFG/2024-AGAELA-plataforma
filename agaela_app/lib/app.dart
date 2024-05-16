@@ -1,3 +1,4 @@
+import 'package:agaela_app/features/edit_functional_state/models/actual_form_provider.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/routing/router.dart';
@@ -16,7 +17,8 @@ class App extends StatelessWidget {
           create: (context) => LoggedUserProvider(),
         ),
         ChangeNotifierProvider(
-            create: (context) => UserProfileInformationProvider())
+            create: (context) => UserProfileInformationProvider()),
+        ChangeNotifierProvider(create: (context) => ActualFormProvider())
       ],
       child: MaterialApp.router(
         routerConfig: router,
