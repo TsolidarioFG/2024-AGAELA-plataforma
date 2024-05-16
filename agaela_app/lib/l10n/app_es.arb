@@ -78,5 +78,7 @@
     "reportIncidentTitle": "Enviar incidencia",
     "reportIncidentSuccessfulDescription": "La incidencia fue enviada correctamente",
     "reportIncidentErrorDescription": "Hubo un error enviando la incidencia",
-    "editFunctionalStateHomeTitle": "Estado funcional"
+    "editFunctionalStateHomeTitle": "Estado funcional",
+    "editFunctionalStateRatingScale": "Escala funcional",
+    "editFunctionalStateBarthelIndex": "Índice de Barthel"
 }
