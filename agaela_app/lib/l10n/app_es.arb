@@ -83,5 +83,6 @@
     "editFunctionalStateRatingScale": "Escala funcional",
     "editFunctionalStateBarthelIndex": "Índice de Barthel",
     "editFunctionalStateRatingScaleTitle": "Escala funcional",
-    "editFunctionalStateBarthelIndexTitle": "Índice de Barthel"
+    "editFunctionalStateBarthelIndexTitle": "Índice de Barthel",
+    "editFunctionalStateNoChangesButton": "Sin cambios"
 }
