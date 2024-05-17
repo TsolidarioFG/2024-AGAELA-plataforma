@@ -38,9 +38,35 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
 
   Future<Map<int, int>?>? _previousAnswers;
 
+  Future<void>? _saveForm;
+
   void _checkCorrectValues() {
     setState(() {
       _correctValues = !_answersSelecteds!.containsValue(inexistentId);
+    });
+  }
+
+  void _startSaveForm() {
+    ActualForm actualForm =
+        Provider.of<ActualFormProvider>(context, listen: false).actualForm!;
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    setState(() {
+      _saveForm = _editFunctionalStateService.saveForm(
+          actualForm.formId, actualUser.selectedId, _answersSelecteds!);
+      _saveForm!.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.check),
+              AppLocalizations.of(context)!
+                  .editFunctionalStateFormSuccessfulSaveDescription,
+              () => goToHome(context)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.error),
+              AppLocalizations.of(context)!
+                  .editFunctionalStateFormErrorSaveDescription,
+              () {}));
     });
   }
 
@@ -70,82 +96,94 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
             context,
             const Icon(Icons.error),
             AppLocalizations.of(context)!
-                .editFunctionalStateFormErrorDescription,
+                .editFunctionalStateFormErrorAnswersDescription,
             () => goToHome(context)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TextAppbar(text: _title),
-      body: FutureBuilder(
-        future: _previousAnswers,
-        builder: (BuildContext context, AsyncSnapshot snapshot) => snapshot
-                    .connectionState ==
-                ConnectionState.waiting
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                padding: const EdgeInsets.all(10),
-                itemCount: _questions.length,
-                itemBuilder: (BuildContext context, int questionIndex) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      TextBoldStyle(
-                        text: _questions[questionIndex].title,
-                        textMaxLines: 3,
-                      ),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: _questions[questionIndex].answers.length,
-                          itemBuilder: (BuildContext context, int answerIndex) {
-                            int questionId = _questions[questionIndex].id;
-                            int answerId = _questions[questionIndex]
-                                .answers[answerIndex]
-                                .id;
-                            String answerText = _questions[questionIndex]
-                                .answers[answerIndex]
-                                .text;
-                            return ListTile(
-                              title: ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _answersSelecteds![questionId] = answerId;
-                                      _changed = true;
-                                      _checkCorrectValues();
-                                    });
-                                  },
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        _answersSelecteds![questionId] ==
-                                                answerId
-                                            ? MaterialStateProperty.all<Color>(
-                                                Colors.deepPurple)
-                                            : MaterialStateProperty.all<Color>(
-                                                Colors.grey),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    overlayColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.purple),
-                                  ),
-                                  child: Text(
-                                    answerText,
-                                    maxLines: 5,
-                                  )),
-                            );
-                          })
-                    ],
-                  );
-                }),
-      ),
-      bottomNavigationBar: EditFunctionalStateFormFooter(
-          sendFunction: _correctValues ? () => {} : null,
-          noChangesFunction: !_changed && _correctValues ? () => {} : null),
-    );
+        appBar: TextAppbar(text: _title),
+        body: FutureBuilder(
+          future: _previousAnswers,
+          builder: (BuildContext context, AsyncSnapshot snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(10),
+                      itemCount: _questions.length,
+                      itemBuilder: (BuildContext context, int questionIndex) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TextBoldStyle(
+                              text: _questions[questionIndex].title,
+                              textMaxLines: 3,
+                            ),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount:
+                                    _questions[questionIndex].answers.length,
+                                itemBuilder:
+                                    (BuildContext context, int answerIndex) {
+                                  int questionId = _questions[questionIndex].id;
+                                  int answerId = _questions[questionIndex]
+                                      .answers[answerIndex]
+                                      .id;
+                                  String answerText = _questions[questionIndex]
+                                      .answers[answerIndex]
+                                      .text;
+                                  return ListTile(
+                                    title: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _answersSelecteds![questionId] =
+                                                answerId;
+                                            _changed = true;
+                                            _checkCorrectValues();
+                                          });
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              _answersSelecteds![questionId] ==
+                                                      answerId
+                                                  ? MaterialStateProperty.all<
+                                                      Color>(Colors.deepPurple)
+                                                  : MaterialStateProperty.all<
+                                                      Color>(Colors.grey),
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                          overlayColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.purple),
+                                        ),
+                                        child: Text(
+                                          answerText,
+                                          maxLines: 5,
+                                        )),
+                                  );
+                                })
+                          ],
+                        );
+                      }),
+        ),
+        bottomNavigationBar: FutureBuilder(
+          future: _saveForm,
+          builder: (BuildContext context, AsyncSnapshot snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : EditFunctionalStateFormFooter(
+                      sendFunction:
+                          _correctValues ? () => _startSaveForm() : null,
+                      noChangesFunction: !_changed && _correctValues
+                          ? () => _startSaveForm()
+                          : null),
+        ));
   }
 }

@@ -85,5 +85,7 @@
     "editFunctionalStateRatingScaleTitle": "Escala funcional",
     "editFunctionalStateBarthelIndexTitle": "Índice de Barthel",
     "editFunctionalStateNoChangesButton": "Sin cambios",
-    "editFunctionalStateFormErrorDescription": "Hubo un error recuperando las respuestas anteriores"
+    "editFunctionalStateFormSuccessfulSaveDescription": "Las respuestas se han enviado correctamente",
+    "editFunctionalStateFormErrorSaveDescription": "Hubo un error enviando las respuestas",
+    "editFunctionalStateFormErrorAnswersDescription": "Hubo un error recuperando las respuestas anteriores"
 }
