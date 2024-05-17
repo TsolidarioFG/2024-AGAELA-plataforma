@@ -78,7 +78,10 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                               overlayColor: MaterialStateProperty.all<Color>(
                                   Colors.purple),
                             ),
-                            child: Text(answerText)),
+                            child: Text(
+                              answerText,
+                              maxLines: 5,
+                            )),
                       );
                     })
               ],
