@@ -22,10 +22,10 @@ class CountryDropdown extends FormField<Country> {
       : super(
             initialValue: initialState,
             builder: (FormFieldState<Country> state) {
-              return Center(
-                  child: Padding(
-                padding: const EdgeInsets.all(10),
+              return Padding(
+                padding: const EdgeInsets.all(15),
                 child: DropdownMenu<Country>(
+                    expandedInsets: EdgeInsets.zero,
                     label: Text(AppLocalizations.of(state.context)!
                         .editProfileLocalizationAndProfessionCountriesField),
                     initialSelection: countries.firstWhere((element) =>
@@ -40,6 +40,6 @@ class CountryDropdown extends FormField<Country> {
                       onChanged(value!.countryCode);
                       setCountry(value);
                     }),
-              ));
+              );
             });
 }

@@ -19,24 +19,23 @@ class ProvinceDropdown extends FormField<Province> {
       : super(
             initialValue: initialState,
             builder: (FormFieldState<Province> state) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: DropdownMenu<Province>(
-                      label: Text(AppLocalizations.of(state.context)!
-                          .editProfileLocalizationAndProfessionProvincesField),
-                      initialSelection: provinces.firstWhere((element) =>
-                          element.provinceCode == state.value!.provinceCode),
-                      dropdownMenuEntries: provinces
-                          .map<DropdownMenuEntry<Province>>((Province value) {
-                        return DropdownMenuEntry(
-                            value: value, label: value.provinceName);
-                      }).toList(),
-                      onSelected: (Province? value) {
-                        state.didChange(value);
-                        setProvince(value!);
-                      }),
-                ),
+              return Padding(
+                padding: const EdgeInsets.all(15),
+                child: DropdownMenu<Province>(
+                    expandedInsets: EdgeInsets.zero,
+                    label: Text(AppLocalizations.of(state.context)!
+                        .editProfileLocalizationAndProfessionProvincesField),
+                    initialSelection: provinces.firstWhere((element) =>
+                        element.provinceCode == state.value!.provinceCode),
+                    dropdownMenuEntries: provinces
+                        .map<DropdownMenuEntry<Province>>((Province value) {
+                      return DropdownMenuEntry(
+                          value: value, label: value.provinceName);
+                    }).toList(),
+                    onSelected: (Province? value) {
+                      state.didChange(value);
+                      setProvince(value!);
+                    }),
               );
             });
 }
