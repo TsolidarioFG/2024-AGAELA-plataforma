@@ -23,6 +23,10 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
   final EditFunctionalStateService _editFunctionalStateService =
       locator<EditFunctionalStateService>();
 
+  bool _changed = false;
+
+  bool _correctValues = false;
+
   final inexistentId = -1;
   late String _title;
   late List<Question> _questions;
@@ -30,6 +34,12 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
   Map<int, int>? _answersSelecteds;
 
   Future<Map<int, int>?>? _previousAnswers;
+
+  void _checkCorrectValues() {
+    setState(() {
+      _correctValues = !_answersSelecteds!.containsValue(inexistentId);
+    });
+  }
 
   @override
   void initState() {
@@ -51,6 +61,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
       } else {
         _answersSelecteds!.addAll(answers);
       }
+      _checkCorrectValues();
     }, onError: (_) => {});
   }
 
@@ -94,6 +105,8 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                                   onPressed: () {
                                     setState(() {
                                       _answersSelecteds![questionId] = answerId;
+                                      _changed = true;
+                                      _checkCorrectValues();
                                     });
                                   },
                                   style: ButtonStyle(
@@ -122,9 +135,8 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                 }),
       ),
       bottomNavigationBar: EditFunctionalStateFormFooter(
-          sendFunction:
-              _answersSelecteds!.containsValue(inexistentId) ? null : () => {},
-          noChangesFunction: null),
+          sendFunction: _correctValues ? () => {} : null,
+          noChangesFunction: !_changed && _correctValues ? () => {} : null),
     );
   }
 }
