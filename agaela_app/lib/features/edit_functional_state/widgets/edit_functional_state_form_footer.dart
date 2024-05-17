@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-class EditFunctionalStateFormFooter extends StatefulWidget {
+class EditFunctionalStateFormFooter extends StatelessWidget {
   const EditFunctionalStateFormFooter(
       {super.key, required this.sendFunction, required this.noChangesFunction});
 
@@ -13,19 +13,12 @@ class EditFunctionalStateFormFooter extends StatefulWidget {
   final VoidCallback? noChangesFunction;
 
   @override
-  State<EditFunctionalStateFormFooter> createState() =>
-      _EditFunctionalStateFormFooterState();
-}
-
-class _EditFunctionalStateFormFooterState
-    extends State<EditFunctionalStateFormFooter> {
-  @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
         Expanded(
           child: DefaultButton(
-            function: widget.sendFunction,
+            function: sendFunction,
             text: AppLocalizations.of(context)!.commonSendButtonText,
           ),
         ),
@@ -33,7 +26,7 @@ class _EditFunctionalStateFormFooterState
           child: DefaultButton(
             text: AppLocalizations.of(context)!
                 .editFunctionalStateNoChangesButton,
-            function: widget.noChangesFunction,
+            function: noChangesFunction,
           ),
         ),
         Expanded(
