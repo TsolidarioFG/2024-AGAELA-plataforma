@@ -12,6 +12,7 @@ import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class EditFunctionalStateForm extends StatefulWidget {
@@ -66,7 +67,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
               const Icon(Icons.error),
               AppLocalizations.of(context)!
                   .editFunctionalStateFormErrorSaveDescription,
-              () {}));
+              () => GoRouter.of(context).pop()));
     });
   }
 
