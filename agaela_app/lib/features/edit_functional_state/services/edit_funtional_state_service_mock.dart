@@ -24,4 +24,22 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
     if (errorText == 'error') throw Exception();
     return questions;
   }
+
+  @override
+  Future<Map<int, int>?> getPreviousAnswers(int formId, int userId) async {
+    const errorText = 'no';
+    const firstQuestionId = 1;
+    const secondQuestionId = 2;
+    const thirdQuestionId = 3;
+    const firstAnswerId = 1;
+    const secondAnswerId = 2;
+    const thirdAnswerId = 3;
+    Map<int, int> answers = {};
+    answers[firstQuestionId] = secondAnswerId;
+    answers[secondQuestionId] = firstAnswerId;
+    answers[thirdQuestionId] = thirdAnswerId;
+    await Future.delayed(const Duration(seconds: 1));
+    if (errorText == 'error') throw Exception();
+    return answers;
+  }
 }
