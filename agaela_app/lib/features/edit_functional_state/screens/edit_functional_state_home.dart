@@ -32,7 +32,7 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
     setState(() {
       _request = _editFunctionalStateService.getFormQuestions(formId);
       _request!.then((questions) {
-        ActualForm actualForm = ActualForm(title, questions);
+        ActualForm actualForm = ActualForm(formId, title, questions);
         Provider.of<ActualFormProvider>(context, listen: false)
             .setActualForm(actualForm);
         context.goNamed(RoutesNames.editFunctionalStateForm.name);
