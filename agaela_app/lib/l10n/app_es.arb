@@ -84,5 +84,6 @@
     "editFunctionalStateBarthelIndex": "Índice de Barthel",
     "editFunctionalStateRatingScaleTitle": "Escala funcional",
     "editFunctionalStateBarthelIndexTitle": "Índice de Barthel",
-    "editFunctionalStateNoChangesButton": "Sin cambios"
+    "editFunctionalStateNoChangesButton": "Sin cambios",
+    "editFunctionalStateFormErrorDescription": "Hubo un error recuperando las respuestas anteriores"
 }
