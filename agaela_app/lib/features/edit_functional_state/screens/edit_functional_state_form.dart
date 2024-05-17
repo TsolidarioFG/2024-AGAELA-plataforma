@@ -148,20 +148,23 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                                           });
                                         },
                                         style: ButtonStyle(
-                                          backgroundColor:
-                                              _answersSelecteds![questionId] ==
-                                                      answerId
-                                                  ? MaterialStateProperty.all<
-                                                      Color>(Colors.deepPurple)
-                                                  : MaterialStateProperty.all<
-                                                      Color>(Colors.grey),
-                                          foregroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Colors.white),
-                                          overlayColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Colors.purple),
-                                        ),
+                                            backgroundColor: _answersSelecteds![questionId] ==
+                                                    answerId
+                                                ? MaterialStateProperty.all<Color>(
+                                                    Colors.deepPurple)
+                                                : MaterialStateProperty.all<Color>(
+                                                    Colors.grey),
+                                            foregroundColor:
+                                                MaterialStateProperty.all<Color>(
+                                                    Colors.white),
+                                            overlayColor:
+                                                MaterialStateProperty.all<Color>(
+                                                    Colors.purple),
+                                            minimumSize:
+                                                MaterialStateProperty.all<Size>(
+                                                    const Size(100, 50)),
+                                            maximumSize:
+                                                MaterialStateProperty.all<Size>(const Size(300, 200))),
                                         child: Text(
                                           answerText,
                                           maxLines: 5,
