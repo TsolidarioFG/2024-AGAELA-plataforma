@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 
 class EditFunctionalStateFormFooter extends StatefulWidget {
   const EditFunctionalStateFormFooter(
-      {super.key, required this.noChangesFunction});
+      {super.key, required this.sendFunction, required this.noChangesFunction});
+
+  final VoidCallback? sendFunction;
 
   final VoidCallback? noChangesFunction;
 
@@ -24,7 +26,7 @@ class _EditFunctionalStateFormFooterState
       children: <Widget>[
         Expanded(
           child: DefaultButton(
-            function: null,
+            function: widget.sendFunction,
             text: AppLocalizations.of(context)!.commonSendButtonText,
           ),
         ),

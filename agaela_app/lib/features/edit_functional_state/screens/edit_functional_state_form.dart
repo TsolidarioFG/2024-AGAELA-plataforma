@@ -16,6 +16,7 @@ class EditFunctionalStateForm extends StatefulWidget {
 }
 
 class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
+  final inexistentId = -1;
   late String _title;
   late List<Question> _questions;
 
@@ -30,7 +31,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     _questions = actualForm.questions;
     _answersSelecteds = {};
     for (Question question in _questions) {
-      _answersSelecteds![question.id] = -1;
+      _answersSelecteds![question.id] = inexistentId;
     }
   }
 
@@ -87,8 +88,10 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
               ],
             );
           }),
-      bottomNavigationBar:
-          const EditFunctionalStateFormFooter(noChangesFunction: null),
+      bottomNavigationBar: EditFunctionalStateFormFooter(
+          sendFunction:
+              _answersSelecteds!.containsValue(inexistentId) ? null : () => {},
+          noChangesFunction: null),
     );
   }
 }
