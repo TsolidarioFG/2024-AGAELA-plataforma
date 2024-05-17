@@ -1,3 +1,4 @@
+import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_functional_state/models/actual_form.dart';
@@ -8,7 +9,9 @@ import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
+import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class EditFunctionalStateForm extends StatefulWidget {
@@ -62,7 +65,13 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
         _answersSelecteds!.addAll(answers);
       }
       _checkCorrectValues();
-    }, onError: (_) => {});
+    },
+        onError: (_) => showDefaultAlertDialog(
+            context,
+            const Icon(Icons.error),
+            AppLocalizations.of(context)!
+                .editFunctionalStateFormErrorDescription,
+            () => goToHome(context)));
   }
 
   @override
