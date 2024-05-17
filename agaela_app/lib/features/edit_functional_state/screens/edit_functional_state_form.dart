@@ -5,6 +5,7 @@ import 'package:agaela_app/features/edit_functional_state/models/actual_form.dar
 import 'package:agaela_app/features/edit_functional_state/models/actual_form_provider.dart';
 import 'package:agaela_app/features/edit_functional_state/services/edit_functional_state_service.dart';
 import 'package:agaela_app/features/edit_functional_state/widgets/edit_functional_state_form_footer.dart';
+import 'package:agaela_app/features/edit_functional_state/widgets/list_button.dart';
 import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -107,73 +108,53 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
         appBar: TextAppbar(text: _title),
         body: FutureBuilder(
           future: _previousAnswers,
-          builder: (BuildContext context, AsyncSnapshot snapshot) =>
-              snapshot.connectionState == ConnectionState.waiting
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(10),
-                      itemCount: _questions.length,
-                      itemBuilder: (BuildContext context, int questionIndex) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            TextBoldStyle(
-                              text: _questions[questionIndex].title,
-                              textMaxLines: 3,
-                            ),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ClampingScrollPhysics(),
-                                itemCount:
-                                    _questions[questionIndex].answers.length,
-                                itemBuilder:
-                                    (BuildContext context, int answerIndex) {
-                                  int questionId = _questions[questionIndex].id;
-                                  int answerId = _questions[questionIndex]
-                                      .answers[answerIndex]
-                                      .id;
-                                  String answerText = _questions[questionIndex]
-                                      .answers[answerIndex]
-                                      .text;
-                                  return ListTile(
-                                    title: ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _answersSelecteds![questionId] =
-                                                answerId;
-                                            _changed = true;
-                                            _checkCorrectValues();
-                                          });
-                                        },
-                                        style: ButtonStyle(
-                                            backgroundColor: _answersSelecteds![questionId] ==
-                                                    answerId
-                                                ? MaterialStateProperty.all<Color>(
-                                                    Colors.deepPurple)
-                                                : MaterialStateProperty.all<Color>(
-                                                    Colors.grey),
-                                            foregroundColor:
-                                                MaterialStateProperty.all<Color>(
-                                                    Colors.white),
-                                            overlayColor:
-                                                MaterialStateProperty.all<Color>(
-                                                    Colors.purple),
-                                            minimumSize:
-                                                MaterialStateProperty.all<Size>(
-                                                    const Size(100, 50)),
-                                            maximumSize:
-                                                MaterialStateProperty.all<Size>(const Size(300, 200))),
-                                        child: Text(
-                                          answerText,
-                                          maxLines: 5,
-                                        )),
-                                  );
-                                })
-                          ],
-                        );
-                      }),
+          builder: (BuildContext context, AsyncSnapshot snapshot) => snapshot
+                      .connectionState ==
+                  ConnectionState.waiting
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: _questions.length,
+                  itemBuilder: (BuildContext context, int questionIndex) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextBoldStyle(
+                          text: _questions[questionIndex].title,
+                          textMaxLines: 3,
+                        ),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: _questions[questionIndex].answers.length,
+                            itemBuilder:
+                                (BuildContext context, int answerIndex) {
+                              int questionId = _questions[questionIndex].id;
+                              int answerId = _questions[questionIndex]
+                                  .answers[answerIndex]
+                                  .id;
+                              String answerText = _questions[questionIndex]
+                                  .answers[answerIndex]
+                                  .text;
+                              return ListTile(
+                                  title: ListButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _answersSelecteds![questionId] = answerId;
+                                    _changed = true;
+                                    _checkCorrectValues();
+                                  });
+                                },
+                                selected:
+                                    _answersSelecteds![questionId] == answerId,
+                                text: answerText,
+                              ));
+                            })
+                      ],
+                    );
+                  }),
         ),
         bottomNavigationBar: FutureBuilder(
           future: _saveForm,
