@@ -18,7 +18,7 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
     Answer answer7 = Answer(1, 'Yes');
     Answer answer8 = Answer(2, 'No');
     Answer answer9 = Answer(3, 'Maybe');
-    Question thirdQuestion = Question(2, 'Test 2', [answer7, answer8, answer9]);
+    Question thirdQuestion = Question(3, 'Test 3', [answer7, answer8, answer9]);
     List<Question> questions = [firstQuestion, secondQuestion, thirdQuestion];
     await Future.delayed(const Duration(seconds: 1));
     if (errorText == 'error') throw Exception();
