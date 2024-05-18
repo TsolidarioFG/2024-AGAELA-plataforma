@@ -123,7 +123,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                       children: <Widget>[
                         TextBoldStyle(
                           text: _questions[questionIndex].title,
-                          textMaxLines: 3,
+                          textMaxLines: 5,
                         ),
                         ListView.builder(
                             shrinkWrap: true,
