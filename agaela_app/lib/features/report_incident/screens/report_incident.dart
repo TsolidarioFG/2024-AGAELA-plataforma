@@ -6,6 +6,7 @@ import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/report_incident/services/report_incident_service.dart';
 import 'package:agaela_app/features/report_incident/widgets/report_incident_text_field.dart';
 import 'package:agaela_app/locators.dart';
+import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -53,7 +54,8 @@ class _ReportIncidentState extends State<ReportIncident> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TextAppbar(
-          text: AppLocalizations.of(context)!.reportIncidentTitle,
+          text:
+              '${AppLocalizations.of(context)!.reportIncidentTitle} ${getCaredName(context)}',
         ),
         body: Form(
           key: _reportIncidentFormKey,
