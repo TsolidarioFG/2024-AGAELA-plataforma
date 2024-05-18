@@ -11,6 +11,7 @@ import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart'
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -126,8 +127,8 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TextAppbar(
-            text: AppLocalizations.of(context)!
-                .editProfileLocalizationAndProfessionTitle),
+            text:
+                '${AppLocalizations.of(context)!.editProfileLocalizationAndProfessionTitle} ${getCaredName(context)}'),
         body: Form(
             key: _localizationAndProfessionFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,

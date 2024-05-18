@@ -4,6 +4,7 @@ import 'package:agaela_app/features/edit_profile/models/user_profile_information
 import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
 import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
+import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -77,8 +78,8 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TextAppbar(
-        text: AppLocalizations.of(context)!
-            .editProfileBankDetailsAndPermissionsTitle,
+        text:
+            '${AppLocalizations.of(context)!.editProfileBankDetailsAndPermissionsTitle} ${getCaredName(context)}',
       ),
       body: Form(
         key: _bankDetailsAndPermissionsFormKey,
