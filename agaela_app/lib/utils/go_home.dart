@@ -9,7 +9,7 @@ void goToHome(BuildContext context) {
   LoggedUser actualUser =
       Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
   if (actualUser.isCarer) {
-    if (actualUser.id != actualUser.selectedId) {
+    if (actualUser.isCared()) {
       context.goNamed(RoutesNames.caredHome.name);
     } else {
       context.goNamed(RoutesNames.carerHome.name);
