@@ -2,6 +2,7 @@ import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/form_request_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,7 +49,7 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
                       function: () => _startFormRequest(
                           AppLocalizations.of(context)!
                               .editFunctionalStateRatingScaleTitle,
-                          1),
+                          ratingScaleFormId),
                       text: AppLocalizations.of(context)!
                           .editFunctionalStateRatingScale,
                     ),
@@ -59,7 +60,7 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
                     function: () => _startFormRequest(
                         AppLocalizations.of(context)!
                             .editFunctionalStateBarthelIndexTitle,
-                        2),
+                        barthelIndexFormId),
                     text: AppLocalizations.of(context)!
                         .editFunctionalStateBarthelIndex,
                   ))
