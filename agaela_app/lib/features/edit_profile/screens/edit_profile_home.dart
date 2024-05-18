@@ -5,12 +5,11 @@ import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
-import 'package:agaela_app/features/login/models/cared.dart';
-import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -50,20 +49,13 @@ class _EditProfileHomeState extends State<EditProfileHome> {
             () => goToHome(context)));
   }
 
-  String getCaredNameAndLastname() {
-    Cared cared = (_actualUser as Carer)
-        .careds
-        .firstWhere((element) => element.id == _actualUser.selectedId);
-    return '${cared.name} ${cared.lastName}';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TextAppbar(
-          text: _actualUser.id == _actualUser.selectedId
-              ? AppLocalizations.of(context)!.editProfileHomeTitle
-              : getCaredNameAndLastname()),
+          text: _actualUser.isCared()
+              ? '${AppLocalizations.of(context)!.editProfileCaredHomeTitle} ${getCaredName(context)}'
+              : AppLocalizations.of(context)!.editProfileHomeTitle),
       body: FutureBuilder(
         future: _request,
         builder: (BuildContext context,
