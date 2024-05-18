@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:agaela_app/features/login/models/cared.dart';
+import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/pending_form.dart';
 
 abstract class LoggedUser {
@@ -22,4 +24,16 @@ abstract class LoggedUser {
   bool get isCarer => _isCarer;
 
   int get selectedId => _selectedId;
+
+  bool isCared() => _id != _selectedId;
+
+  Cared? getActualCared() {
+    if (isCared()) {
+      return (this as Carer)
+          .careds
+          .firstWhere((cared) => cared.id == _selectedId);
+    } else {
+      return null;
+    }
+  }
 }
