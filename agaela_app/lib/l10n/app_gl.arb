@@ -40,6 +40,7 @@
     "editProfileSavedChanges": "Os cambios foron gardados",
     "editProfileErrorSavingChanges": "Houbo un erro gardando os cambios",
     "editProfileHomeTitle": "Meu perfil",
+    "editProfileCaredHomeTitle": "Perfil",
     "editProfileIdentificationAndContact": "Identificación e contacto",
     "editProfileLocalizationAndProfession": "Localización e profesión",
     "editProfileBankDetailsAndPermissions": "Datos bancarios e permisos",
