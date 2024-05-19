@@ -2,6 +2,7 @@ import 'package:agaela_app/common_widgets/agaela_image_appbar.dart';
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
@@ -21,6 +22,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final double height = 10.0;
+
   final LoginService _loginService = locator<LoginService>();
   final _loginFormKey = GlobalKey<FormState>();
 
@@ -54,53 +57,68 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AgaelaImageAppbar(),
       body: Form(
-        key: _loginFormKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            DefaultIconFormField(
-              controller: _dniController,
-              icon: const Icon(Icons.perm_identity),
-              text: AppLocalizations.of(context)!.loginDniField,
-              sensitiveInformation: false,
-              validator: (String? dni) {
-                return !dni!.isValidDni
-                    ? AppLocalizations.of(context)!.errorDniNotValid
-                    : null;
-              },
+          key: _loginFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: ScrolleableWidget(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  height: height,
+                ),
+                DefaultIconFormField(
+                  controller: _dniController,
+                  icon: const Icon(Icons.perm_identity),
+                  text: AppLocalizations.of(context)!.loginDniField,
+                  sensitiveInformation: false,
+                  validator: (String? dni) {
+                    return !dni!.isValidDni
+                        ? AppLocalizations.of(context)!.errorDniNotValid
+                        : null;
+                  },
+                ),
+                SizedBox(
+                  height: height,
+                ),
+                DefaultIconFormField(
+                  controller: _passwordController,
+                  icon: const Icon(Icons.lock),
+                  text: AppLocalizations.of(context)!.loginPasswordField,
+                  sensitiveInformation: true,
+                  validator: (String? password) {
+                    return !password!.isValidPassword
+                        ? AppLocalizations.of(context)!.errorPasswordNotValid
+                        : null;
+                  },
+                ),
+                SizedBox(
+                  height: height,
+                ),
+                FutureBuilder(
+                    future: _request,
+                    builder: (BuildContext context,
+                            AsyncSnapshot<LoggedUser> snapshot) =>
+                        snapshot.connectionState == ConnectionState.waiting
+                            ? const CircularProgressIndicator()
+                            : DefaultButton(
+                                function: () => {
+                                      if (_loginFormKey.currentState!
+                                          .validate())
+                                        _startLogin()
+                                    },
+                                text:
+                                    AppLocalizations.of(context)!.loginButton)),
+                SizedBox(
+                  height: height,
+                ),
+                TextButton(
+                    onPressed: () =>
+                        context.goNamed(RoutesNames.passwordRecovery.name),
+                    child: Text(
+                        AppLocalizations.of(context)!.loginPasswordRecovery))
+              ],
             ),
-            DefaultIconFormField(
-              controller: _passwordController,
-              icon: const Icon(Icons.lock),
-              text: AppLocalizations.of(context)!.loginPasswordField,
-              sensitiveInformation: true,
-              validator: (String? password) {
-                return !password!.isValidPassword
-                    ? AppLocalizations.of(context)!.errorPasswordNotValid
-                    : null;
-              },
-            ),
-            FutureBuilder(
-                future: _request,
-                builder: (BuildContext context,
-                        AsyncSnapshot<LoggedUser> snapshot) =>
-                    snapshot.connectionState == ConnectionState.waiting
-                        ? const CircularProgressIndicator()
-                        : DefaultButton(
-                            function: () => {
-                                  if (_loginFormKey.currentState!.validate())
-                                    _startLogin()
-                                },
-                            text: AppLocalizations.of(context)!.loginButton)),
-            TextButton(
-                onPressed: () =>
-                    context.goNamed(RoutesNames.passwordRecovery.name),
-                child:
-                    Text(AppLocalizations.of(context)!.loginPasswordRecovery))
-          ],
-        ),
-      ),
+          )),
     );
   }
 }
