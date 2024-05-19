@@ -1,6 +1,7 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_password/services/edit_password_service.dart';
 import 'package:agaela_app/locators.dart';
@@ -18,6 +19,8 @@ class EditPassword extends StatefulWidget {
 }
 
 class _EditPasswordState extends State<EditPassword> {
+  final double height = 20.0;
+
   final EditPasswordService _editPasswordService =
       locator<EditPasswordService>();
 
@@ -53,56 +56,71 @@ class _EditPasswordState extends State<EditPassword> {
           text: AppLocalizations.of(context)!.editPasswordTitle,
         ),
         body: Form(
-          key: _editPasswordFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              DefaultIconFormField(
-                  controller: _oldPasswordController,
-                  icon: const Icon(Icons.lock),
-                  text: AppLocalizations.of(context)!
-                      .editPasswordOldPasswordField,
-                  sensitiveInformation: true,
-                  validator: (String? newPassword) {
-                    return !newPassword!.isValidPassword
-                        ? AppLocalizations.of(context)!.errorPasswordNotValid
-                        : null;
-                  }),
-              DefaultIconFormField(
-                controller: _newPasswordController,
-                icon: const Icon(Icons.lock),
-                text:
-                    AppLocalizations.of(context)!.editPasswordNewPasswordField,
-                sensitiveInformation: true,
-                validator: (String? newPassword) {
-                  if (!newPassword!.isValidPassword) {
-                    return AppLocalizations.of(context)!.errorPasswordNotValid;
-                  }
-                  if (newPassword == _oldPasswordController.text) {
-                    return AppLocalizations.of(context)!
-                        .editPasswordErrorPasswordsAreTheSame;
-                  }
-                  return null;
-                },
-              ),
-              DefaultIconFormField(
-                controller: _repeatNewPasswordController,
-                icon: const Icon(Icons.lock),
-                text:
-                    AppLocalizations.of(context)!.editPasswordRepeatNewPassword,
-                sensitiveInformation: true,
-                validator: (String? newPasswordRepeated) {
-                  return newPasswordRepeated! != _newPasswordController.text
-                      ? AppLocalizations.of(context)!
-                          .editPasswordErrorPasswordsNotMatch
-                      : null;
-                },
-              ),
-              FutureBuilder(
-                  future: _request,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<void> snapshot) =>
+            key: _editPasswordFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: ScrolleableWidget(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: height,
+                  ),
+                  DefaultIconFormField(
+                      controller: _oldPasswordController,
+                      icon: const Icon(Icons.lock),
+                      text: AppLocalizations.of(context)!
+                          .editPasswordOldPasswordField,
+                      sensitiveInformation: true,
+                      validator: (String? newPassword) {
+                        return !newPassword!.isValidPassword
+                            ? AppLocalizations.of(context)!
+                                .errorPasswordNotValid
+                            : null;
+                      }),
+                  SizedBox(
+                    height: height,
+                  ),
+                  DefaultIconFormField(
+                    controller: _newPasswordController,
+                    icon: const Icon(Icons.lock),
+                    text: AppLocalizations.of(context)!
+                        .editPasswordNewPasswordField,
+                    sensitiveInformation: true,
+                    validator: (String? newPassword) {
+                      if (!newPassword!.isValidPassword) {
+                        return AppLocalizations.of(context)!
+                            .errorPasswordNotValid;
+                      }
+                      if (newPassword == _oldPasswordController.text) {
+                        return AppLocalizations.of(context)!
+                            .editPasswordErrorPasswordsAreTheSame;
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: height,
+                  ),
+                  DefaultIconFormField(
+                    controller: _repeatNewPasswordController,
+                    icon: const Icon(Icons.lock),
+                    text: AppLocalizations.of(context)!
+                        .editPasswordRepeatNewPassword,
+                    sensitiveInformation: true,
+                    validator: (String? newPasswordRepeated) {
+                      return newPasswordRepeated! != _newPasswordController.text
+                          ? AppLocalizations.of(context)!
+                              .editPasswordErrorPasswordsNotMatch
+                          : null;
+                    },
+                  ),
+                  SizedBox(
+                    height: height,
+                  ),
+                  FutureBuilder(
+                      future: _request,
+                      builder: (BuildContext context,
+                              AsyncSnapshot<void> snapshot) =>
                           snapshot.connectionState == ConnectionState.waiting
                               ? const CircularProgressIndicator()
                               : DefaultSendButtons(
@@ -112,8 +130,8 @@ class _EditPasswordState extends State<EditPassword> {
                                           _startEditPassword()
                                       },
                                   backPage: () => GoRouter.of(context).pop())),
-            ],
-          ),
-        ));
+                ],
+              ),
+            )));
   }
 }
