@@ -1,6 +1,7 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
@@ -24,6 +25,8 @@ class EditProfileHome extends StatefulWidget {
 }
 
 class _EditProfileHomeState extends State<EditProfileHome> {
+  final double height = 20.0;
+
   final EditProfileService _editProfileService = locator<EditProfileService>();
 
   Future<UserProfileInformation>? _request;
@@ -52,63 +55,73 @@ class _EditProfileHomeState extends State<EditProfileHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TextAppbar(
-          text: _actualUser.isCared()
-              ? '${AppLocalizations.of(context)!.editProfileCaredHomeTitle} ${getCaredName(context)}'
-              : AppLocalizations.of(context)!.editProfileHomeTitle),
-      body: FutureBuilder(
-        future: _request,
-        builder: (BuildContext context,
-                AsyncSnapshot<UserProfileInformation> snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Row(
+        appBar: TextAppbar(
+            text: _actualUser.isCared()
+                ? '${AppLocalizations.of(context)!.editProfileCaredHomeTitle} ${getCaredName(context)}'
+                : AppLocalizations.of(context)!.editProfileHomeTitle),
+        body: ScrolleableWidget(
+          child: FutureBuilder(
+            future: _request,
+            builder: (BuildContext context,
+                    AsyncSnapshot<UserProfileInformation> snapshot) =>
+                snapshot.connectionState == ConnectionState.waiting
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Expanded(
-                              child: DefaultButton(
-                            function: () => context.goNamed(
-                                RoutesNames.identificationAndContact.name),
-                            text: AppLocalizations.of(context)!
-                                .editProfileIdentificationAndContact,
-                          )),
-                          Expanded(
-                              child: DefaultButton(
-                            function: () => context.goNamed(
-                                RoutesNames.localizationAndProfession.name),
-                            text: AppLocalizations.of(context)!
-                                .editProfileLocalizationAndProfession,
-                          )),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                              child: DefaultButton(
-                            function: () => context.goNamed(
-                                RoutesNames.bankDetailsAndPermissions.name),
-                            text: AppLocalizations.of(context)!
-                                .editProfileBankDetailsAndPermissions,
-                          )),
-                          _actualUser.id == _actualUser.selectedId
-                              ? Expanded(
+                          SizedBox(
+                            height: height,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
                                   child: DefaultButton(
-                                  function: () => context
-                                      .goNamed(RoutesNames.editPassword.name),
-                                  text: AppLocalizations.of(context)!
-                                      .editPasswordButton,
-                                ))
-                              : const Expanded(child: SizedBox(child: null))
+                                function: () => context.goNamed(
+                                    RoutesNames.identificationAndContact.name),
+                                text: AppLocalizations.of(context)!
+                                    .editProfileIdentificationAndContact,
+                              )),
+                              Expanded(
+                                  child: DefaultButton(
+                                function: () => context.goNamed(
+                                    RoutesNames.localizationAndProfession.name),
+                                text: AppLocalizations.of(context)!
+                                    .editProfileLocalizationAndProfession,
+                              )),
+                            ],
+                          ),
+                          SizedBox(
+                            height: height,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                  child: DefaultButton(
+                                function: () => context.goNamed(
+                                    RoutesNames.bankDetailsAndPermissions.name),
+                                text: AppLocalizations.of(context)!
+                                    .editProfileBankDetailsAndPermissions,
+                              )),
+                              _actualUser.id == _actualUser.selectedId
+                                  ? Expanded(
+                                      child: DefaultButton(
+                                      function: () => context.goNamed(
+                                          RoutesNames.editPassword.name),
+                                      text: AppLocalizations.of(context)!
+                                          .editPasswordButton,
+                                    ))
+                                  : const Expanded(child: SizedBox(child: null))
+                            ],
+                          ),
+                          SizedBox(
+                            height: height,
+                          ),
+                          DefaultBackButton(backPage: () => goToHome(context))
                         ],
                       ),
-                      DefaultBackButton(backPage: () => goToHome(context))
-                    ],
-                  ),
-      ),
-    );
+          ),
+        ));
   }
 }
