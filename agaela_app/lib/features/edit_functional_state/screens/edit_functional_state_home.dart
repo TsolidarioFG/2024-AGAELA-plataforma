@@ -1,6 +1,7 @@
 import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/form_request_widget.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/utils/get_cared_name.dart';
@@ -17,6 +18,8 @@ class EditFunctionalStateHome extends StatefulWidget {
 }
 
 class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
+  final double height = 20.0;
+
   final ValueNotifier<int> _formId = ValueNotifier<int>(-1);
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
@@ -36,13 +39,17 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
           text:
               '${AppLocalizations.of(context)!.editFunctionalStateHomeTitle} ${getCaredName(context)}',
         ),
-        body: FormRequestWidget(
+        body: ScrolleableWidget(
+            child: FormRequestWidget(
           title: _title,
           formId: _formId,
           started: _startRequest,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              SizedBox(
+                height: height,
+              ),
               Row(
                 children: <Widget>[
                   const Icon(Icons.library_add_check),
@@ -68,9 +75,12 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
                   ))
                 ],
               ),
+              SizedBox(
+                height: height,
+              ),
               DefaultBackButton(backPage: () => goToHome(context))
             ],
           ),
-        ));
+        )));
   }
 }
