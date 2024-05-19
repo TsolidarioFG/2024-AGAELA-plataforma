@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_back_button.dart';
 import 'package:agaela_app/common_widgets/default_button.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/features/forms/widgets/careds_dropdown.dart';
 import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -12,14 +13,23 @@ import 'package:provider/provider.dart';
 class CaredHome extends StatelessWidget {
   const CaredHome({super.key});
 
+  final double height = 20.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: ScrolleableWidget(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          SizedBox(
+            height: height,
+          ),
           const Center(
             child: CaredsDropdown(),
+          ),
+          SizedBox(
+            height: height,
           ),
           Row(
             children: <Widget>[
@@ -38,6 +48,9 @@ class CaredHome extends StatelessWidget {
                           .caredHomeSocialProcedures))
             ],
           ),
+          SizedBox(
+            height: height,
+          ),
           Row(
             children: <Widget>[
               const Icon(Icons.account_circle),
@@ -55,6 +68,9 @@ class CaredHome extends StatelessWidget {
                           .caredHomeReportIncident)),
             ],
           ),
+          SizedBox(
+            height: height,
+          ),
           DefaultBackButton(backPage: () {
             Carer carer =
                 Provider.of<LoggedUserProvider>(context, listen: false)
@@ -67,6 +83,6 @@ class CaredHome extends StatelessWidget {
           })
         ],
       ),
-    );
+    ));
   }
 }
