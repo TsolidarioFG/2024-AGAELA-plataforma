@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -21,6 +22,8 @@ class ReportIncident extends StatefulWidget {
 }
 
 class _ReportIncidentState extends State<ReportIncident> {
+  final double height = 20.0;
+
   final ReportIncidentService _reportIncidentService =
       locator<ReportIncidentService>();
 
@@ -58,18 +61,22 @@ class _ReportIncidentState extends State<ReportIncident> {
               '${AppLocalizations.of(context)!.reportIncidentTitle} ${getCaredName(context)}',
         ),
         body: Form(
-          key: _reportIncidentFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              ReportIncidentTextField(
-                controller: _incidentTextController,
-              ),
-              FutureBuilder(
-                  future: _request,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<void> snapshot) =>
+            key: _reportIncidentFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: ScrolleableWidget(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ReportIncidentTextField(
+                    controller: _incidentTextController,
+                  ),
+                  SizedBox(
+                    height: height,
+                  ),
+                  FutureBuilder(
+                      future: _request,
+                      builder: (BuildContext context,
+                              AsyncSnapshot<void> snapshot) =>
                           snapshot.connectionState == ConnectionState.waiting
                               ? const CircularProgressIndicator()
                               : DefaultSendButtons(
@@ -79,8 +86,8 @@ class _ReportIncidentState extends State<ReportIncident> {
                                           _startReportIncident(),
                                       },
                                   backPage: () => goToHome(context)))
-            ],
-          ),
-        ));
+                ],
+              ),
+            )));
   }
 }
