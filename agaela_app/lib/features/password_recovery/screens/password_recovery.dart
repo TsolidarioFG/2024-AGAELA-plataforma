@@ -1,6 +1,7 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_icon_form_field.dart';
 import 'package:agaela_app/common_widgets/default_send_buttons.dart';
+import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/password_recovery/services/password_recovery_service.dart';
 import 'package:agaela_app/locators.dart';
@@ -18,6 +19,8 @@ class PasswordRecovery extends StatefulWidget {
 }
 
 class _PasswordRecoveryState extends State<PasswordRecovery> {
+  final double height = 20.0;
+
   final PasswordRecoveryService _passwordRecoveryService =
       locator<PasswordRecoveryService>();
 
@@ -52,38 +55,46 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
         text: AppLocalizations.of(context)!.passwordRecoveryTitle,
       ),
       body: Form(
-        key: _passwordRecoveryFormKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            DefaultIconFormField(
-              controller: _dniController,
-              icon: const Icon(Icons.perm_identity),
-              text: AppLocalizations.of(context)!.passwordRecoveryDniField,
-              sensitiveInformation: false,
-              validator: (String? dni) {
-                return !dni!.isValidDni
-                    ? AppLocalizations.of(context)!.errorDniNotValid
-                    : null;
-              },
+          key: _passwordRecoveryFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: ScrolleableWidget(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  height: height,
+                ),
+                DefaultIconFormField(
+                  controller: _dniController,
+                  icon: const Icon(Icons.perm_identity),
+                  text: AppLocalizations.of(context)!.passwordRecoveryDniField,
+                  sensitiveInformation: false,
+                  validator: (String? dni) {
+                    return !dni!.isValidDni
+                        ? AppLocalizations.of(context)!.errorDniNotValid
+                        : null;
+                  },
+                ),
+                SizedBox(
+                  height: height,
+                ),
+                FutureBuilder(
+                    future: _request,
+                    builder: (BuildContext context,
+                            AsyncSnapshot<void> snapshot) =>
+                        snapshot.connectionState == ConnectionState.waiting
+                            ? const CircularProgressIndicator()
+                            : DefaultSendButtons(
+                                sendFunction: () => {
+                                      if (_passwordRecoveryFormKey.currentState!
+                                          .validate())
+                                        _startPasswordRecovery()
+                                    },
+                                backPage: () =>
+                                    context.goNamed(RoutesNames.login.name))),
+              ],
             ),
-            FutureBuilder(
-                future: _request,
-                builder: (BuildContext context, AsyncSnapshot<void> snapshot) =>
-                    snapshot.connectionState == ConnectionState.waiting
-                        ? const CircularProgressIndicator()
-                        : DefaultSendButtons(
-                            sendFunction: () => {
-                                  if (_passwordRecoveryFormKey.currentState!
-                                      .validate())
-                                    _startPasswordRecovery()
-                                },
-                            backPage: () =>
-                                context.goNamed(RoutesNames.login.name))),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }
