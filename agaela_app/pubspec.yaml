@@ -59,18 +59,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: 'agaela_icon'
   ios: true
-  image_path: 'assets/icons/agaela_icon.png'
+  image_path: 'assets/images/logo.png'
   min_sdk_android: 21
+  theme_color: '#ffffff'
+  remove_alpha_ios: true
   web:
     generate: true
-    image_path: 'assets/icons/agaela_icon.png'
+    image_path: 'assets/images/logo.png'
   windows:
     generate: true
-    image_path: 'assets/icons/agaela_icon.png'
+    image_path: 'assets/images/logo.png'
     icon_size: 48
   macos:
     generate: true
-    image_path: 'assets/icons/agaela_icon.png'
+    image_path: 'assets/images/logo.png'
 
 flutter_native_splash:
   color: "#ffffff"
@@ -97,7 +99,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
