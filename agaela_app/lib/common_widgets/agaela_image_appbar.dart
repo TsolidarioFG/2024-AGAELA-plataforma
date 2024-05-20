@@ -5,8 +5,9 @@ class AgaelaImageAppbar extends AppBar {
   AgaelaImageAppbar({super.key})
       : super(
             toolbarHeight: 75,
-            flexibleSpace: Image.asset(
+            flexibleSpace: SafeArea(
+                child: Image.asset(
               logo,
               fit: BoxFit.contain,
-            ));
+            )));
 }
