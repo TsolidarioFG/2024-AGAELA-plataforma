@@ -2,7 +2,7 @@
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="agaela_app"
+        android:label="Agaela"
         android:name="${applicationName}"
         android:icon="@mipmap/agaela_icon">
         <activity
