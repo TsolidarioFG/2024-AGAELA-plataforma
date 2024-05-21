@@ -11,7 +11,7 @@ class EditProfileServiceMock implements EditProfileService {
     if (id == 3) name = 'cared3';
     const lastName1 = 'test2';
     const lastName2 = 'test3';
-    const dni = '1234567A';
+    const dni = '12345678A';
     DateTime birthDate = DateTime.now();
     const telephones = [123456789, 987654321];
     const email = ['test@test.com', 'test2@test.com'];

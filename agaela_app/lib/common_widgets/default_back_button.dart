@@ -10,7 +10,7 @@ class DefaultBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             overlayColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
             minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)),
