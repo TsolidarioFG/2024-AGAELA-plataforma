@@ -15,6 +15,7 @@ class BirthDatePicker extends FormField<DateTime> {
                   padding: const EdgeInsets.all(15),
                   child: TextFormField(
                     controller: dateController,
+                    readOnly: true,
                     decoration: InputDecoration(
                         border: const OutlineInputBorder(),
                         labelText: AppLocalizations.of(state.context)!
