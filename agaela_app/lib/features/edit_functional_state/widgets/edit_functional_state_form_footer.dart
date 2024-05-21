@@ -16,6 +16,8 @@ class EditFunctionalStateFormFooter extends StatelessWidget {
 
   final VoidCallback? noChangesFunction;
 
+  final double width = 5.0;
+
   bool checkUserIsCarer(BuildContext context) {
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
@@ -26,11 +28,17 @@ class EditFunctionalStateFormFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
+        SizedBox(
+          width: width,
+        ),
         Expanded(
           child: DefaultActionButton(
             function: sendFunction,
             text: AppLocalizations.of(context)!.commonSendButtonText,
           ),
+        ),
+        SizedBox(
+          width: width,
         ),
         Expanded(
           child: DefaultActionButton(
@@ -39,12 +47,18 @@ class EditFunctionalStateFormFooter extends StatelessWidget {
             function: noChangesFunction,
           ),
         ),
+        SizedBox(
+          width: width,
+        ),
         Expanded(
             child: DefaultCancelButton(
           cancelFunction: () => checkUserIsCarer(context)
               ? context.goNamed(RoutesNames.carerHome.name)
               : GoRouter.of(context).pop(),
-        ))
+        )),
+        SizedBox(
+          width: width,
+        ),
       ],
     );
   }

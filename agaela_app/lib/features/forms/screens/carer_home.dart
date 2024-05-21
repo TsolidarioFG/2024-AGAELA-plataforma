@@ -18,6 +18,8 @@ class CarerHome extends StatefulWidget {
 class _CarerHomeState extends State<CarerHome> {
   final double height = 20.0;
 
+  final double width = 5.0;
+
   final ValueNotifier<int> _formId = ValueNotifier<int>(-1);
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
@@ -47,6 +49,9 @@ class _CarerHomeState extends State<CarerHome> {
                   ),
                   Row(
                     children: <Widget>[
+                      SizedBox(
+                        width: width,
+                      ),
                       const Icon(Icons.edit),
                       Expanded(
                         child: DefaultButton(
@@ -65,7 +70,10 @@ class _CarerHomeState extends State<CarerHome> {
                                     .carerHomeCaregiverOverloadTitle),
                             text: AppLocalizations.of(context)!
                                 .carerHomeCaregiverOverload),
-                      )
+                      ),
+                      SizedBox(
+                        width: width,
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -73,6 +81,9 @@ class _CarerHomeState extends State<CarerHome> {
                   ),
                   Row(
                     children: <Widget>[
+                      SizedBox(
+                        width: width,
+                      ),
                       const Icon(Icons.notification_important),
                       Expanded(
                           child: DefaultButton(
@@ -85,7 +96,10 @@ class _CarerHomeState extends State<CarerHome> {
                               function: () =>
                                   context.goNamed(RoutesNames.editProfile.name),
                               text: AppLocalizations.of(context)!
-                                  .carerHomeProfile))
+                                  .carerHomeProfile)),
+                      SizedBox(
+                        width: width,
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -93,6 +107,9 @@ class _CarerHomeState extends State<CarerHome> {
                   ),
                   Row(
                     children: <Widget>[
+                      SizedBox(
+                        width: width,
+                      ),
                       const Icon(Icons.receipt),
                       Expanded(
                           child: DefaultButton(
@@ -100,7 +117,10 @@ class _CarerHomeState extends State<CarerHome> {
                                   .goNamed(RoutesNames.reportIncident.name),
                               text: AppLocalizations.of(context)!
                                   .carerHomeReportIncident)),
-                      const Expanded(child: SizedBox(child: null))
+                      const Expanded(child: SizedBox(child: null)),
+                      SizedBox(
+                        width: width,
+                      ),
                     ],
                   ),
                 ],

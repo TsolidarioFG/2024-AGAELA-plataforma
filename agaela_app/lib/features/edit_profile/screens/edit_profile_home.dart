@@ -27,6 +27,8 @@ class EditProfileHome extends StatefulWidget {
 class _EditProfileHomeState extends State<EditProfileHome> {
   final double height = 20.0;
 
+  final double width = 5.0;
+
   final EditProfileService _editProfileService = locator<EditProfileService>();
 
   Future<UserProfileInformation>? _request;
@@ -76,6 +78,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                           ),
                           Row(
                             children: <Widget>[
+                              SizedBox(
+                                width: width,
+                              ),
                               Expanded(
                                   child: DefaultButton(
                                 function: () => context.goNamed(
@@ -83,6 +88,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                                 text: AppLocalizations.of(context)!
                                     .editProfileIdentificationAndContact,
                               )),
+                              SizedBox(
+                                width: width,
+                              ),
                               Expanded(
                                   child: DefaultButton(
                                 function: () => context.goNamed(
@@ -90,6 +98,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                                 text: AppLocalizations.of(context)!
                                     .editProfileLocalizationAndProfession,
                               )),
+                              SizedBox(
+                                width: width,
+                              ),
                             ],
                           ),
                           SizedBox(
@@ -97,6 +108,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                           ),
                           Row(
                             children: <Widget>[
+                              SizedBox(
+                                width: width,
+                              ),
                               Expanded(
                                   child: DefaultButton(
                                 function: () => context.goNamed(
@@ -104,6 +118,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                                 text: AppLocalizations.of(context)!
                                     .editProfileBankDetailsAndPermissions,
                               )),
+                              SizedBox(
+                                width: width,
+                              ),
                               _actualUser.id == _actualUser.selectedId
                                   ? Expanded(
                                       child: DefaultButton(
@@ -112,7 +129,11 @@ class _EditProfileHomeState extends State<EditProfileHome> {
                                       text: AppLocalizations.of(context)!
                                           .editPasswordButton,
                                     ))
-                                  : const Expanded(child: SizedBox(child: null))
+                                  : const Expanded(
+                                      child: SizedBox(child: null)),
+                              SizedBox(
+                                width: width,
+                              ),
                             ],
                           ),
                           SizedBox(

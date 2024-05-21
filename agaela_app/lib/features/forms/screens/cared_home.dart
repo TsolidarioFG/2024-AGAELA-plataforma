@@ -14,6 +14,7 @@ class CaredHome extends StatelessWidget {
   const CaredHome({super.key});
 
   final double height = 20.0;
+  final double width = 5.0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,9 @@ class CaredHome extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
+              SizedBox(
+                width: width,
+              ),
               const Icon(Icons.feed),
               Expanded(
                   child: DefaultButton(
@@ -45,7 +49,10 @@ class CaredHome extends StatelessWidget {
                   child: DefaultButton(
                       function: () => {},
                       text: AppLocalizations.of(context)!
-                          .caredHomeSocialProcedures))
+                          .caredHomeSocialProcedures)),
+              SizedBox(
+                width: width,
+              ),
             ],
           ),
           SizedBox(
@@ -53,6 +60,9 @@ class CaredHome extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
+              SizedBox(
+                width: width,
+              ),
               const Icon(Icons.account_circle),
               Expanded(
                   child: DefaultButton(
@@ -66,6 +76,9 @@ class CaredHome extends StatelessWidget {
                           context.goNamed(RoutesNames.reportIncident.name),
                       text: AppLocalizations.of(context)!
                           .caredHomeReportIncident)),
+              SizedBox(
+                width: width,
+              ),
             ],
           ),
           SizedBox(

@@ -11,17 +11,28 @@ class DefaultSendCancelButtons extends StatelessWidget {
 
   final VoidCallback cancelFunction;
 
+  final double width = 5.0;
+
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
+      SizedBox(
+        width: width,
+      ),
       Expanded(
           child: DefaultActionButton(
               function: sendFunction,
               text: AppLocalizations.of(context)!.commonSendButtonText)),
+      SizedBox(
+        width: width,
+      ),
       Expanded(
           child: DefaultCancelButton(
         cancelFunction: cancelFunction,
-      ))
+      )),
+      SizedBox(
+        width: width,
+      ),
     ]);
   }
 }

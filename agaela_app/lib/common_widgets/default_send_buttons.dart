@@ -11,17 +11,28 @@ class DefaultSendButtons extends StatelessWidget {
 
   final VoidCallback backPage;
 
+  final double width = 5.0;
+
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
+      SizedBox(
+        width: width,
+      ),
       Expanded(
           child: DefaultActionButton(
               function: sendFunction,
               text: AppLocalizations.of(context)!.commonSendButtonText)),
+      SizedBox(
+        width: width,
+      ),
       Expanded(
           child: DefaultBackButton(
         backPage: backPage,
-      ))
+      )),
+      SizedBox(
+        width: width,
+      ),
     ]);
   }
 }

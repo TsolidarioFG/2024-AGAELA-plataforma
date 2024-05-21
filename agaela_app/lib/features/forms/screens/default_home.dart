@@ -11,6 +11,8 @@ class DefaultHome extends StatelessWidget {
 
   final double height = 20.0;
 
+  final double width = 5.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +26,9 @@ class DefaultHome extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: width,
+                  ),
                   const Icon(Icons.feed),
                   Expanded(
                       child: DefaultButton(
@@ -36,7 +41,10 @@ class DefaultHome extends StatelessWidget {
                       child: DefaultButton(
                           function: () => {},
                           text: AppLocalizations.of(context)!
-                              .homeSocialProcedures))
+                              .homeSocialProcedures)),
+                  SizedBox(
+                    width: width,
+                  ),
                 ],
               ),
               SizedBox(
@@ -44,6 +52,9 @@ class DefaultHome extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: width,
+                  ),
                   const Icon(Icons.notification_important),
                   Expanded(
                       child: DefaultButton(
@@ -55,7 +66,10 @@ class DefaultHome extends StatelessWidget {
                       child: DefaultButton(
                           function: () =>
                               context.goNamed(RoutesNames.editProfile.name),
-                          text: AppLocalizations.of(context)!.homeProfile))
+                          text: AppLocalizations.of(context)!.homeProfile)),
+                  SizedBox(
+                    width: width,
+                  ),
                 ],
               ),
               SizedBox(
@@ -63,6 +77,9 @@ class DefaultHome extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: width,
+                  ),
                   const Icon(Icons.receipt),
                   Expanded(
                       child: DefaultButton(
@@ -70,7 +87,10 @@ class DefaultHome extends StatelessWidget {
                               context.goNamed(RoutesNames.reportIncident.name),
                           text: AppLocalizations.of(context)!
                               .homeReportIncident)),
-                  const Expanded(child: SizedBox(child: null))
+                  const Expanded(child: SizedBox(child: null)),
+                  SizedBox(
+                    width: width,
+                  ),
                 ],
               ),
             ],

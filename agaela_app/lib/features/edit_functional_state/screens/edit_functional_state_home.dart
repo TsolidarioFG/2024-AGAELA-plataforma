@@ -20,6 +20,8 @@ class EditFunctionalStateHome extends StatefulWidget {
 class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
   final double height = 20.0;
 
+  final double width = 5.0;
+
   final ValueNotifier<int> _formId = ValueNotifier<int>(-1);
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
@@ -52,6 +54,9 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: width,
+                  ),
                   const Icon(Icons.library_add_check),
                   Expanded(
                     child: DefaultButton(
@@ -72,7 +77,10 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
                         barthelIndexFormId),
                     text: AppLocalizations.of(context)!
                         .editFunctionalStateBarthelIndex,
-                  ))
+                  )),
+                  SizedBox(
+                    width: width,
+                  ),
                 ],
               ),
               SizedBox(
