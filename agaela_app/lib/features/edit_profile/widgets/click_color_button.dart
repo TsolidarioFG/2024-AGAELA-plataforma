@@ -32,7 +32,7 @@ class ClickColorButton extends FormField<bool> {
                             ? MaterialStateProperty.all<Color>(Colors.purple)
                             : MaterialStateProperty.all<Color>(Colors.blueGrey),
                         minimumSize: MaterialStateProperty.all<Size>(
-                            const Size(200, 100)),
+                            const Size(200, 70)),
                         maximumSize: MaterialStateProperty.all<Size>(
                             const Size(300, 200))),
                     onPressed: () =>
