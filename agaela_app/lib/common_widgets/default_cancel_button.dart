@@ -13,7 +13,7 @@ class DefaultCancelButton extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             overlayColor: MaterialStateProperty.all<Color>(Colors.redAccent),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 100)),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)),
             maximumSize: MaterialStateProperty.all<Size>(const Size(300, 200))),
         onPressed: cancelFunction,
         child: Text(AppLocalizations.of(context)!.commonErrorButtonText));

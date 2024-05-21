@@ -13,7 +13,7 @@ class DefaultBackButton extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             overlayColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 100)),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)),
             maximumSize: MaterialStateProperty.all<Size>(const Size(300, 200))),
         onPressed: backPage,
         child: Text(AppLocalizations.of(context)!.commonBackButtonText));

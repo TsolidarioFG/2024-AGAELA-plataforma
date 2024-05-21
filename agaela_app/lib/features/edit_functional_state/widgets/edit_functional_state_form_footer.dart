@@ -1,4 +1,4 @@
-import 'package:agaela_app/common_widgets/default_button.dart';
+import 'package:agaela_app/common_widgets/default_action_button.dart';
 import 'package:agaela_app/common_widgets/default_cancel_button.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -27,13 +27,13 @@ class EditFunctionalStateFormFooter extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child: DefaultButton(
+          child: DefaultActionButton(
             function: sendFunction,
             text: AppLocalizations.of(context)!.commonSendButtonText,
           ),
         ),
         Expanded(
-          child: DefaultButton(
+          child: DefaultActionButton(
             text: AppLocalizations.of(context)!
                 .editFunctionalStateNoChangesButton,
             function: noChangesFunction,
