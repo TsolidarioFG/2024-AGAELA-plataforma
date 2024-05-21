@@ -157,7 +157,8 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                     );
                   }),
         ),
-        bottomNavigationBar: FutureBuilder(
+        bottomNavigationBar: BottomAppBar(
+            child: FutureBuilder(
           future: _saveForm,
           builder: (BuildContext context, AsyncSnapshot snapshot) =>
               snapshot.connectionState == ConnectionState.waiting
@@ -170,6 +171,6 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                       noChangesFunction: !_changed && _correctValues
                           ? () => _startSaveForm()
                           : null),
-        ));
+        )));
   }
 }

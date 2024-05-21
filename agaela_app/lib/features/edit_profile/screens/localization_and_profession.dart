@@ -192,10 +192,11 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                           ],
                         ),
             )),
-        bottomNavigationBar: SendCancelButtonsEditProfile(
+        bottomNavigationBar: BottomAppBar(
+            child: SendCancelButtonsEditProfile(
           createUser: () => _createUser(),
           formKey: _localizationAndProfessionFormKey,
           formChanged: _formChanged,
-        ));
+        )));
   }
 }

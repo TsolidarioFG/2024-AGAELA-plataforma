@@ -77,58 +77,59 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TextAppbar(
-        text:
-            '${AppLocalizations.of(context)!.editProfileBankDetailsAndPermissionsTitle} ${getCaredName(context)}',
-      ),
-      body: Form(
-        key: _bankDetailsAndPermissionsFormKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: () => _changeForm(),
-        child: ListView(
-          children: <Widget>[
-            EditProfileTextField(
-              controller: _ibanController,
-              text: AppLocalizations.of(context)!
-                  .editProfileBankDetailsAndPermissionsIbanField,
-              validator: (String? iban) {
-                return !iban!.isValidIban
-                    ? AppLocalizations.of(context)!.errorIbanNotValid
-                    : null;
-              },
-            ),
-            EditProfileTextField(
-              controller: _feeController,
-              text: AppLocalizations.of(context)!
-                  .editProfileBankDetailsAndPermissionsFeeField,
-              validator: (String? fee) {
-                return !fee!.isValidNumber
-                    ? AppLocalizations.of(context)!.errorNumberNotValid
-                    : null;
-              },
-            ),
-            ClickColorButton(
-                function: () => _acceptNews = !_acceptNews,
-                clickedText: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsClickedNewsButton,
-                notClickedText: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsNotClickedNewsButton,
-                initialState: _acceptNews),
-            ClickColorButton(
-                function: () => _acceptLegalNotice = !_acceptLegalNotice,
-                clickedText: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsClickedLegalNoticeButton,
-                notClickedText: AppLocalizations.of(context)!
-                    .editProfileBankDetailsAndPermissionsNotClickedLegalNoticeButton,
-                initialState: _acceptLegalNotice),
-          ],
+        appBar: TextAppbar(
+          text:
+              '${AppLocalizations.of(context)!.editProfileBankDetailsAndPermissionsTitle} ${getCaredName(context)}',
         ),
-      ),
-      bottomNavigationBar: SendCancelButtonsEditProfile(
-        createUser: () => _createUser(),
-        formKey: _bankDetailsAndPermissionsFormKey,
-        formChanged: _formChanged,
-      ),
-    );
+        body: Form(
+          key: _bankDetailsAndPermissionsFormKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onChanged: () => _changeForm(),
+          child: ListView(
+            children: <Widget>[
+              EditProfileTextField(
+                controller: _ibanController,
+                text: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsIbanField,
+                validator: (String? iban) {
+                  return !iban!.isValidIban
+                      ? AppLocalizations.of(context)!.errorIbanNotValid
+                      : null;
+                },
+              ),
+              EditProfileTextField(
+                controller: _feeController,
+                text: AppLocalizations.of(context)!
+                    .editProfileBankDetailsAndPermissionsFeeField,
+                validator: (String? fee) {
+                  return !fee!.isValidNumber
+                      ? AppLocalizations.of(context)!.errorNumberNotValid
+                      : null;
+                },
+              ),
+              ClickColorButton(
+                  function: () => _acceptNews = !_acceptNews,
+                  clickedText: AppLocalizations.of(context)!
+                      .editProfileBankDetailsAndPermissionsClickedNewsButton,
+                  notClickedText: AppLocalizations.of(context)!
+                      .editProfileBankDetailsAndPermissionsNotClickedNewsButton,
+                  initialState: _acceptNews),
+              ClickColorButton(
+                  function: () => _acceptLegalNotice = !_acceptLegalNotice,
+                  clickedText: AppLocalizations.of(context)!
+                      .editProfileBankDetailsAndPermissionsClickedLegalNoticeButton,
+                  notClickedText: AppLocalizations.of(context)!
+                      .editProfileBankDetailsAndPermissionsNotClickedLegalNoticeButton,
+                  initialState: _acceptLegalNotice),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          child: SendCancelButtonsEditProfile(
+            createUser: () => _createUser(),
+            formKey: _bankDetailsAndPermissionsFormKey,
+            formChanged: _formChanged,
+          ),
+        ));
   }
 }

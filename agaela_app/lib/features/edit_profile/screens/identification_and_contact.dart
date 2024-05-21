@@ -83,76 +83,77 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TextAppbar(
-        text:
-            '${AppLocalizations.of(context)!.editProfileIdentificationAndContactTitle} ${getCaredName(context)}',
-      ),
-      body: Form(
-          key: _identificationAndContactFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          onChanged: () => _changeForm(),
-          child: ListView(
-            children: <Widget>[
-              EditProfileTextField(
-                  controller: _nameController,
+        appBar: TextAppbar(
+          text:
+              '${AppLocalizations.of(context)!.editProfileIdentificationAndContactTitle} ${getCaredName(context)}',
+        ),
+        body: Form(
+            key: _identificationAndContactFormKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            onChanged: () => _changeForm(),
+            child: ListView(
+              children: <Widget>[
+                EditProfileTextField(
+                    controller: _nameController,
+                    text: AppLocalizations.of(context)!
+                        .editProfileIdentificationAndContactNameField),
+                EditProfileTextField(
+                    controller: _lastName1Controller,
+                    text: AppLocalizations.of(context)!
+                        .editProfileIdentificationAndContactLastName1Field),
+                EditProfileTextField(
+                    controller: _lastName2Controller,
+                    text: AppLocalizations.of(context)!
+                        .editProfileIdentificationAndContactLastName2Field),
+                EditProfileTextField(
+                  controller: _dniController,
                   text: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactNameField),
-              EditProfileTextField(
-                  controller: _lastName1Controller,
-                  text: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactLastName1Field),
-              EditProfileTextField(
-                  controller: _lastName2Controller,
-                  text: AppLocalizations.of(context)!
-                      .editProfileIdentificationAndContactLastName2Field),
-              EditProfileTextField(
-                controller: _dniController,
-                text: AppLocalizations.of(context)!
-                    .editProfileIdentificationAndContactDniField,
-                validator: (String? dni) {
-                  return !dni!.isValidDni
-                      ? AppLocalizations.of(context)!.errorDniNotValid
-                      : null;
-                },
-              ),
-              BirthDatePicker(
-                dateController: _birthDateController,
-                onChanged: (DateTime newDate) => _birthDate = newDate,
-                initialState: _birthDate,
-              ),
-              AddRemoveListElements(
-                title: AppLocalizations.of(context)!
-                    .editProfileIdentificationAndContactTelephonesField,
-                elements: _telephones,
-                onRemove: (int index) => _telephones.removeAt(index),
-                onAdded: (String element) {
-                  int? number = int.tryParse(element);
-                  if (number != null) _telephones.add(number);
-                },
-                elementValidator: (String? telephone) {
-                  return !telephone!.isValidPhone
-                      ? AppLocalizations.of(context)!.errorPhoneNotValid
-                      : null;
-                },
-              ),
-              AddRemoveListElements(
-                title: AppLocalizations.of(context)!
-                    .editProfileIdentificationAndContactEmailsField,
-                elements: _emails,
-                onRemove: (int index) => _emails.removeAt(index),
-                onAdded: (String element) => _emails.add(element),
-                elementValidator: (String? email) {
-                  return !email!.isValidEmail
-                      ? AppLocalizations.of(context)!.errorEmailNotValid
-                      : null;
-                },
-              ),
-            ],
-          )),
-      bottomNavigationBar: SendCancelButtonsEditProfile(
-          createUser: () => _createUser(),
-          formKey: _identificationAndContactFormKey,
-          formChanged: _formChanged),
-    );
+                      .editProfileIdentificationAndContactDniField,
+                  validator: (String? dni) {
+                    return !dni!.isValidDni
+                        ? AppLocalizations.of(context)!.errorDniNotValid
+                        : null;
+                  },
+                ),
+                BirthDatePicker(
+                  dateController: _birthDateController,
+                  onChanged: (DateTime newDate) => _birthDate = newDate,
+                  initialState: _birthDate,
+                ),
+                AddRemoveListElements(
+                  title: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactTelephonesField,
+                  elements: _telephones,
+                  onRemove: (int index) => _telephones.removeAt(index),
+                  onAdded: (String element) {
+                    int? number = int.tryParse(element);
+                    if (number != null) _telephones.add(number);
+                  },
+                  elementValidator: (String? telephone) {
+                    return !telephone!.isValidPhone
+                        ? AppLocalizations.of(context)!.errorPhoneNotValid
+                        : null;
+                  },
+                ),
+                AddRemoveListElements(
+                  title: AppLocalizations.of(context)!
+                      .editProfileIdentificationAndContactEmailsField,
+                  elements: _emails,
+                  onRemove: (int index) => _emails.removeAt(index),
+                  onAdded: (String element) => _emails.add(element),
+                  elementValidator: (String? email) {
+                    return !email!.isValidEmail
+                        ? AppLocalizations.of(context)!.errorEmailNotValid
+                        : null;
+                  },
+                ),
+              ],
+            )),
+        bottomNavigationBar: BottomAppBar(
+          child: SendCancelButtonsEditProfile(
+              createUser: () => _createUser(),
+              formKey: _identificationAndContactFormKey,
+              formChanged: _formChanged),
+        ));
   }
 }
