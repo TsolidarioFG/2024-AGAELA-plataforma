@@ -16,6 +16,9 @@ class DefaultCancelButton extends StatelessWidget {
             minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)),
             maximumSize: MaterialStateProperty.all<Size>(const Size(300, 200))),
         onPressed: cancelFunction,
-        child: Text(AppLocalizations.of(context)!.commonErrorButtonText));
+        child: Text(
+          AppLocalizations.of(context)!.commonErrorButtonText,
+          textAlign: TextAlign.center,
+        ));
   }
 }

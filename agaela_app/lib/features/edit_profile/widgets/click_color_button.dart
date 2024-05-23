@@ -37,7 +37,10 @@ class ClickColorButton extends FormField<bool> {
                             const Size(300, 200))),
                     onPressed: () =>
                         {function(), state.didChange(!state.value!)},
-                    child: Text(state.value! ? clickedText : notClickedText)),
+                    child: Text(
+                      state.value! ? clickedText : notClickedText,
+                      textAlign: TextAlign.center,
+                    )),
               );
             });
 }

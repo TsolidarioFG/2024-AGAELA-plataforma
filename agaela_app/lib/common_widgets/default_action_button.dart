@@ -18,5 +18,8 @@ class DefaultActionButton extends ElevatedButton {
                 maximumSize:
                     MaterialStateProperty.all<Size>(const Size(300, 200))),
             onPressed: function,
-            child: Text(text));
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+            ));
 }

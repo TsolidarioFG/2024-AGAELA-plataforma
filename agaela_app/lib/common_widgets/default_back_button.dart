@@ -16,6 +16,9 @@ class DefaultBackButton extends StatelessWidget {
             minimumSize: MaterialStateProperty.all<Size>(const Size(200, 70)),
             maximumSize: MaterialStateProperty.all<Size>(const Size(300, 200))),
         onPressed: backPage,
-        child: Text(AppLocalizations.of(context)!.commonBackButtonText));
+        child: Text(
+          AppLocalizations.of(context)!.commonBackButtonText,
+          textAlign: TextAlign.center,
+        ));
   }
 }
