@@ -1,15 +1,16 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
+import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_functional_state/models/actual_form.dart';
 import 'package:agaela_app/features/edit_functional_state/models/actual_form_provider.dart';
 import 'package:agaela_app/features/edit_functional_state/services/edit_functional_state_service.dart';
-import 'package:agaela_app/features/edit_functional_state/widgets/edit_functional_state_form_footer.dart';
 import 'package:agaela_app/features/edit_functional_state/widgets/list_button.dart';
 import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
+import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +30,6 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
   final EditFunctionalStateService _editFunctionalStateService =
       locator<EditFunctionalStateService>();
 
-  bool _changed = false;
-
   bool _correctValues = false;
 
   final inexistentId = -1;
@@ -47,6 +46,12 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     setState(() {
       _correctValues = !_answersSelecteds!.containsValue(inexistentId);
     });
+  }
+
+  bool checkUserIsCarer(BuildContext context) {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    return actualUser.isCarer && actualUser.id == actualUser.selectedId;
   }
 
   void _startSaveForm() {
@@ -144,7 +149,6 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                                 onPressed: () {
                                   setState(() {
                                     _answersSelecteds![questionId] = answerId;
-                                    _changed = true;
                                     _checkCorrectValues();
                                   });
                                 },
@@ -165,12 +169,13 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : EditFunctionalStateFormFooter(
+                  : DefaultSendCancelButtons(
                       sendFunction:
                           _correctValues ? () => _startSaveForm() : null,
-                      noChangesFunction: !_changed && _correctValues
-                          ? () => _startSaveForm()
-                          : null),
+                      cancelFunction: () => checkUserIsCarer(context)
+                          ? context.goNamed(RoutesNames.carerHome.name)
+                          : GoRouter.of(context).pop(),
+                    ),
         )));
   }
 }
