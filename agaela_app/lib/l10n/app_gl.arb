@@ -89,5 +89,6 @@
     "editFunctionalStateNoChangesButton": "Sen cambios",
     "editFunctionalStateFormSuccessfulSaveDescription": "As respostas enviáronse correctamente",
     "editFunctionalStateFormErrorSaveDescription": "Houbo un erro enviando as respostas",
-    "editFunctionalStateFormErrorAnswersDescription": "Houbo un erro recuperando as respostas anteriores"
+    "editFunctionalStateFormErrorAnswersDescription": "Houbo un erro recuperando as respostas anteriores",
+    "notificationsHomeTitle": "Notificacións"
 }
