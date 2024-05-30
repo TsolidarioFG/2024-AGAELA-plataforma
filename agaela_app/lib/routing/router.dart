@@ -9,6 +9,7 @@ import 'package:agaela_app/features/forms/screens/cared_home.dart';
 import 'package:agaela_app/features/forms/screens/carer_home.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
 import 'package:agaela_app/features/login/screens/login.dart';
+import 'package:agaela_app/features/notifications/screens/notifications_home.dart';
 import 'package:agaela_app/features/password_recovery/screens/password_recovery.dart';
 import 'package:agaela_app/features/report_incident/screens/report_incident.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,8 @@ enum RoutesNames {
   editPassword,
   reportIncident,
   editFunctionalState,
-  editFunctionalStateForm
+  editFunctionalStateForm,
+  notificationsHome
 }
 
 final GoRouter router = GoRouter(initialLocation: '/login', routes: [
@@ -87,5 +89,9 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
             name: RoutesNames.editFunctionalStateForm.name,
             path: 'form',
             builder: (context, state) => const EditFunctionalStateForm())
-      ])
+      ]),
+  GoRoute(
+      name: RoutesNames.notificationsHome.name,
+      path: '/notifications_home',
+      builder: (context, state) => const NotificationsHome())
 ]);
