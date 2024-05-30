@@ -58,7 +58,8 @@ class DefaultHome extends StatelessWidget {
                   const Icon(Icons.notification_important),
                   Expanded(
                       child: DefaultButton(
-                          function: () => {},
+                          function: () => context
+                              .goNamed(RoutesNames.notificationsHome.name),
                           text:
                               AppLocalizations.of(context)!.homeNotifications)),
                   const Icon(Icons.account_circle),
