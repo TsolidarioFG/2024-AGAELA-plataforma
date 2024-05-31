@@ -90,5 +90,7 @@
     "editFunctionalStateFormSuccessfulSaveDescription": "As respostas enviáronse correctamente",
     "editFunctionalStateFormErrorSaveDescription": "Houbo un erro enviando as respostas",
     "editFunctionalStateFormErrorAnswersDescription": "Houbo un erro recuperando as respostas anteriores",
-    "notificationsHomeTitle": "Notificacións"
+    "notificationsHomeTitle": "Notificacións",
+    "notificationsHomePendingNotification": "Tes pendente de cubrir o formulario {formName}",
+    "notificationsHomePendingNotificationCared": "O usuario {userName} ten pendente de cubrir o formulario {formName}"
 }
