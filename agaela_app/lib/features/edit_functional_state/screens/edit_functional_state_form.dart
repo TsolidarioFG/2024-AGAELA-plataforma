@@ -9,6 +9,7 @@ import 'package:agaela_app/features/edit_functional_state/widgets/list_button.da
 import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
+import 'package:agaela_app/features/login/models/pending_form.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/get_cared_name.dart';
@@ -62,13 +63,21 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     setState(() {
       _saveForm = _editFunctionalStateService.saveForm(
           actualForm.formId, actualUser.selectedId, _answersSelecteds!);
-      _saveForm!.then(
-          (_) => showDefaultAlertDialog(
-              context,
-              const Icon(Icons.check),
-              AppLocalizations.of(context)!
-                  .editFunctionalStateFormSuccessfulSaveDescription,
-              () => goToHome(context)),
+      _saveForm!.then((_) {
+        List<PendingForm> pendingForms = [];
+        pendingForms.addAll(actualUser.pendingForms);
+        pendingForms.removeWhere(
+            (pendingForm) => pendingForm.formId == actualForm.formId);
+        Provider.of<LoggedUserProvider>(context, listen: false)
+            .loggedUser!
+            .pendingForms = pendingForms;
+        showDefaultAlertDialog(
+            context,
+            const Icon(Icons.check),
+            AppLocalizations.of(context)!
+                .editFunctionalStateFormSuccessfulSaveDescription,
+            () => goToHome(context));
+      },
           onError: (_) => showDefaultAlertDialog(
               context,
               const Icon(Icons.error),

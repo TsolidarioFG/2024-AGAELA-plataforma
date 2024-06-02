@@ -7,7 +7,7 @@ import 'package:agaela_app/features/login/models/pending_form.dart';
 abstract class LoggedUser {
   final int _id;
   final String _name;
-  final List<PendingForm> _pendingForms;
+  List<PendingForm> _pendingForms;
   final bool _isCarer;
   final int _selectedId;
 
@@ -20,6 +20,9 @@ abstract class LoggedUser {
 
   UnmodifiableListView<PendingForm> get pendingForms =>
       UnmodifiableListView(_pendingForms);
+
+  set pendingForms(List<PendingForm> pendingForms) =>
+      _pendingForms = pendingForms;
 
   bool get isCarer => _isCarer;
 
