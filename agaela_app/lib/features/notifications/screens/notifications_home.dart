@@ -82,29 +82,34 @@ class _NotificationsHomeState extends State<NotificationsHome> {
             title: _title,
             formId: _formId,
             started: _startRequest,
-            child: ListView.builder(
-                itemCount: _pendingForms.length,
-                itemBuilder: (BuildContext context, int index) {
-                  int formId = _pendingForms[index].formId;
-                  String formTitle = _formsNames[formId]!;
-                  return ListTile(
-                    leading: const Icon(Icons.notification_important),
-                    title: DefaultButton(
-                      function: () => _startFormRequest(formId, formTitle),
-                      text: Provider.of<LoggedUserProvider>(context,
-                                  listen: false)
-                              .loggedUser!
-                              .isCarer
-                          ? getNotificationCaredText(
-                              (_pendingForms[index] as PendingFormCarer)
-                                  .caredId,
-                              formId,
-                              formTitle)
-                          : AppLocalizations.of(context)!
-                              .notificationsHomePendingNotification(formTitle),
-                    ),
-                  );
-                })),
+            child: _pendingForms.isEmpty
+                ? Center(
+                    child: Text(AppLocalizations.of(context)!
+                        .notificationsHomeNoNotifications))
+                : ListView.builder(
+                    itemCount: _pendingForms.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      int formId = _pendingForms[index].formId;
+                      String formTitle = _formsNames[formId]!;
+                      return ListTile(
+                        leading: const Icon(Icons.notification_important),
+                        title: DefaultButton(
+                          function: () => _startFormRequest(formId, formTitle),
+                          text: Provider.of<LoggedUserProvider>(context,
+                                      listen: false)
+                                  .loggedUser!
+                                  .isCarer
+                              ? getNotificationCaredText(
+                                  (_pendingForms[index] as PendingFormCarer)
+                                      .caredId,
+                                  formId,
+                                  formTitle)
+                              : AppLocalizations.of(context)!
+                                  .notificationsHomePendingNotification(
+                                      formTitle),
+                        ),
+                      );
+                    })),
         bottomNavigationBar: BottomAppBar(
           child: DefaultBackButton(backPage: () => goToHome(context)),
         ));

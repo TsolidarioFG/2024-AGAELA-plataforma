@@ -92,5 +92,6 @@
     "editFunctionalStateFormErrorAnswersDescription": "Houbo un erro recuperando as respostas anteriores",
     "notificationsHomeTitle": "Notificacións",
     "notificationsHomePendingNotification": "Tes pendente de cubrir o formulario {formName}",
-    "notificationsHomePendingNotificationCared": "O usuario {userName} ten pendente de cubrir o formulario {formName}"
+    "notificationsHomePendingNotificationCared": "O usuario {userName} ten pendente de cubrir o formulario {formName}",
+    "notificationsHomeNoNotifications": "Non hai ningunha notificación"
 }
