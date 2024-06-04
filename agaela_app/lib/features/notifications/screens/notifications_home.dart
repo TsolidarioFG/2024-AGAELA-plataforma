@@ -37,7 +37,10 @@ class _NotificationsHomeState extends State<NotificationsHome> {
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
 
-  void _startFormRequest(int formId, String title) {
+  void _startFormRequest(int formId, String title, int? selectedId) {
+    Provider.of<LoggedUserProvider>(context, listen: false)
+        .loggedUser!
+        .selectedId = selectedId!;
     setState(() {
       _formId.value = formId;
       _title.value = title;
@@ -91,14 +94,24 @@ class _NotificationsHomeState extends State<NotificationsHome> {
                     itemBuilder: (BuildContext context, int index) {
                       int formId = _pendingForms[index].formId;
                       String formTitle = _formsNames[formId]!;
+                      LoggedUser actualUser = Provider.of<LoggedUserProvider>(
+                              context,
+                              listen: false)
+                          .loggedUser!;
                       return ListTile(
                         leading: const Icon(Icons.notification_important),
                         title: DefaultButton(
-                          function: () => _startFormRequest(formId, formTitle),
-                          text: Provider.of<LoggedUserProvider>(context,
-                                      listen: false)
-                                  .loggedUser!
-                                  .isCarer
+                          function: () => _startFormRequest(
+                              formId,
+                              formTitle,
+                              actualUser.isCarer &&
+                                      (_pendingForms[index] as PendingFormCarer)
+                                              .caredId !=
+                                          null
+                                  ? (_pendingForms[index] as PendingFormCarer)
+                                      .caredId
+                                  : actualUser.id),
+                          text: actualUser.isCarer
                               ? getNotificationCaredText(
                                   (_pendingForms[index] as PendingFormCarer)
                                       .caredId,

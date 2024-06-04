@@ -9,7 +9,7 @@ abstract class LoggedUser {
   final String _name;
   List<PendingForm> _pendingForms;
   final bool _isCarer;
-  final int _selectedId;
+  int _selectedId;
 
   LoggedUser(this._id, this._name, this._pendingForms, this._isCarer,
       this._selectedId);
@@ -27,6 +27,8 @@ abstract class LoggedUser {
   bool get isCarer => _isCarer;
 
   int get selectedId => _selectedId;
+
+  set selectedId(int id) => _selectedId = id;
 
   bool isCared() => _id != _selectedId;
 
