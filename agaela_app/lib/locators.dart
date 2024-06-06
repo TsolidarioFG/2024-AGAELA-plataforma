@@ -7,7 +7,7 @@ import 'package:agaela_app/features/edit_profile/services/edit_profile_service_m
 import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/login/services/login_service_impl.dart';
 import 'package:agaela_app/features/password_recovery/services/password_recovery_service.dart';
-import 'package:agaela_app/features/password_recovery/services/password_recovery_service_mock.dart';
+import 'package:agaela_app/features/password_recovery/services/password_recovery_service_impl.dart';
 import 'package:agaela_app/features/report_incident/services/report_incident_service.dart';
 import 'package:agaela_app/features/report_incident/services/report_incident_service_mock.dart';
 import 'package:get_it/get_it.dart';
@@ -16,7 +16,7 @@ GetIt locator = GetIt.instance;
 
 void initLocator() {
   locator.registerLazySingleton<PasswordRecoveryService>(
-      () => PasswordRecoveryServiceMock());
+      () => PasswordRecoveryServiceImpl());
   locator.registerLazySingleton<LoginService>(() => LoginServiceImpl());
   locator.registerLazySingleton<EditProfileService>(
       () => EditProfileServiceMock());
