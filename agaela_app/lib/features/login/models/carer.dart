@@ -10,4 +10,10 @@ class Carer extends LoggedUser {
       super._isCarer, super._selectedId);
 
   UnmodifiableListView<Cared> get careds => UnmodifiableListView(_careds);
+
+  factory Carer.fromJson(Map<String, dynamic> json) {
+    int id = int.parse(json['data']['perfil']['id'] as String);
+    String name = json['data']['perfil']['nombre'] as String;
+    return Carer([], id, name, [], true, id);
+  }
 }
