@@ -89,7 +89,7 @@ class CaredHome extends StatelessWidget {
                 Provider.of<LoggedUserProvider>(context, listen: false)
                     .loggedUser! as Carer;
             Carer newCarer = Carer(carer.careds, carer.id, carer.name,
-                carer.pendingForms, carer.isCarer, carer.id);
+                carer.pendingForms, carer.isCarer, carer.id, carer.code);
             Provider.of<LoggedUserProvider>(context, listen: false)
                 .setLoggedUser(newCarer);
             GoRouter.of(context).pop();

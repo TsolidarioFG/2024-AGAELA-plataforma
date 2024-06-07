@@ -18,8 +18,8 @@ class LoginServiceMock implements LoginService {
     List<PendingForm> pendingForms = [PendingFormPersonWithAls(exampleFormId)];
     await Future.delayed(const Duration(seconds: 1));
     if (error == errorText) throw Exception();
-    LoggedUser example =
-        PersonWithAls(id, exampleName, pendingForms, exampleIsCarer, id);
+    LoggedUser example = PersonWithAls(
+        id, exampleName, pendingForms, exampleIsCarer, id, 'dvavcdsacdasc');
     return example;
   }
 
@@ -37,8 +37,8 @@ class LoginServiceMock implements LoginService {
     ];
     await Future.delayed(const Duration(seconds: 1));
     if (error == errorText) throw Exception();
-    LoggedUser example =
-        Carer(careds, id, exampleName, pendingForms, exampleIsCarer, id);
+    LoggedUser example = Carer(careds, id, exampleName, pendingForms,
+        exampleIsCarer, id, 'jhisdcbuyhsadbcuyh');
     return example;
   }
 

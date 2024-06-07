@@ -21,7 +21,7 @@ class _CaredsDropdownState extends State<CaredsDropdown> {
 
   void _setSelectedUserId(int selectedUserId) {
     Carer newCarer = Carer(_carer.careds, _carer.id, _carer.name,
-        _carer.pendingForms, _carer.isCarer, selectedUserId);
+        _carer.pendingForms, _carer.isCarer, selectedUserId, _carer.code);
     Provider.of<LoggedUserProvider>(context, listen: false)
         .setLoggedUser(newCarer);
   }
