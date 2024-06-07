@@ -1,7 +1,7 @@
 import 'package:agaela_app/features/edit_functional_state/services/edit_functional_state_service.dart';
 import 'package:agaela_app/features/edit_functional_state/services/edit_funtional_state_service_mock.dart';
 import 'package:agaela_app/features/edit_password/services/edit_password_service.dart';
-import 'package:agaela_app/features/edit_password/services/edit_password_service_mock.dart';
+import 'package:agaela_app/features/edit_password/services/edit_password_service_impl.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service_mock.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
@@ -21,7 +21,7 @@ void initLocator() {
   locator.registerLazySingleton<EditProfileService>(
       () => EditProfileServiceMock());
   locator.registerLazySingleton<EditPasswordService>(
-      () => EditPasswordServiceMock());
+      () => EditPasswordServiceImpl());
   locator.registerLazySingleton<ReportIncidentService>(
       () => ReportIncidentServiceMock());
   locator.registerLazySingleton<EditFunctionalStateService>(
