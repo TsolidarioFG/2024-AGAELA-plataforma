@@ -5,6 +5,7 @@ import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/person_with_als.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
+import 'package:agaela_app/utils/token_utils.dart';
 import 'package:http/http.dart' as http;
 
 const _path = '/auth/login';
@@ -24,6 +25,7 @@ class LoginServiceImpl implements LoginService {
       LoggedUser user;
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
+      setToken(json['data']['token']);
       json['data']['perfil']['tipoPerfil']['nombre'] == 'Afectado'
           ? user = PersonWithAls.fromJson(json)
           : user = Carer.fromJson(json);
