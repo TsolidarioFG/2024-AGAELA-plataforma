@@ -6,6 +6,7 @@ import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
+import 'package:agaela_app/features/login/models/cared.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
@@ -40,8 +41,9 @@ class _EditProfileHomeState extends State<EditProfileHome> {
     super.initState();
     _actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _request =
-        _editProfileService.getUserProfileInformation(_actualUser.selectedId);
+    Cared? actualCared = _actualUser.getActualCared();
+    String code = actualCared == null ? _actualUser.code : actualCared.code;
+    _request = _editProfileService.getUserProfileInformation(code);
     _request!.then(
         (userInformation) =>
             Provider.of<UserProfileInformationProvider>(context, listen: false)

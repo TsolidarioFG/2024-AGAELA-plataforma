@@ -11,10 +11,10 @@ class Carer extends LoggedUser {
 
   UnmodifiableListView<Cared> get careds => UnmodifiableListView(_careds);
 
-  factory Carer.fromJson(Map<String, dynamic> json) {
+  factory Carer.fromJson(Map<String, dynamic> json, List<Cared> careds) {
     int id = int.parse(json['data']['perfil']['id'] as String);
     String name = json['data']['perfil']['nombre'] as String;
     String code = json['data']['perfil']['codigo'] as String;
-    return Carer([], id, name, [], true, id, code);
+    return Carer(careds, id, name, [], true, id, code);
   }
 }

@@ -32,8 +32,8 @@ class LoginServiceMock implements LoginService {
     const exampleIsCarer = true;
     List<PendingForm> pendingForms = [PendingFormCarer(2, exampleFormId)];
     List<Cared> careds = [
-      Cared(2, 'test2', 'test2'),
-      Cared(3, 'test3', 'test3')
+      Cared(2, 'test2', 'test2', 'cdscasdc'),
+      Cared(3, 'test3', 'test3', 'dsacdscc')
     ];
     await Future.delayed(const Duration(seconds: 1));
     if (error == errorText) throw Exception();
@@ -45,5 +45,11 @@ class LoginServiceMock implements LoginService {
   @override
   Future<LoggedUser> login(String dni, String password) async {
     return dni == '11111111A' ? loginNormalUser() : loginCarer();
+  }
+
+  @override
+  Future<List<Cared>> getCareds() {
+    // TODO: implement getCareds
+    throw UnimplementedError();
   }
 }
