@@ -75,4 +75,52 @@ class UserProfileInformation {
   String get address => _address;
 
   String get profession => _profession;
+
+  factory UserProfileInformation.fromJson(Map<String, dynamic> json) {
+    String name = json['nombre'] as String;
+    String lastName1 = json['apellido1'] as String;
+    String lastName2 = json['apellido2'] as String;
+    String dni = json['dni'] as String;
+    DateTime birthDate = DateTime.parse(json['fechaNacimiento'] as String);
+    Iterable telephones = json['telefonos'];
+    List<int> telephoneNumbers = List<int>.from(
+        telephones.map((telephone) => int.parse(telephone as String)));
+    Iterable emailsIterable = json['emails'];
+    List<String> emails =
+        List<String>.from(emailsIterable.map((email) => email as String));
+    String iban = json['iban'] as String;
+    String? feeAmountString = json['cuotaSocio']['importe'] as String?;
+    feeAmountString ??= '0.0';
+    double feeAmountDouble = double.parse(feeAmountString);
+    int feeAmount = feeAmountDouble.round();
+    bool acceptSendNews = json['aceptaPublicidad'] as bool;
+    bool acceptLegalNotice = json['aceptaAvisoLegal'] as bool;
+    Province province = Province(
+        int.parse(json['ubicacion']['id'] as String),
+        json['ubicacion']['nombre'] as String,
+        int.parse(json['ubicacion']['idPadre'] as String));
+    String city = json['ciudad'] as String;
+    String postalCode = json['codigoPostal'] as String;
+    String address = json['direccion'] as String;
+    String? profession = json['profesion'] as String?;
+    profession ??= '';
+    return UserProfileInformation(
+        name,
+        lastName1,
+        lastName2,
+        dni,
+        birthDate,
+        telephoneNumbers,
+        emails,
+        iban,
+        feeAmount,
+        acceptSendNews,
+        acceptLegalNotice,
+        Country(1, 'España'),
+        province,
+        city,
+        postalCode,
+        address,
+        profession);
+  }
 }

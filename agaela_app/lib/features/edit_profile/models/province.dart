@@ -10,4 +10,11 @@ class Province {
   String get provinceName => _provinceName;
 
   int get countryCode => _countryCode;
+
+  factory Province.fromJson(Map<String, dynamic> json) {
+    int id = int.parse(json['id'] as String);
+    String name = json['nombre'] as String;
+    int fatherId = int.parse(json['idPadre'] as String);
+    return Province(id, name, fatherId);
+  }
 }
