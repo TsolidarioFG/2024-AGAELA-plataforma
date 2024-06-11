@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
+import 'package:intl/intl.dart';
 
 class UserProfileInformation {
   final String _name;
@@ -127,7 +128,7 @@ class UserProfileInformation {
         'nombre': name,
         'apellido1': lastName1,
         'apellido2': lastName2,
-        'fechaNacimiento': birthDate,
+        'fechaNacimiento': DateFormat('dd/MM/yyyy').format(birthDate),
         'dni': dni,
         'profesion': profession,
         'idUbicacion': province.provinceCode,
