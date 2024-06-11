@@ -38,7 +38,9 @@ class _ReportIncidentState extends State<ReportIncident> {
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     setState(() {
       _request = _reportIncidentService.reportIncident(
-          actualUser.selectedId, _incidentTextController.text);
+          actualUser.getActualCode(),
+          actualUser.name,
+          _incidentTextController.text);
       _request!.then(
           (_) => showDefaultAlertDialog(
               context,
