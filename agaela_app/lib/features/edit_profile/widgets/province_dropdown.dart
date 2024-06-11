@@ -25,8 +25,10 @@ class ProvinceDropdown extends FormField<Province> {
                     expandedInsets: EdgeInsets.zero,
                     label: Text(AppLocalizations.of(state.context)!
                         .editProfileLocalizationAndProfessionProvincesField),
-                    initialSelection: provinces.firstWhere((element) =>
-                        element.provinceCode == state.value!.provinceCode),
+                    initialSelection: provinces.firstWhere(
+                        (element) =>
+                            element.provinceCode == state.value!.provinceCode,
+                        orElse: () => provinces.first),
                     dropdownMenuEntries: provinces
                         .map<DropdownMenuEntry<Province>>((Province value) {
                       return DropdownMenuEntry(

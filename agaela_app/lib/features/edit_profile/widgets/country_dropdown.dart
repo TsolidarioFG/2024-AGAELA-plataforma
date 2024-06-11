@@ -28,8 +28,10 @@ class CountryDropdown extends FormField<Country> {
                     expandedInsets: EdgeInsets.zero,
                     label: Text(AppLocalizations.of(state.context)!
                         .editProfileLocalizationAndProfessionCountriesField),
-                    initialSelection: countries.firstWhere((element) =>
-                        element.countryCode == state.value!.countryCode),
+                    initialSelection: countries.firstWhere(
+                        (element) =>
+                            element.countryCode == state.value!.countryCode,
+                        orElse: () => countries.first),
                     dropdownMenuEntries: countries
                         .map<DropdownMenuEntry<Country>>((Country value) {
                       return DropdownMenuEntry(
