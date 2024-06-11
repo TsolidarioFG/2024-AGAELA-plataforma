@@ -6,7 +6,6 @@ import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/utils/token_utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 String _userProfileInformationPath(code) => '/socio/$code';
@@ -76,8 +75,6 @@ class EditProfileServiceImpl implements EditProfileService {
   @override
   Future<void> setUserProfileInformation(
       String code, UserProfileInformation userInformation) async {
-    debugPrint(_userProfileInformationPath(code));
-    debugPrint(jsonEncode(userInformation.toJson()).toString());
     final response = await http.put(
         Uri.parse('$baseUrl${_userProfileInformationPath(code)}'),
         headers: await _jsonAuthHeaders(),

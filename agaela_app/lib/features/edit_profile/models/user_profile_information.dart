@@ -135,6 +135,9 @@ class UserProfileInformation {
         'direccion': address,
         'codigoPostal': postalCode,
         'ciudad': city,
+        'iban': iban,
+        'emails': emails,
+        'telefonos': telephoneNumbers,
         'importeSocioCuota': feeAmount,
         'aceptaAvisoLegal': acceptLegalNotice ? 1 : 0,
         'aceptaPublicidad': acceptSendNews ? 1 : 0
