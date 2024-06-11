@@ -34,10 +34,10 @@ class LoginServiceImpl implements LoginService {
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
       await setToken(json['data']['token']);
+      List<Cared> careds = await getCareds();
       if (json['data']['perfil']['tipoPerfil']['nombre'] == 'Afectado') {
-        user = PersonWithAls.fromJson(json);
+        user = PersonWithAls.fromJson(json, careds.first.code);
       } else {
-        List<Cared> careds = await getCareds();
         user = Carer.fromJson(json, careds);
       }
       return user;
