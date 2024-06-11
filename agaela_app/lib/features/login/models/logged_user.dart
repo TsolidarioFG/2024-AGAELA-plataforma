@@ -44,4 +44,9 @@ abstract class LoggedUser {
       return null;
     }
   }
+
+  String getActualCode() {
+    Cared? actualCared = getActualCared();
+    return actualCared == null ? code : actualCared.code;
+  }
 }
