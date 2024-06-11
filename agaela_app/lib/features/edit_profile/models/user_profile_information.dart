@@ -77,33 +77,32 @@ class UserProfileInformation {
   String get profession => _profession;
 
   factory UserProfileInformation.fromJson(Map<String, dynamic> json) {
-    String name = json['nombre'] as String;
-    String lastName1 = json['apellido1'] as String;
-    String lastName2 = json['apellido2'] as String;
-    String dni = json['dni'] as String;
-    DateTime birthDate = DateTime.parse(json['fechaNacimiento'] as String);
-    Iterable telephones = json['telefonos'];
+    String name = json['nombre'] as String? ?? '';
+    String lastName1 = json['apellido1'] as String? ?? '';
+    String lastName2 = json['apellido2'] as String? ?? '';
+    String dni = json['dni'] as String? ?? '';
+    DateTime? birthDate = DateTime.parse(
+        json['fechaNacimiento'] as String? ?? DateTime.now().toIso8601String());
+    Iterable telephones = json['telefonos'] ?? [];
     List<int> telephoneNumbers = List<int>.from(
         telephones.map((telephone) => int.parse(telephone as String)));
-    Iterable emailsIterable = json['emails'];
+    Iterable emailsIterable = json['emails'] ?? [];
     List<String> emails =
         List<String>.from(emailsIterable.map((email) => email as String));
-    String iban = json['iban'] as String;
-    String? feeAmountString = json['cuotaSocio']['importe'] as String?;
-    feeAmountString ??= '0.0';
+    String iban = json['iban'] as String? ?? '';
+    String feeAmountString = json['cuotaSocio']['importe'] as String? ?? '0.0';
     double feeAmountDouble = double.parse(feeAmountString);
     int feeAmount = feeAmountDouble.round();
-    bool acceptSendNews = json['aceptaPublicidad'] as bool;
-    bool acceptLegalNotice = json['aceptaAvisoLegal'] as bool;
+    bool acceptSendNews = json['aceptaPublicidad'] as bool? ?? false;
+    bool acceptLegalNotice = json['aceptaAvisoLegal'] as bool? ?? true;
     Province province = Province(
-        int.parse(json['ubicacion']['id'] as String),
-        json['ubicacion']['nombre'] as String,
-        int.parse(json['ubicacion']['idPadre'] as String));
-    String city = json['ciudad'] as String;
-    String postalCode = json['codigoPostal'] as String;
-    String address = json['direccion'] as String;
-    String? profession = json['profesion'] as String?;
-    profession ??= '';
+        int.parse(json['ubicacion']['id'] as String? ?? '72'),
+        json['ubicacion']['nombre'] as String? ?? 'A Coruña',
+        int.parse(json['ubicacion']['idPadre'] as String? ?? '13'));
+    String city = json['ciudad'] as String? ?? '';
+    String postalCode = json['codigoPostal'] as String? ?? '';
+    String address = json['direccion'] as String? ?? '';
+    String? profession = json['profesion'] as String? ?? '';
     return UserProfileInformation(
         name,
         lastName1,
@@ -123,4 +122,20 @@ class UserProfileInformation {
         address,
         profession);
   }
+
+  Map<String, dynamic> toJson() => {
+        'nombre': name,
+        'apellido1': lastName1,
+        'apellido2': lastName2,
+        'fechaNacimiento': birthDate,
+        'dni': dni,
+        'profesion': profession,
+        'idUbicacion': province.provinceCode,
+        'direccion': address,
+        'codigoPostal': postalCode,
+        'ciudad': city,
+        'importeSocioCuota': feeAmount,
+        'aceptaAvisoLegal': acceptLegalNotice ? 1 : 0,
+        'aceptaPublicidad': acceptSendNews ? 1 : 0
+      };
 }
