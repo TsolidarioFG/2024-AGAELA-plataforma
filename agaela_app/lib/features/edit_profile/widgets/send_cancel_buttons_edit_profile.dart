@@ -43,7 +43,7 @@ class _SendCancelButtonsEditProfileState
     UserProfileInformation user = widget.createUser();
     setState(() {
       _saveChangesRequest = _editProfileService.setUserProfileInformation(
-          userInformation.selectedId, user);
+          userInformation.getActualCode(), user);
       _saveChangesRequest!.then(
           (_) => {
                 Provider.of<UserProfileInformationProvider>(context,

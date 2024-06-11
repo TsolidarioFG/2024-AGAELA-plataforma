@@ -6,7 +6,7 @@ abstract class EditProfileService {
   Future<UserProfileInformation> getUserProfileInformation(String code);
 
   Future<void> setUserProfileInformation(
-      int id, UserProfileInformation userInformation);
+      String code, UserProfileInformation userInformation);
 
   Future<List<Country>> getCountries();
 
