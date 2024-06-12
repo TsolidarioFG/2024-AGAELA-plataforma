@@ -98,7 +98,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     _questions = actualForm.questions;
     _answersSelecteds = {};
     _previousAnswers = _editFunctionalStateService.getPreviousAnswers(
-        actualForm.formId, actualUser.selectedId);
+        actualForm.formId, actualUser.getActualCode());
     _previousAnswers!.then((answers) {
       if (answers == null) {
         for (Question question in _questions) {

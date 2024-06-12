@@ -193,7 +193,7 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
 
   @override
   Future<Map<String, String>?> getPreviousAnswers(
-      String formId, int userId) async {
+      String formId, String partnerCode) async {
     const errorText = 'no';
     const firstQuestionId = 'a';
     const secondQuestionId = 'b';
