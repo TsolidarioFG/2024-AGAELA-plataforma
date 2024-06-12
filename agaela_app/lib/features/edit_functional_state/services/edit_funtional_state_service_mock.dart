@@ -222,7 +222,7 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
 
   @override
   Future<void> saveForm(
-      String formId, int userId, Map<String, String> answers) async {
+      String formId, String partnerCode, Map<String, String> answers) async {
     const errorText = 'no';
     await Future.delayed(const Duration(seconds: 1));
     if (errorText == 'error') throw Exception();

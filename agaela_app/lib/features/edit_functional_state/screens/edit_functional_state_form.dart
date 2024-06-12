@@ -62,7 +62,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     setState(() {
       _saveForm = _editFunctionalStateService.saveForm(
-          actualForm.formId, actualUser.selectedId, _answersSelecteds!);
+          actualForm.formId, actualUser.getActualCode(), _answersSelecteds!);
       _saveForm!.then((_) {
         List<PendingForm> pendingForms = [];
         pendingForms.addAll(actualUser.pendingForms);
