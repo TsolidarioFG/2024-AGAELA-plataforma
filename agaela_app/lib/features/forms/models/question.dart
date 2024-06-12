@@ -14,4 +14,14 @@ class Question {
   String get title => _title;
 
   UnmodifiableListView<Answer> get answers => UnmodifiableListView(_answers);
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    int id = int.parse(json['id'] as String);
+    String code = json['code'] as String;
+    String text = json['texto'] as String;
+    Iterable answersJson = json['respuestas'];
+    List<Answer> answers =
+        List<Answer>.from(answersJson.map((answer) => Answer.fromJson(answer)));
+    return Question(id, text, answers);
+  }
 }
