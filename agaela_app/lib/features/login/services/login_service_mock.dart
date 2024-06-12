@@ -12,7 +12,7 @@ class LoginServiceMock implements LoginService {
     const error = 'no';
     const errorText = 'error';
     const exampleName = 'example';
-    const exampleFormId = 1;
+    const exampleFormId = 'sdacsadcd';
     const id = 1;
     const exampleIsCarer = false;
     List<PendingForm> pendingForms = [PendingFormPersonWithAls(exampleFormId)];
@@ -27,7 +27,7 @@ class LoginServiceMock implements LoginService {
     const error = 'no';
     const errorText = 'error';
     const exampleName = 'example';
-    const exampleFormId = 1;
+    const exampleFormId = 'cdscsad';
     const id = 1;
     const exampleIsCarer = true;
     List<PendingForm> pendingForms = [PendingFormCarer(2, exampleFormId)];

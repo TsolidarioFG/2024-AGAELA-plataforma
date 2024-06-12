@@ -1,3 +1,4 @@
+import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/features/edit_functional_state/services/edit_functional_state_service.dart';
 import 'package:agaela_app/features/forms/models/answer.dart';
 import 'package:agaela_app/features/forms/models/question.dart';
@@ -125,7 +126,7 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
   }
 
   @override
-  Future<List<Question>> getFormQuestions(int formId) async {
+  Future<List<Question>> getFormQuestions(String formId) async {
     const errorText = 'no';
     Answer answer1 = Answer(1, 'Yes');
     Answer answer2 = Answer(2, 'No');
@@ -141,15 +142,15 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
     Answer answer9 = Answer(3, 'Maybe');
     Question thirdQuestion = Question(3, 'Test 3', [answer7, answer8, answer9]);
     List<Question> questions = [firstQuestion, secondQuestion, thirdQuestion];
-    if (formId == 1) questions = ratingScale();
-    if (formId == 3) questions = caregiverOverload();
+    if (formId == ratingScaleFormId) questions = ratingScale();
+    if (formId == caregiverOverloadFormId) questions = caregiverOverload();
     await Future.delayed(const Duration(seconds: 1));
     if (errorText == 'error') throw Exception();
     return questions;
   }
 
   @override
-  Future<Map<int, int>?> getPreviousAnswers(int formId, int userId) async {
+  Future<Map<int, int>?> getPreviousAnswers(String formId, int userId) async {
     const errorText = 'no';
     const firstQuestionId = 1;
     const secondQuestionId = 2;
@@ -177,7 +178,8 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
   }
 
   @override
-  Future<void> saveForm(int formId, int userId, Map<int, int> answers) async {
+  Future<void> saveForm(
+      String formId, int userId, Map<int, int> answers) async {
     const errorText = 'no';
     await Future.delayed(const Duration(seconds: 1));
     if (errorText == 'error') throw Exception();

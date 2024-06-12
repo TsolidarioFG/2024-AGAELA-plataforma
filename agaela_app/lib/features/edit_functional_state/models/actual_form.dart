@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:agaela_app/features/forms/models/question.dart';
 
 class ActualForm {
-  final int _formId;
+  final String _formId;
   final String _title;
   final List<Question> _questions;
 
@@ -14,5 +14,5 @@ class ActualForm {
   UnmodifiableListView<Question> get questions =>
       UnmodifiableListView(_questions);
 
-  int get formId => _formId;
+  String get formId => _formId;
 }

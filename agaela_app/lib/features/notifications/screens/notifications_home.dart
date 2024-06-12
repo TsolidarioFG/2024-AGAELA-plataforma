@@ -23,7 +23,7 @@ class NotificationsHome extends StatefulWidget {
 class _NotificationsHomeState extends State<NotificationsHome> {
   late List<PendingForm> _pendingForms;
 
-  late final Map<int, String> _formsNames = <int, String>{};
+  late final Map<String, String> _formsNames = <String, String>{};
 
   @override
   void initState() {
@@ -33,11 +33,11 @@ class _NotificationsHomeState extends State<NotificationsHome> {
         .pendingForms;
   }
 
-  final ValueNotifier<int> _formId = ValueNotifier<int>(-1);
+  final ValueNotifier<String> _formId = ValueNotifier<String>('');
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
 
-  void _startFormRequest(int formId, String title, int? selectedId) {
+  void _startFormRequest(String formId, String title, int? selectedId) {
     Provider.of<LoggedUserProvider>(context, listen: false)
         .loggedUser!
         .selectedId = selectedId!;
@@ -59,7 +59,8 @@ class _NotificationsHomeState extends State<NotificationsHome> {
     super.didChangeDependencies();
   }
 
-  String getNotificationCaredText(int? caredId, int formId, String formTitle) {
+  String getNotificationCaredText(
+      int? caredId, String formId, String formTitle) {
     if (caredId == null) {
       return AppLocalizations.of(context)!
           .notificationsHomePendingNotification(formTitle);
@@ -92,7 +93,7 @@ class _NotificationsHomeState extends State<NotificationsHome> {
                 : ListView.builder(
                     itemCount: _pendingForms.length,
                     itemBuilder: (BuildContext context, int index) {
-                      int formId = _pendingForms[index].formId;
+                      String formId = _pendingForms[index].formId;
                       String formTitle = _formsNames[formId]!;
                       LoggedUser actualUser = Provider.of<LoggedUserProvider>(
                               context,

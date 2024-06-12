@@ -22,11 +22,11 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
 
   final double width = 5.0;
 
-  final ValueNotifier<int> _formId = ValueNotifier<int>(-1);
+  final ValueNotifier<String> _formId = ValueNotifier<String>('');
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
 
-  void _startFormRequest(String title, int formId) {
+  void _startFormRequest(String title, String formId) {
     setState(() {
       _title.value = title;
       _formId.value = formId;

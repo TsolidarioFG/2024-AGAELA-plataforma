@@ -22,7 +22,7 @@ class FormRequestWidget extends StatefulWidget {
 
   final ValueNotifier<String> title;
 
-  final ValueNotifier<int> formId;
+  final ValueNotifier<String> formId;
 
   final ValueNotifier<bool> started;
 
@@ -36,7 +36,7 @@ class _FormRequestWidgetState extends State<FormRequestWidget> {
 
   Future<List<Question>>? _request;
 
-  void _startForm(String title, int formId) {
+  void _startForm(String title, String formId) {
     setState(() {
       _request = _editFunctionalStateService.getFormQuestions(formId);
       _request!.then((questions) {

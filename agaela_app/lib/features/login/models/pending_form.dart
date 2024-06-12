@@ -1,7 +1,7 @@
 abstract class PendingForm {
-  final int _formId;
+  final String _formId;
 
   PendingForm(this._formId);
 
-  int get formId => _formId;
+  String get formId => _formId;
 }
