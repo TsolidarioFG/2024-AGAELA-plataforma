@@ -192,21 +192,22 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
   }
 
   @override
-  Future<Map<int, int>?> getPreviousAnswers(String formId, int userId) async {
+  Future<Map<String, String>?> getPreviousAnswers(
+      String formId, int userId) async {
     const errorText = 'no';
-    const firstQuestionId = 1;
-    const secondQuestionId = 2;
-    const thirdQuestionId = 3;
-    const fourthQuestionId = 4;
-    const fifthQuestionId = 5;
-    const sixthQuestionId = 6;
-    const seventhQuestionId = 7;
-    const firstAnswerId = 1;
-    const secondAnswerId = 2;
-    const thirdAnswerId = 3;
-    const fourthAnswerId = 4;
-    const fifthAnswerId = 5;
-    Map<int, int> answers = {};
+    const firstQuestionId = 'a';
+    const secondQuestionId = 'b';
+    const thirdQuestionId = 'c';
+    const fourthQuestionId = 'd';
+    const fifthQuestionId = 'e';
+    const sixthQuestionId = 'f';
+    const seventhQuestionId = 'g';
+    const firstAnswerId = 'aa';
+    const secondAnswerId = 'bb';
+    const thirdAnswerId = 'cc';
+    const fourthAnswerId = 'dd';
+    const fifthAnswerId = 'ee';
+    Map<String, String> answers = {};
     answers[firstQuestionId] = secondAnswerId;
     answers[secondQuestionId] = firstAnswerId;
     answers[thirdQuestionId] = thirdAnswerId;
@@ -221,7 +222,7 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
 
   @override
   Future<void> saveForm(
-      String formId, int userId, Map<int, int> answers) async {
+      String formId, int userId, Map<String, String> answers) async {
     const errorText = 'no';
     await Future.delayed(const Duration(seconds: 1));
     if (errorText == 'error') throw Exception();

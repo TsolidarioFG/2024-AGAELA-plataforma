@@ -33,13 +33,13 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
 
   bool _correctValues = false;
 
-  final inexistentId = -1;
+  final inexistentId = '-1';
   late String _title;
   late List<Question> _questions;
 
-  Map<int, int>? _answersSelecteds;
+  Map<String, String>? _answersSelecteds;
 
-  Future<Map<int, int>?>? _previousAnswers;
+  Future<Map<String, String>?>? _previousAnswers;
 
   Future<void>? _saveForm;
 
@@ -102,7 +102,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     _previousAnswers!.then((answers) {
       if (answers == null) {
         for (Question question in _questions) {
-          _answersSelecteds![question.id] = inexistentId;
+          _answersSelecteds![question.code] = inexistentId;
         }
       } else {
         _answersSelecteds!.addAll(answers);
@@ -123,52 +123,55 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
         appBar: TextAppbar(text: '$_title ${getCaredName(context)}'),
         body: FutureBuilder(
           future: _previousAnswers,
-          builder: (BuildContext context, AsyncSnapshot snapshot) => snapshot
-                      .connectionState ==
-                  ConnectionState.waiting
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(10),
-                  itemCount: _questions.length,
-                  itemBuilder: (BuildContext context, int questionIndex) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        TextBoldStyle(
-                          text: _questions[questionIndex].title,
-                          textMaxLines: 5,
-                        ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: _questions[questionIndex].answers.length,
-                            itemBuilder:
-                                (BuildContext context, int answerIndex) {
-                              int questionId = _questions[questionIndex].id;
-                              int answerId = _questions[questionIndex]
-                                  .answers[answerIndex]
-                                  .id;
-                              String answerText = _questions[questionIndex]
-                                  .answers[answerIndex]
-                                  .text;
-                              return ListTile(
-                                  title: ListButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _answersSelecteds![questionId] = answerId;
-                                    _checkCorrectValues();
-                                  });
-                                },
-                                selected:
-                                    _answersSelecteds![questionId] == answerId,
-                                text: answerText,
-                              ));
-                            })
-                      ],
-                    );
-                  }),
+          builder: (BuildContext context, AsyncSnapshot snapshot) =>
+              snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      padding: const EdgeInsets.all(10),
+                      itemCount: _questions.length,
+                      itemBuilder: (BuildContext context, int questionIndex) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TextBoldStyle(
+                              text: _questions[questionIndex].title,
+                              textMaxLines: 5,
+                            ),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount:
+                                    _questions[questionIndex].answers.length,
+                                itemBuilder:
+                                    (BuildContext context, int answerIndex) {
+                                  String questionCode =
+                                      _questions[questionIndex].code;
+                                  String answerCode = _questions[questionIndex]
+                                      .answers[answerIndex]
+                                      .code;
+                                  String answerText = _questions[questionIndex]
+                                      .answers[answerIndex]
+                                      .text;
+                                  return ListTile(
+                                      title: ListButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _answersSelecteds![questionCode] =
+                                            answerCode;
+                                        _checkCorrectValues();
+                                      });
+                                    },
+                                    selected:
+                                        _answersSelecteds![questionCode] ==
+                                            answerCode,
+                                    text: answerText,
+                                  ));
+                                })
+                          ],
+                        );
+                      }),
         ),
         bottomNavigationBar: BottomAppBar(
             child: FutureBuilder(

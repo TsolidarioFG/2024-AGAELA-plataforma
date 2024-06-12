@@ -20,7 +20,7 @@ class Question {
 
   factory Question.fromJson(Map<String, dynamic> json) {
     int id = int.parse(json['id'] as String);
-    String code = json['code'] as String;
+    String code = json['codigo'] as String;
     String text = json['texto'] as String;
     Iterable answersJson = json['respuestas'];
     List<Answer> answers =
