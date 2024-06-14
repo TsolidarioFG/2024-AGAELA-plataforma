@@ -3,10 +3,12 @@ import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/form_request_widget.dart';
 import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/constants/global_constants.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class CarerHome extends StatefulWidget {
   const CarerHome({super.key});
@@ -86,11 +88,18 @@ class _CarerHomeState extends State<CarerHome> {
                       ),
                       const Icon(Icons.notification_important),
                       Expanded(
-                          child: DefaultButton(
-                              function: () => context
-                                  .goNamed(RoutesNames.notificationsHome.name),
-                              text: AppLocalizations.of(context)!
-                                  .carerHomeNotifications)),
+                          child: Badge(
+                              label: Text(Provider.of<LoggedUserProvider>(
+                                      context,
+                                      listen: false)
+                                  .loggedUser!
+                                  .getPendingNotificationsNumber()
+                                  .toString()),
+                              child: DefaultButton(
+                                  function: () => context.goNamed(
+                                      RoutesNames.notificationsHome.name),
+                                  text: AppLocalizations.of(context)!
+                                      .carerHomeNotifications))),
                       const Icon(Icons.account_circle),
                       Expanded(
                           child: DefaultButton(

@@ -49,4 +49,8 @@ abstract class LoggedUser {
     Cared? actualCared = getActualCared();
     return actualCared == null ? code : actualCared.code;
   }
+
+  int getPendingNotificationsNumber() {
+    return pendingForms.length;
+  }
 }
