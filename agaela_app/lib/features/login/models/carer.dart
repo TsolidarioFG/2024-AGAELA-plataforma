@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:agaela_app/features/login/models/cared.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
+import 'package:agaela_app/features/login/models/pending_form.dart';
 
 class Carer extends LoggedUser {
   final List<Cared> _careds;
@@ -11,10 +12,11 @@ class Carer extends LoggedUser {
 
   UnmodifiableListView<Cared> get careds => UnmodifiableListView(_careds);
 
-  factory Carer.fromJson(Map<String, dynamic> json, List<Cared> careds) {
+  factory Carer.fromJson(Map<String, dynamic> json, List<Cared> careds,
+      List<PendingForm> pendingForms) {
     int id = int.parse(json['data']['perfil']['id'] as String);
     String name = json['data']['perfil']['nombre'] as String;
     String code = json['data']['perfil']['codigo'] as String;
-    return Carer(careds, id, name, [], true, id, code);
+    return Carer(careds, id, name, pendingForms, true, id, code);
   }
 }

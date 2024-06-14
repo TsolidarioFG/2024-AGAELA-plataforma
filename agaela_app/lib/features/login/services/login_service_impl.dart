@@ -4,8 +4,11 @@ import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/features/login/models/cared.dart';
 import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
+import 'package:agaela_app/features/login/models/pending_form.dart';
 import 'package:agaela_app/features/login/models/person_with_als.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
+import 'package:agaela_app/features/notifications/services/notifications_service.dart';
+import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/utils/token_utils.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,6 +28,9 @@ Object _body(String dni, String password) {
 }
 
 class LoginServiceImpl implements LoginService {
+  final NotificationsService _notificationsService =
+      locator<NotificationsService>();
+
   @override
   Future<LoggedUser> login(String dni, String password) async {
     final response = await http.post(Uri.parse('$baseUrl$_path'),
@@ -36,9 +42,13 @@ class LoginServiceImpl implements LoginService {
       await setToken(json['data']['token']);
       List<Cared> careds = await getCareds();
       if (json['data']['perfil']['tipoPerfil']['nombre'] == 'Afectado') {
-        user = PersonWithAls.fromJson(json, careds.first.code);
+        List<PendingForm> pendingForms =
+            await _notificationsService.getNotifications(false);
+        user = PersonWithAls.fromJson(json, careds.first.code, pendingForms);
       } else {
-        user = Carer.fromJson(json, careds);
+        List<PendingForm> pendingForms =
+            await _notificationsService.getNotifications(true);
+        user = Carer.fromJson(json, careds, pendingForms);
       }
       return user;
     } else {
