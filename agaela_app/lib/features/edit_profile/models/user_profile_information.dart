@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:intl/intl.dart';
@@ -78,6 +79,7 @@ class UserProfileInformation {
   String get profession => _profession;
 
   factory UserProfileInformation.fromJson(Map<String, dynamic> json) {
+    const minimumCountryNotSpainId = 8000;
     String name = json['nombre'] as String? ?? '';
     String lastName1 = json['apellido1'] as String? ?? '';
     String lastName2 = json['apellido2'] as String? ?? '';
@@ -96,10 +98,10 @@ class UserProfileInformation {
     int feeAmount = feeAmountDouble.round();
     bool acceptSendNews = json['aceptaPublicidad'] as bool? ?? false;
     bool acceptLegalNotice = json['aceptaAvisoLegal'] as bool? ?? true;
-    Province province = Province(
-        int.parse(json['ubicacion']['id'] as String? ?? '72'),
-        json['ubicacion']['nombre'] as String? ?? 'A Coruña',
-        int.parse(json['ubicacion']['idPadre'] as String? ?? '13'));
+    int ubicationId = int.parse(json['ubicacion']['id'] as String);
+    String ubicationName = json['ubicacion']['nombre'] as String;
+    int ubicationParentId = int.parse(json['ubicacion']['idPadre'] as String);
+    Province province = Province(ubicationId, ubicationName, ubicationParentId);
     String city = json['ciudad'] as String? ?? '';
     String postalCode = json['codigoPostal'] as String? ?? '';
     String address = json['direccion'] as String? ?? '';
@@ -116,7 +118,9 @@ class UserProfileInformation {
         feeAmount,
         acceptSendNews,
         acceptLegalNotice,
-        Country(1, 'España'),
+        ubicationId >= minimumCountryNotSpainId
+            ? Country(ubicationId, ubicationName)
+            : Country(spainCountryCode, 'España'),
         province,
         city,
         postalCode,
@@ -131,7 +135,9 @@ class UserProfileInformation {
         'fechaNacimiento': DateFormat('dd/MM/yyyy').format(birthDate),
         'dni': dni,
         'profesion': profession,
-        'idUbicacion': province.provinceCode,
+        'idUbicacion': country.countryCode != spainCountryCode
+            ? country.countryCode
+            : province.provinceCode,
         'direccion': address,
         'codigoPostal': postalCode,
         'ciudad': city,
