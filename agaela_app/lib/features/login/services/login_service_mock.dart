@@ -32,7 +32,9 @@ class LoginServiceMock implements LoginService {
     const exampleFormId = 'cdscsad';
     const id = 1;
     const exampleIsCarer = true;
-    List<PendingForm> pendingForms = [PendingFormCarer(2, exampleFormId, '')];
+    List<PendingForm> pendingForms = [
+      PendingFormCarer('cddacda', exampleFormId, '')
+    ];
     List<Cared> careds = [
       Cared(2, 'test2', 'test2', 'cdscasdc'),
       Cared(3, 'test3', 'test3', 'dsacdscc')

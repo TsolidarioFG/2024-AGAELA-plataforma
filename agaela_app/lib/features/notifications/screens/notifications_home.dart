@@ -37,10 +37,18 @@ class _NotificationsHomeState extends State<NotificationsHome> {
   final ValueNotifier<String> _title = ValueNotifier<String>('');
   final ValueNotifier<bool> _startRequest = ValueNotifier<bool>(false);
 
-  void _startFormRequest(String formId, String title, int? selectedId) {
+  void _startFormRequest(String formId, String title, String? code) {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    int id = actualUser.isCarer && code! != actualUser.code
+        ? (actualUser as Carer)
+            .careds
+            .firstWhere((careds) => careds.code == code)
+            .id
+        : actualUser.id;
     Provider.of<LoggedUserProvider>(context, listen: false)
         .loggedUser!
-        .selectedId = selectedId!;
+        .selectedId = id;
     setState(() {
       _formId.value = formId;
       _title.value = title;
@@ -95,6 +103,7 @@ class _NotificationsHomeState extends State<NotificationsHome> {
                     itemBuilder: (BuildContext context, int index) {
                       String formId = _pendingForms[index].formId;
                       String formTitle = _formsNames[formId]!;
+                      String formText = _pendingForms[index].formText;
                       LoggedUser actualUser = Provider.of<LoggedUserProvider>(
                               context,
                               listen: false)
@@ -102,26 +111,18 @@ class _NotificationsHomeState extends State<NotificationsHome> {
                       return ListTile(
                         leading: const Icon(Icons.notification_important),
                         title: DefaultButton(
-                          function: () => _startFormRequest(
-                              formId,
-                              formTitle,
-                              actualUser.isCarer &&
-                                      (_pendingForms[index] as PendingFormCarer)
-                                              .caredId !=
-                                          null
-                                  ? (_pendingForms[index] as PendingFormCarer)
-                                      .caredId
-                                  : actualUser.id),
-                          text: actualUser.isCarer
-                              ? getNotificationCaredText(
-                                  (_pendingForms[index] as PendingFormCarer)
-                                      .caredId,
-                                  formId,
-                                  formTitle)
-                              : AppLocalizations.of(context)!
-                                  .notificationsHomePendingNotification(
-                                      formTitle),
-                        ),
+                            function: () => _startFormRequest(
+                                formId,
+                                formTitle,
+                                actualUser.isCarer &&
+                                        (_pendingForms[index]
+                                                    as PendingFormCarer)
+                                                .partnerCode !=
+                                            null
+                                    ? (_pendingForms[index] as PendingFormCarer)
+                                        .partnerCode
+                                    : actualUser.code),
+                            text: formText),
                       );
                     })),
         bottomNavigationBar: BottomAppBar(
