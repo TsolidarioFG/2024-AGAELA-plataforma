@@ -5,7 +5,7 @@ import 'package:agaela_app/features/edit_profile/models/country.dart';
 import 'package:agaela_app/features/edit_profile/models/province.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
-import 'package:agaela_app/utils/token_utils.dart';
+import 'package:agaela_app/utils/common_headers.dart';
 import 'package:http/http.dart' as http;
 
 String _userProfileInformationPath(code) => '/socio/$code';
@@ -14,24 +14,11 @@ const _getCountriesPath = '/ubicaciones/paises';
 
 const _getProvincesPath = '/ubicaciones/provincias';
 
-Future<Map<String, String>> _authHeaders() async {
-  String? token = await getToken();
-  return <String, String>{'X-Token': '$token'};
-}
-
-Future<Map<String, String>> _jsonAuthHeaders() async {
-  String? token = await getToken();
-  return <String, String>{
-    'Content-Type': 'application/json',
-    'X-Token': '$token'
-  };
-}
-
 class EditProfileServiceImpl implements EditProfileService {
   @override
   Future<List<Country>> getCountries() async {
     final response = await http.get(Uri.parse('$baseUrl$_getCountriesPath'),
-        headers: await _authHeaders());
+        headers: await authHeaders());
     if (response.statusCode == 200) {
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
@@ -49,7 +36,7 @@ class EditProfileServiceImpl implements EditProfileService {
       return [];
     }
     final response = await http.get(Uri.parse('$baseUrl$_getProvincesPath'),
-        headers: await _authHeaders());
+        headers: await authHeaders());
     if (response.statusCode == 200) {
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
@@ -65,7 +52,7 @@ class EditProfileServiceImpl implements EditProfileService {
   Future<UserProfileInformation> getUserProfileInformation(String code) async {
     final response = await http.get(
         Uri.parse('$baseUrl${_userProfileInformationPath(code)}'),
-        headers: await _authHeaders());
+        headers: await authHeaders());
     if (response.statusCode == 200) {
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
@@ -80,7 +67,7 @@ class EditProfileServiceImpl implements EditProfileService {
       String code, UserProfileInformation userInformation) async {
     final response = await http.put(
         Uri.parse('$baseUrl${_userProfileInformationPath(code)}'),
-        headers: await _jsonAuthHeaders(),
+        headers: await headersAuthAndJson(),
         body: jsonEncode(userInformation.toJson()));
     if (response.statusCode != 200) {
       throw Exception();
