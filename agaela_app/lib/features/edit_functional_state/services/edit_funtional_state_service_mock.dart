@@ -166,7 +166,8 @@ class EditFunctionalStateServiceMock implements EditFunctionalStateService {
   }
 
   @override
-  Future<List<Question>> getFormQuestions(String formId) async {
+  Future<List<Question>> getFormQuestions(
+      String formId, Map<String, List<Question>?> cachedQuestions) async {
     const errorText = 'no';
     Answer answer1 = Answer(1, 'Yes', 'cdccdsccd');
     Answer answer2 = Answer(2, 'No', 'cdccdsccd');

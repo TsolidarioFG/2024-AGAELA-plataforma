@@ -1,6 +1,7 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/features/edit_functional_state/models/actual_form.dart';
 import 'package:agaela_app/features/edit_functional_state/models/actual_form_provider.dart';
+import 'package:agaela_app/features/edit_functional_state/models/cached_questions.dart';
 import 'package:agaela_app/features/edit_functional_state/services/edit_functional_state_service.dart';
 import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/locators.dart';
@@ -36,13 +37,22 @@ class _FormRequestWidgetState extends State<FormRequestWidget> {
 
   Future<List<Question>>? _request;
 
+  void _saveQuestions(String formId, List<Question> questions) {
+    Provider.of<CachedQuestions>(context, listen: false).formQuestions[formId] =
+        questions;
+  }
+
   void _startForm(String title, String formId) {
     setState(() {
-      _request = _editFunctionalStateService.getFormQuestions(formId);
+      Map<String, List<Question>?> cachedQuestions =
+          Provider.of<CachedQuestions>(context, listen: false).formQuestions;
+      _request =
+          _editFunctionalStateService.getFormQuestions(formId, cachedQuestions);
       _request!.then((questions) {
         ActualForm actualForm = ActualForm(formId, title, questions);
         Provider.of<ActualFormProvider>(context, listen: false)
             .setActualForm(actualForm);
+        _saveQuestions(formId, questions);
         context.goNamed(RoutesNames.editFunctionalStateForm.name);
       },
           onError: (_) => showDefaultAlertDialog(

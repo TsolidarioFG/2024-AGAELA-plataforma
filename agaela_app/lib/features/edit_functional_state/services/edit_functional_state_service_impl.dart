@@ -34,18 +34,24 @@ Object _saveFormBody(Map<String, String> answers) {
 
 class EditFunctionalStateServiceImpl implements EditFunctionalStateService {
   @override
-  Future<List<Question>> getFormQuestions(String formId) async {
-    final response = await http.get(
-        Uri.parse('$baseUrl${_getFormQuestionsPath(formId)}'),
-        headers: await _authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      Iterable questions = json['data']['preguntas'];
-      return List<Question>.from(
-          questions.map((question) => Question.fromJson(question)));
+  Future<List<Question>> getFormQuestions(
+      String formId, Map<String, List<Question>?> cachedQuestions) async {
+    List<Question>? questions = cachedQuestions[formId];
+    if (questions == null) {
+      final response = await http.get(
+          Uri.parse('$baseUrl${_getFormQuestionsPath(formId)}'),
+          headers: await _authHeaders());
+      if (response.statusCode == 200) {
+        Map<String, dynamic> json =
+            jsonDecode(response.body) as Map<String, dynamic>;
+        Iterable questions = json['data']['preguntas'];
+        return List<Question>.from(
+            questions.map((question) => Question.fromJson(question)));
+      } else {
+        throw Exception();
+      }
     } else {
-      throw Exception();
+      return questions;
     }
   }
 
