@@ -4,10 +4,11 @@ import 'package:agaela_app/common_widgets/form_request_widget.dart';
 import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/constants/global_constants.dart';
-import 'package:agaela_app/utils/get_cared_name.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class EditFunctionalStateHome extends StatefulWidget {
   const EditFunctionalStateHome({super.key});
@@ -39,7 +40,7 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
     return Scaffold(
         appBar: TextAppbar(
           text:
-              '${AppLocalizations.of(context)!.editFunctionalStateHomeTitle} ${getCaredName(context)}',
+              '${AppLocalizations.of(context)!.editFunctionalStateHomeTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}',
         ),
         body: ScrolleableWidget(
             child: FormRequestWidget(

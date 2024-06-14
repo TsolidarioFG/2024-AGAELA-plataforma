@@ -10,7 +10,6 @@ import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
-import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -59,7 +58,7 @@ class _EditProfileHomeState extends State<EditProfileHome> {
     return Scaffold(
         appBar: TextAppbar(
             text: _actualUser.isCared()
-                ? '${AppLocalizations.of(context)!.editProfileCaredHomeTitle} ${getCaredName(context)}'
+                ? '${AppLocalizations.of(context)!.editProfileCaredHomeTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}'
                 : AppLocalizations.of(context)!.editProfileHomeTitle),
         body: ScrolleableWidget(
           child: FutureBuilder(

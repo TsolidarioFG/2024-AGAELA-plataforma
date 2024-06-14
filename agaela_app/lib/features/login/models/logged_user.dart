@@ -53,4 +53,13 @@ abstract class LoggedUser {
   int getPendingNotificationsNumber() {
     return pendingForms.length;
   }
+
+  String getCaredName() {
+    Cared? actualCared = getActualCared();
+    if (actualCared != null) {
+      return actualCared.name;
+    } else {
+      return '';
+    }
+  }
 }

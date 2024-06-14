@@ -9,9 +9,9 @@ import 'package:agaela_app/features/edit_profile/widgets/country_dropdown.dart';
 import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/province_dropdown.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
-import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -128,7 +128,7 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
     return Scaffold(
         appBar: TextAppbar(
             text:
-                '${AppLocalizations.of(context)!.editProfileLocalizationAndProfessionTitle} ${getCaredName(context)}'),
+                '${AppLocalizations.of(context)!.editProfileLocalizationAndProfessionTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}'),
         body: Form(
             key: _localizationAndProfessionFormKey,
             autovalidateMode: AutovalidateMode.onUserInteraction,

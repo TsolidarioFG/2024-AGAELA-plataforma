@@ -12,7 +12,6 @@ import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/login/models/pending_form.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
-import 'package:agaela_app/utils/get_cared_name.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -120,7 +119,9 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: TextAppbar(text: '$_title ${getCaredName(context)}'),
+        appBar: TextAppbar(
+            text:
+                '$_title ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}'),
         body: FutureBuilder(
           future: _previousAnswers,
           builder: (BuildContext context, AsyncSnapshot snapshot) =>

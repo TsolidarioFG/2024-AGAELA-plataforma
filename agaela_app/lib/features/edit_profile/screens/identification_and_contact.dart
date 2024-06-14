@@ -5,7 +5,7 @@ import 'package:agaela_app/features/edit_profile/widgets/add_remove_list_element
 import 'package:agaela_app/features/edit_profile/widgets/birth_date_picker.dart';
 import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
-import 'package:agaela_app/utils/get_cared_name.dart';
+import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -85,7 +85,7 @@ class _IdentificationAndContactState extends State<IdentificationAndContact> {
     return Scaffold(
         appBar: TextAppbar(
           text:
-              '${AppLocalizations.of(context)!.editProfileIdentificationAndContactTitle} ${getCaredName(context)}',
+              '${AppLocalizations.of(context)!.editProfileIdentificationAndContactTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}',
         ),
         body: Form(
             key: _identificationAndContactFormKey,
