@@ -45,6 +45,10 @@ class EditProfileServiceImpl implements EditProfileService {
 
   @override
   Future<List<Province>> getProvinces(int countryCode) async {
+    const spainCode = 1;
+    if (countryCode != spainCode) {
+      return [];
+    }
     final response = await http.get(Uri.parse('$baseUrl$_getProvincesPath'),
         headers: await _authHeaders());
     if (response.statusCode == 200) {

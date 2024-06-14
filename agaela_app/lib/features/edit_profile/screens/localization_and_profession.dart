@@ -142,14 +142,14 @@ class _LocalizationAndProfessionState extends State<LocalizationAndProfession> {
                         )
                       : ListView(
                           children: <Widget>[
-                            if (_countries != null)
+                            if (_countries != null && _countries!.isNotEmpty)
                               CountryDropdown(
                                   countries: _countries!,
                                   initialState: _country,
                                   onChanged: _getProvinces,
                                   setCountry: (Country country) =>
                                       _country = country),
-                            if (_provinces != null)
+                            if (_provinces != null && _provinces!.isNotEmpty)
                               FutureBuilder(
                                   future: _provincesRequest,
                                   builder: (BuildContext context,
