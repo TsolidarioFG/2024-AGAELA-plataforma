@@ -1,3 +1,4 @@
+import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/features/login/models/cared.dart';
 import 'package:agaela_app/features/login/models/carer.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
@@ -12,11 +13,11 @@ class LoginServiceMock implements LoginService {
     const error = 'no';
     const errorText = 'error';
     const exampleName = 'example';
-    const exampleFormId = 'sdacsadcd';
+    const exampleFormId = barthelIndexFormId;
     const id = 1;
     const exampleIsCarer = false;
     List<PendingForm> pendingForms = [
-      PendingFormPersonWithAls(exampleFormId, '')
+      PendingFormPersonWithAls(exampleFormId, 'hello')
     ];
     await Future.delayed(const Duration(seconds: 1));
     if (error == errorText) throw Exception();
@@ -29,11 +30,11 @@ class LoginServiceMock implements LoginService {
     const error = 'no';
     const errorText = 'error';
     const exampleName = 'example';
-    const exampleFormId = 'cdscsad';
+    const exampleFormId = barthelIndexFormId;
     const id = 1;
     const exampleIsCarer = true;
     List<PendingForm> pendingForms = [
-      PendingFormCarer('cddacda', exampleFormId, '')
+      PendingFormCarer('cddacda', exampleFormId, 'hello')
     ];
     List<Cared> careds = [
       Cared(2, 'test2', 'test2', 'cdscasdc'),
