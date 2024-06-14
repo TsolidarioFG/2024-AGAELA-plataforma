@@ -6,4 +6,6 @@ abstract class PendingForm {
   PendingForm(this._formId, this._formText);
 
   String get formId => _formId;
+
+  String get formText => _formText;
 }
