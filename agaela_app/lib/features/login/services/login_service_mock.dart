@@ -15,7 +15,9 @@ class LoginServiceMock implements LoginService {
     const exampleFormId = 'sdacsadcd';
     const id = 1;
     const exampleIsCarer = false;
-    List<PendingForm> pendingForms = [PendingFormPersonWithAls(exampleFormId)];
+    List<PendingForm> pendingForms = [
+      PendingFormPersonWithAls(exampleFormId, '')
+    ];
     await Future.delayed(const Duration(seconds: 1));
     if (error == errorText) throw Exception();
     LoggedUser example = PersonWithAls(
@@ -30,7 +32,7 @@ class LoginServiceMock implements LoginService {
     const exampleFormId = 'cdscsad';
     const id = 1;
     const exampleIsCarer = true;
-    List<PendingForm> pendingForms = [PendingFormCarer(2, exampleFormId)];
+    List<PendingForm> pendingForms = [PendingFormCarer(2, exampleFormId, '')];
     List<Cared> careds = [
       Cared(2, 'test2', 'test2', 'cdscasdc'),
       Cared(3, 'test3', 'test3', 'dsacdscc')
