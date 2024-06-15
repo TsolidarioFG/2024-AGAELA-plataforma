@@ -67,23 +67,6 @@ class _NotificationsHomeState extends State<NotificationsHome> {
     super.didChangeDependencies();
   }
 
-  String getNotificationCaredText(
-      int? caredId, String formId, String formTitle) {
-    if (caredId == null) {
-      return AppLocalizations.of(context)!
-          .notificationsHomePendingNotification(formTitle);
-    } else {
-      LoggedUser actualUser =
-          Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-      String caredName = (actualUser as Carer)
-          .careds
-          .firstWhere((cared) => caredId == cared.id)
-          .name;
-      return AppLocalizations.of(context)!
-          .notificationsHomePendingNotificationCared(formTitle, caredName);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
