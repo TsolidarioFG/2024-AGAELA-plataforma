@@ -92,5 +92,9 @@
     "editFunctionalStateFormErrorAnswersDescription": "Hubo un error recuperando las respuestas anteriores",
     "notificationsHomeTitle": "Notificaciones",
     "notificationsHomeNoNotifications": "No hay ninguna notificación",
-    "editSocialProceduresHomeTitle": "Trámites sociales"
+    "editSocialProceduresHomeTitle": "Trámites sociales",
+    "editSocialProceduresCardsAndIncome": "Tarjetas e ingresos",
+    "editSocialProceduresDisability": "Discapacidad",
+    "editSocialProceduresDependency": "Dependencia",
+    "editSocialProceduresPermanentWorkDisability": "Incapacidad laboral permanente"
 }
