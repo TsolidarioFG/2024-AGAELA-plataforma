@@ -91,5 +91,6 @@
     "editFunctionalStateFormErrorSaveDescription": "Houbo un erro enviando as respostas",
     "editFunctionalStateFormErrorAnswersDescription": "Houbo un erro recuperando as respostas anteriores",
     "notificationsHomeTitle": "Notificacións",
-    "notificationsHomeNoNotifications": "Non hai ningunha notificación"
+    "notificationsHomeNoNotifications": "Non hai ningunha notificación",
+    "editSocialProceduresHomeTitle": "Trámites sociais"
 }
