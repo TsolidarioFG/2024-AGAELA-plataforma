@@ -10,6 +10,7 @@ import 'package:agaela_app/features/forms/models/question.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/login/models/pending_form.dart';
+import 'package:agaela_app/features/login/models/pending_form_carer.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/go_home.dart';
@@ -54,6 +55,21 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
     return actualUser.isCarer && actualUser.id == actualUser.selectedId;
   }
 
+  void _removeNotification(LoggedUser actualUser, String formId) {
+    List<PendingForm> pendingForms = [];
+    pendingForms.addAll(actualUser.pendingForms);
+    pendingForms.removeWhere(actualUser.isCarer
+        ? (PendingForm pendingForm) {
+            PendingFormCarer pendingFormCarer = pendingForm as PendingFormCarer;
+            return pendingFormCarer.formId == formId &&
+                pendingFormCarer.partnerCode! == actualUser.getActualCode();
+          }
+        : (pendingForm) => pendingForm.formId == formId);
+    Provider.of<LoggedUserProvider>(context, listen: false)
+        .loggedUser!
+        .pendingForms = pendingForms;
+  }
+
   void _startSaveForm() {
     ActualForm actualForm =
         Provider.of<ActualFormProvider>(context, listen: false).actualForm!;
@@ -63,13 +79,7 @@ class _EditFunctionalStateFormState extends State<EditFunctionalStateForm> {
       _saveForm = _editFunctionalStateService.saveForm(
           actualForm.formId, actualUser.getActualCode(), _answersSelecteds!);
       _saveForm!.then((_) {
-        List<PendingForm> pendingForms = [];
-        pendingForms.addAll(actualUser.pendingForms);
-        pendingForms.removeWhere(
-            (pendingForm) => pendingForm.formId == actualForm.formId);
-        Provider.of<LoggedUserProvider>(context, listen: false)
-            .loggedUser!
-            .pendingForms = pendingForms;
+        _removeNotification(actualUser, actualForm.formId);
         showDefaultAlertDialog(
             context,
             const Icon(Icons.check),
