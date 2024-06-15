@@ -88,18 +88,24 @@ class _CarerHomeState extends State<CarerHome> {
                       ),
                       const Icon(Icons.notification_important),
                       Expanded(
-                          child: Badge(
-                              label: Text(Provider.of<LoggedUserProvider>(
-                                      context,
-                                      listen: false)
-                                  .loggedUser!
-                                  .getPendingNotificationsNumber()
-                                  .toString()),
-                              child: DefaultButton(
-                                  function: () => context.goNamed(
-                                      RoutesNames.notificationsHome.name),
-                                  text: AppLocalizations.of(context)!
-                                      .carerHomeNotifications))),
+                          child: DefaultButton(
+                              function: () => context
+                                  .goNamed(RoutesNames.notificationsHome.name),
+                              text: AppLocalizations.of(context)!
+                                  .carerHomeNotifications)),
+                      SizedBox(
+                        width: width,
+                      ),
+                      Badge(
+                        label: Text(Provider.of<LoggedUserProvider>(context,
+                                listen: false)
+                            .loggedUser!
+                            .getPendingNotificationsNumber()
+                            .toString()),
+                      ),
+                      SizedBox(
+                        width: width,
+                      ),
                       const Icon(Icons.account_circle),
                       Expanded(
                           child: DefaultButton(
