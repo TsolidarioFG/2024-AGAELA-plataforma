@@ -47,7 +47,8 @@ class CaredHome extends StatelessWidget {
               const Icon(Icons.contact_page),
               Expanded(
                   child: DefaultButton(
-                      function: () => {},
+                      function: () => context
+                          .goNamed(RoutesNames.editSocialProcedures.name),
                       text: AppLocalizations.of(context)!
                           .caredHomeSocialProcedures)),
               SizedBox(

@@ -41,7 +41,8 @@ class DefaultHome extends StatelessWidget {
                   const Icon(Icons.contact_page),
                   Expanded(
                       child: DefaultButton(
-                          function: () => {},
+                          function: () => context
+                              .goNamed(RoutesNames.editSocialProcedures.name),
                           text: AppLocalizations.of(context)!
                               .homeSocialProcedures)),
                   SizedBox(
