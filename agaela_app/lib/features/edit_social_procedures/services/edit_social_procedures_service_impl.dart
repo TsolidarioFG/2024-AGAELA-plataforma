@@ -9,6 +9,20 @@ const _getHealthCardTypesPath = '/tiposTarjetaSanitaria';
 const _getNetIncomeTypesPath = '/tiposIngresosNetos';
 const _getParkingCardTypesPath = '/tiposTarjetaEstacionamiento';
 
+_setCardsAndIncomePath(String partnerCode) =>
+    '/socio/tarjetasIngresos/$partnerCode';
+
+Object _setCardsAndIncomeBody(List<String> cardsAndIncomeTypesId) {
+  int first = 0;
+  int second = 1;
+  int third = 2;
+  return jsonEncode(<String, dynamic>{
+    'idTipoTarjetaSanitaria': cardsAndIncomeTypesId[first],
+    'idTipoTarjetaEstacionamiento': cardsAndIncomeTypesId[second],
+    'idTipoIngresosNetos': cardsAndIncomeTypesId[third]
+  });
+}
+
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   Map<String, String> _getMap(Map<String, dynamic> json) {
     Map<String, String> types = {};
@@ -69,5 +83,17 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     Map<String, String> parkingCardTypes = await getParkingCardTypes();
     Map<String, String> netIncomeCardTypes = await getNetIncomeCardTypes();
     return List.from([healthCardTypes, parkingCardTypes, netIncomeCardTypes]);
+  }
+
+  @override
+  Future<void> setCardsAndIncome(
+      String partnerCode, List<String> cardsAndIncomeTypesId) async {
+    final response = await http.post(
+        Uri.parse('$baseUrl${_setCardsAndIncomePath(partnerCode)}'),
+        headers: await headersAuthAndJson(),
+        body: _setCardsAndIncomeBody(cardsAndIncomeTypesId));
+    if (response.statusCode != 200) {
+      throw Exception();
+    }
   }
 }
