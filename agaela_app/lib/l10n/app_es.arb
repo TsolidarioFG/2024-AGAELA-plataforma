@@ -101,5 +101,7 @@
     "editSocialProceduresErrorCardsAndIncome": "Error guardando tarjetas e ingresos",
     "editSocialProceduresCardsAndIncomeHealthCardTitle": "Tarjeta sanitaria AA",
     "editSocialProceduresCardsAndIncomeParkingCardTitle": "Tarjeta de estacionamiento personas con mobilidad reducida",
-    "editSocialProceduresCardsAndIncomeNetIncomeTitle": "Ingresos netos"
+    "editSocialProceduresCardsAndIncomeNetIncomeTitle": "Ingresos netos",
+    "editSocialProceduresCardsAndIncomeSavedChanges": "Todos los cambios fueron guardados",
+    "editSocialProceduresCardsAndIncomeErrorSavingChanges": "Hubo un error guardando los cambios"
 }
