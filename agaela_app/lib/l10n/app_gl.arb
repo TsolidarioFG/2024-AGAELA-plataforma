@@ -97,5 +97,9 @@
     "editSocialProceduresDisability": "Discapacidade",
     "editSocialProceduresDependency": "Dependencia",
     "editSocialProceduresPermanentWorkDisability": "Incapacidade laboral permanente",
-    "editSocialProceduresCardsAndIncomeTitle": "Tarxetas e ingresos"
+    "editSocialProceduresCardsAndIncomeTitle": "Tarxetas e ingresos",
+    "editSocialProceduresErrorCardsAndIncome": "Error gardando tarxetas e ingresos",
+    "editSocialProceduresCardsAndIncomeHealthCardTitle": "Tarxeta sanitaria AA",
+    "editSocialProceduresCardsAndIncomeParkingCardTitle": "Tarxeta de estacionamiento persoas con mobilidade reducida",
+    "editSocialProceduresCardsAndIncomeNetIncomeTitle": "Ingresos netos"
 }
