@@ -20,6 +20,10 @@ class CardsAndIncome extends StatefulWidget {
 }
 
 class _CardsAndIncomeState extends State<CardsAndIncome> {
+  final incorrectValue = '-1';
+
+  bool _correctValues = false;
+
   List<Map<String, String>> _cardsAndIncomeTypes = [];
 
   final List<String> _cardsAndIncomeTitles = [];
@@ -28,6 +32,14 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
       locator<EditSocialProceduresService>();
 
   Future<List<Map<String, String>>>? _getCardsAndIncomeTypesRequest;
+
+  final List<String> _selectedAnswers = [];
+
+  void _checkCorrectValues() {
+    setState(() {
+      _correctValues = !_selectedAnswers.contains(incorrectValue);
+    });
+  }
 
   @override
   void didChangeDependencies() {
@@ -47,8 +59,13 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
     super.initState();
     _getCardsAndIncomeTypesRequest =
         _editSocialProceduresService.getCardsAndIncomeTypes();
-    _getCardsAndIncomeTypesRequest!.then(
-        (cardsAndIncomesList) => _cardsAndIncomeTypes = cardsAndIncomesList,
+    _getCardsAndIncomeTypesRequest!.then((cardsAndIncomesList) {
+      _cardsAndIncomeTypes = cardsAndIncomesList;
+      for (var _ in _cardsAndIncomeTypes) {
+        _selectedAnswers.add(incorrectValue);
+      }
+      _checkCorrectValues();
+    },
         onError: (_) => showDefaultAlertDialog(
             context,
             const Icon(Icons.error),
@@ -89,11 +106,22 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
                                 _cardsAndIncomeTypes[cardsAndIncomeIndex]
                                     .values
                                     .elementAt(typeIndex);
+                            String key =
+                                _cardsAndIncomeTypes[cardsAndIncomeIndex]
+                                    .keys
+                                    .elementAt(typeIndex);
+                            String selectedKey =
+                                _selectedAnswers[cardsAndIncomeIndex];
                             return ListTile(
                               title: ListButton(
-                                onPressed: () => {},
+                                onPressed: () {
+                                  setState(() {
+                                    _selectedAnswers[cardsAndIncomeIndex] = key;
+                                    _checkCorrectValues();
+                                  });
+                                },
                                 text: title,
-                                selected: false,
+                                selected: selectedKey == key,
                               ),
                             );
                           },
@@ -106,7 +134,7 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: DefaultSendCancelButtons(
-          sendFunction: null,
+          sendFunction: _correctValues ? () => {} : null,
           cancelFunction: () => GoRouter.of(context).pop(),
         ),
       ),
