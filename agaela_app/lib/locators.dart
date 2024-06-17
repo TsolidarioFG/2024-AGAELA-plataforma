@@ -4,6 +4,8 @@ import 'package:agaela_app/features/edit_password/services/edit_password_service
 import 'package:agaela_app/features/edit_password/services/edit_password_service_impl.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service.dart';
 import 'package:agaela_app/features/edit_profile/services/edit_profile_service_impl.dart';
+import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
+import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service_impl.dart';
 import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/login/services/login_service_impl.dart';
 import 'package:agaela_app/features/notifications/services/notifications_service.dart';
@@ -30,4 +32,6 @@ void initLocator() {
       () => EditFunctionalStateServiceImpl());
   locator.registerLazySingleton<NotificationsService>(
       () => NotificationsServiceImpl());
+  locator.registerLazySingleton<EditSocialProceduresService>(
+      () => EditSocialProceduresServiceImpl());
 }
