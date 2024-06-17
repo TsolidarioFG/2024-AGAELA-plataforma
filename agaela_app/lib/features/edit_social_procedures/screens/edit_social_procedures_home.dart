@@ -3,9 +3,11 @@ import 'package:agaela_app/common_widgets/default_button.dart';
 import 'package:agaela_app/common_widgets/scrolleable_widget.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
+import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/go_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class EditSocialProceduresHome extends StatelessWidget {
@@ -37,7 +39,8 @@ class EditSocialProceduresHome extends StatelessWidget {
                   const Icon(Icons.payment),
                   Expanded(
                       child: DefaultButton(
-                    function: () => {},
+                    function: () =>
+                        context.goNamed(RoutesNames.cardsAndIncome.name),
                     text: AppLocalizations.of(context)!
                         .editSocialProceduresCardsAndIncome,
                   )),
