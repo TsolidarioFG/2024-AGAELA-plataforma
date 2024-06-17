@@ -1,6 +1,12 @@
+import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
+import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
+import 'package:agaela_app/common_widgets/text_bold_style.dart';
+import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
+import 'package:agaela_app/locators.dart';
+import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -14,14 +20,41 @@ class CardsAndIncome extends StatefulWidget {
 }
 
 class _CardsAndIncomeState extends State<CardsAndIncome> {
-  final _cardsAndIncomeFormKey = GlobalKey<FormState>();
+  List<Map<String, String>> _cardsAndIncomeTypes = [];
 
-  bool _formChanged = false;
+  final List<String> _cardsAndIncomeTitles = [];
 
-  void _changeForm() {
-    setState(() {
-      _formChanged = true;
-    });
+  final EditSocialProceduresService _editSocialProceduresService =
+      locator<EditSocialProceduresService>();
+
+  Future<List<Map<String, String>>>? _getCardsAndIncomeTypesRequest;
+
+  @override
+  void didChangeDependencies() {
+    _cardsAndIncomeTitles.addAll([
+      AppLocalizations.of(context)!
+          .editSocialProceduresCardsAndIncomeHealthCardTitle,
+      AppLocalizations.of(context)!
+          .editSocialProceduresCardsAndIncomeParkingCardTitle,
+      AppLocalizations.of(context)!
+          .editSocialProceduresCardsAndIncomeNetIncomeTitle
+    ]);
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCardsAndIncomeTypesRequest =
+        _editSocialProceduresService.getCardsAndIncomeTypes();
+    _getCardsAndIncomeTypesRequest!.then(
+        (cardsAndIncomesList) => _cardsAndIncomeTypes = cardsAndIncomesList,
+        onError: (_) => showDefaultAlertDialog(
+            context,
+            const Icon(Icons.error),
+            AppLocalizations.of(context)!
+                .editSocialProceduresErrorCardsAndIncome,
+            () => context.goNamed(RoutesNames.editSocialProcedures.name)));
   }
 
   @override
@@ -31,20 +64,49 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
         text:
             '${AppLocalizations.of(context)!.editSocialProceduresCardsAndIncomeTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}',
       ),
-      body: Form(
-        key: _cardsAndIncomeFormKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        onChanged: () => _changeForm,
-        child: ListView(
-          children: const <Widget>[],
-        ),
+      body: FutureBuilder(
+        future: _getCardsAndIncomeTypesRequest,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.connectionState == ConnectionState.waiting
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: _cardsAndIncomeTypes.length,
+                  itemBuilder: (BuildContext context, int cardsAndIncomeIndex) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextBoldStyle(
+                            text: _cardsAndIncomeTitles[cardsAndIncomeIndex]),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount:
+                              _cardsAndIncomeTypes[cardsAndIncomeIndex].length,
+                          itemBuilder: (BuildContext context, int typeIndex) {
+                            String title =
+                                _cardsAndIncomeTypes[cardsAndIncomeIndex]
+                                    .values
+                                    .elementAt(typeIndex);
+                            return ListTile(
+                              title: ListButton(
+                                onPressed: () => {},
+                                text: title,
+                                selected: false,
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    );
+                  },
+                );
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         child: DefaultSendCancelButtons(
-          sendFunction: _formChanged
-              ? () =>
-                  {if (_cardsAndIncomeFormKey.currentState!.validate()) null}
-              : null,
+          sendFunction: null,
           cancelFunction: () => GoRouter.of(context).pop(),
         ),
       ),
