@@ -9,7 +9,7 @@ const _getHealthCardTypesPath = '/tiposTarjetaSanitaria';
 const _getNetIncomeTypesPath = '/tiposIngresosNetos';
 const _getParkingCardTypesPath = '/tiposTarjetaEstacionamiento';
 
-_setCardsAndIncomePath(String partnerCode) =>
+_getPreviousAnswersAndSetCardsAndIncomePath(String partnerCode) =>
     '/socio/tarjetasIngresos/$partnerCode';
 
 Object _setCardsAndIncomeBody(List<String> cardsAndIncomeTypesId) {
@@ -86,10 +86,57 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
+  Future<List<String>> getPreviousCardsAndIncomeAnswers(
+      String partnerCode) async {
+    String incorrectValue = '-1';
+    final response = await http.get(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetCardsAndIncomePath(partnerCode)}'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      Map<String, dynamic>? jsonResponseMap =
+          json['data'] as Map<String, dynamic>?;
+      if (jsonResponseMap == null || jsonResponseMap.isEmpty) {
+        return [];
+      }
+      String healthCardId;
+      String parkingCardId;
+      String netIncomeId;
+      Map<String, dynamic>? healthCardMap =
+          json['data']['tarjetaSanitaria'] as Map<String, dynamic>?;
+      Map<String, dynamic>? parkingCardMap =
+          json['data']['tarjetaEstacionamiento'] as Map<String, dynamic>?;
+      Map<String, dynamic>? netIncomeMap =
+          json['data']['ingresosNetos'] as Map<String, dynamic>?;
+      if (healthCardMap == null) {
+        healthCardId = incorrectValue;
+      } else {
+        healthCardId = healthCardMap['id'] as String;
+      }
+      if (parkingCardMap == null) {
+        parkingCardId = incorrectValue;
+      } else {
+        parkingCardId = parkingCardMap['id'] as String;
+      }
+      if (netIncomeMap == null) {
+        netIncomeId = incorrectValue;
+      } else {
+        netIncomeId = netIncomeMap['id'] as String;
+      }
+      return List<String>.from([healthCardId, parkingCardId, netIncomeId]);
+    } else {
+      return [];
+    }
+  }
+
+  @override
   Future<void> setCardsAndIncome(
       String partnerCode, List<String> cardsAndIncomeTypesId) async {
     final response = await http.post(
-        Uri.parse('$baseUrl${_setCardsAndIncomePath(partnerCode)}'),
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetCardsAndIncomePath(partnerCode)}'),
         headers: await headersAuthAndJson(),
         body: _setCardsAndIncomeBody(cardsAndIncomeTypesId));
     if (response.statusCode != 200) {

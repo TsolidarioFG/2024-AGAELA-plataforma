@@ -7,6 +7,8 @@ abstract class EditSocialProceduresService {
 
   Future<List<Map<String, String>>> getCardsAndIncomeTypes();
 
+  Future<List<String>> getPreviousCardsAndIncomeAnswers(String partnerCode);
+
   Future<void> setCardsAndIncome(
       String partnerCode, List<String> cardsAndIncomeTypesId);
 }
