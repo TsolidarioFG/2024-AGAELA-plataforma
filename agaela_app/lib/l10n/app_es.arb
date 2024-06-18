@@ -103,5 +103,6 @@
     "editSocialProceduresCardsAndIncomeParkingCardTitle": "Tarjeta de estacionamiento personas con mobilidad reducida",
     "editSocialProceduresCardsAndIncomeNetIncomeTitle": "Ingresos netos",
     "editSocialProceduresCardsAndIncomeSavedChanges": "Todos los cambios fueron guardados",
-    "editSocialProceduresCardsAndIncomeErrorSavingChanges": "Hubo un error guardando los cambios"
+    "editSocialProceduresCardsAndIncomeErrorSavingChanges": "Hubo un error guardando los cambios",
+    "editSocialProceduresPermanentWorkDisabilityTitle": "Incapacidad laboral permanente"
 }
