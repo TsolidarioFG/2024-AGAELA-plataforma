@@ -28,57 +28,38 @@ const _getResolvedDisabilityTypesPath = '/tiposIncapacidadResuelta';
 const _getUnresolvedProceduresTypesPath = '/tiposTramitesNoResuelto';
 
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
-  Map<String, String> _getMap(Map<String, dynamic> json) {
-    Map<String, String> types = {};
-    Iterable typesList = json['data'];
-    for (Map<String, dynamic> type in typesList) {
-      String id = type['id'] as String;
-      String name = type['nombre'] as String;
-      types[id] = name;
+  Future<Map<String, String>> _getMap(String path) async {
+    final response = await http.get(Uri.parse('$baseUrl$path'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      Map<String, String> types = {};
+      Iterable typesList = json['data'];
+      for (Map<String, dynamic> type in typesList) {
+        String id = type['id'] as String;
+        String name = type['nombre'] as String;
+        types[id] = name;
+      }
+      return types;
+    } else {
+      throw Exception();
     }
-    return types;
   }
 
   @override
   Future<Map<String, String>> getHealthCardTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getHealthCardTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getHealthCardTypesPath);
   }
 
   @override
   Future<Map<String, String>> getNetIncomeCardTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getNetIncomeTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getNetIncomeTypesPath);
   }
 
   @override
   Future<Map<String, String>> getParkingCardTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getParkingCardTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getParkingCardTypesPath);
   }
 
   @override
@@ -150,43 +131,16 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
 
   @override
   Future<Map<String, String>> getProcessedTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getProcessedTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getProcessedTypesPath);
   }
 
   @override
   Future<Map<String, String>> getResolvedDisabilityTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getResolvedDisabilityTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getResolvedDisabilityTypesPath);
   }
 
   @override
   Future<Map<String, String>> getUnresolvedProceduresTypes() async {
-    final response = await http.get(
-        Uri.parse('$baseUrl$_getUnresolvedProceduresTypesPath'),
-        headers: await authHeaders());
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json =
-          jsonDecode(response.body) as Map<String, dynamic>;
-      return _getMap(json);
-    } else {
-      throw Exception();
-    }
+    return _getMap(_getUnresolvedProceduresTypesPath);
   }
 }
