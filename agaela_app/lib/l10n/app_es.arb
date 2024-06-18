@@ -97,6 +97,8 @@
     "editSocialProceduresHomeTitle": "Trámites sociales",
     "editSocialProceduresProcessedTitle": "Tramitado",
     "editSocialProceduresNotifiedUrgentlyTitle": "Notificado vía de urgencia",
+    "editSocialProceduresResolutionTitle": "Resolución",
+    "editSocialProceduresNoResolutionTitle": "Motivo sin resolución",
     "editSocialProceduresCardsAndIncome": "Tarjetas e ingresos",
     "editSocialProceduresDisability": "Discapacidad",
     "editSocialProceduresDependency": "Dependencia",
@@ -109,5 +111,6 @@
     "editSocialProceduresCardsAndIncomeSavedChanges": "Todos los cambios fueron guardados",
     "editSocialProceduresCardsAndIncomeErrorSavingChanges": "Hubo un error guardando los cambios",
     "editSocialProceduresPermanentWorkDisabilityTitle": "Incapacidad laboral permanente",
-    "editSocialProceduresErrorPermanentWorkDisability": "Error obteniendo incapacidad laboral permanente"
+    "editSocialProceduresErrorPermanentWorkDisability": "Error obteniendo incapacidad laboral permanente",
+    "editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle": "Tipo incapacidad"
 }
