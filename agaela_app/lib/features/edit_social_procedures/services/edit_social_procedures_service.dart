@@ -1,3 +1,5 @@
+import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
+
 abstract class EditSocialProceduresService {
   Future<Map<String, String>> getHealthCardTypes();
 
@@ -17,4 +19,6 @@ abstract class EditSocialProceduresService {
   Future<Map<String, String>> getResolvedDisabilityTypes();
 
   Future<Map<String, String>> getUnresolvedProceduresTypes();
+
+  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField();
 }

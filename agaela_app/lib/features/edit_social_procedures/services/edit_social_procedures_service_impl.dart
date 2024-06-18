@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:agaela_app/constants/global_constants.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/utils/common_headers.dart';
 import 'package:http/http.dart' as http;
@@ -142,5 +143,16 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   @override
   Future<Map<String, String>> getUnresolvedProceduresTypes() async {
     return _getMap(_getUnresolvedProceduresTypesPath);
+  }
+
+  @override
+  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField() async {
+    Map<String, String> processedTypes = await getProcessedTypes();
+    Map<String, String> resolvedDisabilityTypes =
+        await getResolvedDisabilityTypes();
+    Map<String, String> unresolvedProceduresTypes =
+        await getUnresolvedProceduresTypes();
+    return PermanentWorkDisabilityModel(
+        processedTypes, resolvedDisabilityTypes, unresolvedProceduresTypes);
   }
 }
