@@ -36,7 +36,9 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
 
   Future<void>? _saveCardsAndIncomeRequest;
 
-  final List<String> _selectedAnswers = [];
+  Future<List<String>>? _getPreviousAnswersRequest;
+
+  List<String> _selectedAnswers = [];
 
   void _checkCorrectValues() {
     setState(() {
@@ -66,6 +68,29 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
     });
   }
 
+  void _getPreviousAnswers() {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    _getPreviousAnswersRequest = _editSocialProceduresService
+        .getPreviousCardsAndIncomeAnswers(actualUser.getActualCode());
+    _getPreviousAnswersRequest!.then((answers) {
+      if (answers.isNotEmpty) {
+        _selectedAnswers = answers;
+      } else {
+        for (var _ in _cardsAndIncomeTypes) {
+          _selectedAnswers.add(incorrectValue);
+        }
+      }
+      _checkCorrectValues();
+    },
+        onError: (_) => showDefaultAlertDialog(
+            context,
+            const Icon(Icons.error),
+            AppLocalizations.of(context)!
+                .editSocialProceduresErrorCardsAndIncome,
+            () => context.goNamed(RoutesNames.editSocialProcedures.name)));
+  }
+
   @override
   void didChangeDependencies() {
     _cardsAndIncomeTitles.addAll([
@@ -86,10 +111,7 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
         _editSocialProceduresService.getCardsAndIncomeTypes();
     _getCardsAndIncomeTypesRequest!.then((cardsAndIncomesList) {
       _cardsAndIncomeTypes = cardsAndIncomesList;
-      for (var _ in _cardsAndIncomeTypes) {
-        _selectedAnswers.add(incorrectValue);
-      }
-      _checkCorrectValues();
+      _getPreviousAnswers();
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -107,9 +129,9 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
               '${AppLocalizations.of(context)!.editSocialProceduresCardsAndIncomeTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}',
         ),
         body: FutureBuilder(
-          future: _getCardsAndIncomeTypesRequest,
+          future: _getPreviousAnswersRequest,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            return snapshot.connectionState == ConnectionState.waiting
+            return snapshot.connectionState != ConnectionState.done
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
