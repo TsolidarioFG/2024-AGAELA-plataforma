@@ -23,6 +23,10 @@ Object _setCardsAndIncomeBody(List<String> cardsAndIncomeTypesId) {
   });
 }
 
+const _getProcessedTypesPath = '/tiposTramitado';
+const _getResolvedDisabilityTypesPath = '/tiposIncapacidadResuelta';
+const _getUnresolvedProceduresTypesPath = '/tiposTramitesNoResuelto';
+
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   Map<String, String> _getMap(Map<String, dynamic> json) {
     Map<String, String> types = {};
@@ -140,6 +144,48 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         headers: await headersAuthAndJson(),
         body: _setCardsAndIncomeBody(cardsAndIncomeTypesId));
     if (response.statusCode != 200) {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<Map<String, String>> getProcessedTypes() async {
+    final response = await http.get(
+        Uri.parse('$baseUrl$_getProcessedTypesPath'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      return _getMap(json);
+    } else {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<Map<String, String>> getResolvedDisabilityTypes() async {
+    final response = await http.get(
+        Uri.parse('$baseUrl$_getResolvedDisabilityTypesPath'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      return _getMap(json);
+    } else {
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<Map<String, String>> getUnresolvedProceduresTypes() async {
+    final response = await http.get(
+        Uri.parse('$baseUrl$_getUnresolvedProceduresTypesPath'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      return _getMap(json);
+    } else {
       throw Exception();
     }
   }

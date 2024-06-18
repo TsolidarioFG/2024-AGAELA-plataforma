@@ -11,4 +11,10 @@ abstract class EditSocialProceduresService {
 
   Future<void> setCardsAndIncome(
       String partnerCode, List<String> cardsAndIncomeTypesId);
+
+  Future<Map<String, String>> getProcessedTypes();
+
+  Future<Map<String, String>> getResolvedDisabilityTypes();
+
+  Future<Map<String, String>> getUnresolvedProceduresTypes();
 }
