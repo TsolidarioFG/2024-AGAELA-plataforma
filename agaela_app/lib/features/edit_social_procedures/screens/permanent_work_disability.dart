@@ -30,7 +30,9 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
 
   late PermanentWorkDisabilityModel _permanentWorkDisabilityModel;
 
-  final ValueNotifier<bool> _notifiedUrgentlySelected = ValueNotifier(false);
+  bool _notifiedUrgentlySelected = false;
+
+  bool _resolutionSelected = false;
 
   @override
   void initState() {
@@ -83,10 +85,50 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                           );
                         }),
                     YesNoListButton(
+                      onPressed: () => setState(() {
+                        _notifiedUrgentlySelected = !_notifiedUrgentlySelected;
+                      }),
                       selected: _notifiedUrgentlySelected,
                       title: AppLocalizations.of(context)!
                           .editSocialProceduresNotifiedUrgentlyTitle,
                     ),
+                    YesNoListButton(
+                        onPressed: () => setState(() {
+                              _resolutionSelected = !_resolutionSelected;
+                            }),
+                        selected: _resolutionSelected,
+                        title: AppLocalizations.of(context)!
+                            .editSocialProceduresResolutionTitle),
+                    TextBoldStyle(
+                        text: _resolutionSelected
+                            ? AppLocalizations.of(context)!
+                                .editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle
+                            : AppLocalizations.of(context)!
+                                .editSocialProceduresNoResolutionTitle),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _resolutionSelected
+                            ? _permanentWorkDisabilityModel
+                                .resolvedDisabilityTypes.length
+                            : _permanentWorkDisabilityModel
+                                .unresolvedProceduresTypes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String title = _resolutionSelected
+                              ? _permanentWorkDisabilityModel
+                                  .resolvedDisabilityTypes.values
+                                  .elementAt(index)
+                              : _permanentWorkDisabilityModel
+                                  .unresolvedProceduresTypes.values
+                                  .elementAt(index);
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () => {},
+                              selected: false,
+                              text: title,
+                            ),
+                          );
+                        })
                   ],
                 );
         },
