@@ -93,6 +93,7 @@
     "notificationsHomeTitle": "Notificaciones",
     "notificationsHomeNoNotifications": "No hay ninguna notificación",
     "editSocialProceduresHomeTitle": "Trámites sociales",
+    "editSocialProceduresProcessedTitle": "Tramitado",
     "editSocialProceduresCardsAndIncome": "Tarjetas e ingresos",
     "editSocialProceduresDisability": "Discapacidad",
     "editSocialProceduresDependency": "Dependencia",
@@ -104,5 +105,6 @@
     "editSocialProceduresCardsAndIncomeNetIncomeTitle": "Ingresos netos",
     "editSocialProceduresCardsAndIncomeSavedChanges": "Todos los cambios fueron guardados",
     "editSocialProceduresCardsAndIncomeErrorSavingChanges": "Hubo un error guardando los cambios",
-    "editSocialProceduresPermanentWorkDisabilityTitle": "Incapacidad laboral permanente"
+    "editSocialProceduresPermanentWorkDisabilityTitle": "Incapacidad laboral permanente",
+    "editSocialProceduresErrorPermanentWorkDisability": "Error obteniendo incapacidad laboral permanente"
 }
