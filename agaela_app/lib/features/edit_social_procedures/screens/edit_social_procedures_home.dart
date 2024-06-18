@@ -74,7 +74,8 @@ class EditSocialProceduresHome extends StatelessWidget {
                   const Icon(Icons.personal_injury),
                   Expanded(
                       child: DefaultButton(
-                    function: () => {},
+                    function: () => context
+                        .goNamed(RoutesNames.permanentWorkDisability.name),
                     text: AppLocalizations.of(context)!
                         .editSocialProceduresPermanentWorkDisability,
                   )),

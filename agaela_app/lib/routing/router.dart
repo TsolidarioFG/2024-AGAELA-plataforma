@@ -7,6 +7,7 @@ import 'package:agaela_app/features/edit_profile/screens/identification_and_cont
 import 'package:agaela_app/features/edit_profile/screens/localization_and_profession.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/cards_and_income.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/edit_social_procedures_home.dart';
+import 'package:agaela_app/features/edit_social_procedures/screens/permanent_work_disability.dart';
 import 'package:agaela_app/features/forms/screens/cared_home.dart';
 import 'package:agaela_app/features/forms/screens/carer_home.dart';
 import 'package:agaela_app/features/forms/screens/default_home.dart';
@@ -32,7 +33,8 @@ enum RoutesNames {
   editFunctionalStateForm,
   notificationsHome,
   editSocialProcedures,
-  cardsAndIncome
+  cardsAndIncome,
+  permanentWorkDisability
 }
 
 final GoRouter router = GoRouter(initialLocation: '/login', routes: [
@@ -107,6 +109,11 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
           name: RoutesNames.cardsAndIncome.name,
           path: 'cards_and_income',
           builder: (context, state) => const CardsAndIncome(),
+        ),
+        GoRoute(
+          name: RoutesNames.permanentWorkDisability.name,
+          path: 'permanent_work_disability',
+          builder: (context, state) => const PermanentWorkDisability(),
         )
       ])
 ]);
