@@ -10,6 +10,7 @@ import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_b
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +24,8 @@ class Disability extends StatefulWidget {
 }
 
 class _DisabilityState extends State<Disability> {
+  final _disabilityFormKey = GlobalKey<FormState>();
+
   final EditSocialProceduresService _editSocialProceduresService =
       locator<EditSocialProceduresService>();
 
@@ -34,6 +37,10 @@ class _DisabilityState extends State<Disability> {
 
   final _disabilityPercentage = TextEditingController();
 
+  void _setDisability() {
+    _disabilityModel.disabilityPercentage = _disabilityPercentage.text;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +48,6 @@ class _DisabilityState extends State<Disability> {
         _editSocialProceduresService.getDisabilityFields();
     _disabilityFieldsRequest!.then((disabilityFields) {
       _disabilityModel = disabilityFields;
-      debugPrint(_disabilityModel.processedTypes.toString());
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -105,38 +111,48 @@ class _DisabilityState extends State<Disability> {
                         title: AppLocalizations.of(context)!
                             .editSocialProceduresResolutionTitle),
                     _disabilityModel.resolutionSelected
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              TextBoldStyle(
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresDisabilityPercentageTitle),
-                              Padding(
-                                padding: EdgeInsets.all(padding),
-                                child: DefaultTextField(
-                                  controller: _disabilityPercentage,
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresDisabilityPercentageTitleTextField,
+                        ? Form(
+                            key: _disabilityFormKey,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                TextBoldStyle(
+                                    text: AppLocalizations.of(context)!
+                                        .editSocialProceduresDisabilityPercentageTitle),
+                                Padding(
+                                  padding: EdgeInsets.all(padding),
+                                  child: DefaultTextField(
+                                    controller: _disabilityPercentage,
+                                    text: AppLocalizations.of(context)!
+                                        .editSocialProceduresDisabilityPercentageTitleTextField,
+                                    validator: (String? dni) {
+                                      return !dni!.isValidPercentage
+                                          ? AppLocalizations.of(context)!
+                                              .errorPercentageNotValid
+                                          : null;
+                                    },
+                                  ),
                                 ),
-                              ),
-                              YesNoListButton(
-                                  onPressed: () => setState(() {
-                                        _disabilityModel.mobilityScale =
-                                            !_disabilityModel.mobilityScale;
-                                      }),
-                                  selected: _disabilityModel.mobilityScale,
-                                  title: AppLocalizations.of(context)!
-                                      .editSocialProceduresDisabilityMobilityScaleTitle),
-                              YesNoListButton(
-                                  onPressed: () => setState(() {
-                                        _disabilityModel.thirdPartyScale =
-                                            !_disabilityModel.thirdPartyScale;
-                                      }),
-                                  selected: _disabilityModel.thirdPartyScale,
-                                  title: AppLocalizations.of(context)!
-                                      .editSocialProceduresDisabilityThirdPartyScaleTitle),
-                            ],
-                          )
+                                YesNoListButton(
+                                    onPressed: () => setState(() {
+                                          _disabilityModel.mobilityScale =
+                                              !_disabilityModel.mobilityScale;
+                                        }),
+                                    selected: _disabilityModel.mobilityScale,
+                                    title: AppLocalizations.of(context)!
+                                        .editSocialProceduresDisabilityMobilityScaleTitle),
+                                YesNoListButton(
+                                    onPressed: () => setState(() {
+                                          _disabilityModel.thirdPartyScale =
+                                              !_disabilityModel.thirdPartyScale;
+                                        }),
+                                    selected: _disabilityModel.thirdPartyScale,
+                                    title: AppLocalizations.of(context)!
+                                        .editSocialProceduresDisabilityThirdPartyScaleTitle),
+                              ],
+                            ))
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -178,7 +194,9 @@ class _DisabilityState extends State<Disability> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: DefaultSendCancelButtons(
-          sendFunction: () => {},
+          sendFunction: () => {
+            if (_disabilityFormKey.currentState!.validate()) _setDisability()
+          },
           cancelFunction: () => GoRouter.of(context).pop(),
         ),
       ),

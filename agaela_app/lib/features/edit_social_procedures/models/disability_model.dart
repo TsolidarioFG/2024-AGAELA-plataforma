@@ -7,6 +7,7 @@ class DisabilityModel {
   bool thirdPartyScale = false;
   String? processedTypeSelected;
   String? unresolvedProcedureSelected;
+  String? disabilityPercentage;
 
   DisabilityModel();
 }
