@@ -84,9 +84,9 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     if (response.statusCode == 200) {
       Map<String, dynamic> json =
           jsonDecode(response.body) as Map<String, dynamic>;
-      Map<String, dynamic>? jsonResponseMap =
-          json['data'] as Map<String, dynamic>?;
-      if (jsonResponseMap == null || jsonResponseMap.isEmpty) {
+      dynamic jsonResponseMap = json['data'];
+      if (jsonResponseMap == null ||
+          (jsonResponseMap is List && jsonResponseMap.isEmpty)) {
         return CardsAndIncomeModel();
       }
       return CardsAndIncomeModel.fromJson(jsonResponseMap);
@@ -124,12 +124,15 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
-  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField() async {
+  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
+      String partnerCode) async {
     Map<String, String> processedTypes = await getProcessedTypes();
     Map<String, String> resolvedDisabilityTypes =
         await getResolvedDisabilityTypes();
     Map<String, String> unresolvedProceduresTypes =
         await getUnresolvedProceduresTypes();
+    PermanentWorkDisabilityModel answers =
+        await getPreviousPermanentWorkDisabilityAnswers(partnerCode);
     PermanentWorkDisabilityModel permanentWorkDisabilityModel =
         PermanentWorkDisabilityModel();
     permanentWorkDisabilityModel.processedTypes = processedTypes;
@@ -137,6 +140,15 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         resolvedDisabilityTypes;
     permanentWorkDisabilityModel.unresolvedProceduresTypes =
         unresolvedProceduresTypes;
+    permanentWorkDisabilityModel.notifiedUrgently = answers.notifiedUrgently;
+    permanentWorkDisabilityModel.resolutionSelected =
+        answers.resolutionSelected;
+    permanentWorkDisabilityModel.processedTypeSelected =
+        answers.processedTypeSelected;
+    permanentWorkDisabilityModel.resolvedDisabilitySelected =
+        answers.resolvedDisabilitySelected;
+    permanentWorkDisabilityModel.unresolvedProcedureSelected =
+        answers.unresolvedProcedureSelected;
     return permanentWorkDisabilityModel;
   }
 
@@ -150,6 +162,28 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         body: jsonEncode(permanentWorkDisability.toJson()));
     if (response.statusCode != 200) {
       throw Exception();
+    }
+  }
+
+  @override
+  Future<PermanentWorkDisabilityModel>
+      getPreviousPermanentWorkDisabilityAnswers(String partnerCode) async {
+    final response = await http.get(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetPermanentWorkDisabilityPath(partnerCode)}'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      dynamic jsonResponseMap = json['data'];
+      if (jsonResponseMap == null ||
+          (jsonResponseMap is List && jsonResponseMap.isEmpty)) {
+        return PermanentWorkDisabilityModel();
+      }
+      return PermanentWorkDisabilityModel.fromJson(
+          jsonResponseMap as Map<String, dynamic>);
+    } else {
+      return PermanentWorkDisabilityModel();
     }
   }
 }

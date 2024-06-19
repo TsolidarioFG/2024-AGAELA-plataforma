@@ -22,7 +22,11 @@ abstract class EditSocialProceduresService {
 
   Future<Map<String, String>> getUnresolvedProceduresTypes();
 
-  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField();
+  Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
+      String partnerCode);
+
+  Future<PermanentWorkDisabilityModel>
+      getPreviousPermanentWorkDisabilityAnswers(String partnerCode);
 
   Future<void> setPermanentWorkDisability(
       String partnerCode, PermanentWorkDisabilityModel permanentWorkDisability);

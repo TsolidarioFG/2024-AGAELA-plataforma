@@ -37,8 +37,8 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
 
   void _checkCorrectField() {
     setState(() {
-      _validFields = _permanentWorkDisabilityModel
-              .processedTypeSelected.isNotEmpty &&
+      _validFields = _permanentWorkDisabilityModel.processedTypeSelected !=
+              null &&
           (_permanentWorkDisabilityModel.unresolvedProcedureSelected != null ||
               _permanentWorkDisabilityModel.resolvedDisabilitySelected != null);
     });
@@ -70,8 +70,10 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
   @override
   void initState() {
     super.initState();
-    _permanentWorkDisabilityFieldsRequest =
-        _editSocialProceduresService.getPermanentWorkDisabilityField();
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    _permanentWorkDisabilityFieldsRequest = _editSocialProceduresService
+        .getPermanentWorkDisabilityField(actualUser.getActualCode());
     _permanentWorkDisabilityFieldsRequest!.then((permanentWorkDisabilityModel) {
       _permanentWorkDisabilityModel = permanentWorkDisabilityModel;
     },
