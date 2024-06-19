@@ -116,5 +116,7 @@
     "editSocialProceduresPermanentWorkDisabilitySavedChanges": "Todos los cambios fueron guardados",
     "editSocialProceduresPermanentWorkDisabilityErrorSavingChanges": "Hubo un error guardando los cambios",
     "editSocialProceduresDisabilityTitle": "Discapacidad",
-    "editSocialProceduresErrorDisability": "Error obteniendo discapacidad"
+    "editSocialProceduresErrorDisability": "Error obteniendo discapacidad",
+    "editSocialProceduresDisabilityPercentageTitle": "Porcentaje de discapacidad",
+    "editSocialProceduresDisabilityPercentageTitleTextField": "Discapacidad"
 }
