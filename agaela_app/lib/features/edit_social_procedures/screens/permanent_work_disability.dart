@@ -6,6 +6,7 @@ import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
+import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
@@ -29,6 +30,31 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
   Future<PermanentWorkDisabilityModel>? _permanentWorkDisabilityFieldsRequest;
 
   late PermanentWorkDisabilityModel _permanentWorkDisabilityModel;
+
+  Future<void>? _setPermanentWorkDisabilityRequest;
+
+  void _setPermanentWorkDisability() {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    setState(() {
+      _setPermanentWorkDisabilityRequest =
+          _editSocialProceduresService.setPermanentWorkDisability(
+              actualUser.getActualCode(), _permanentWorkDisabilityModel);
+      _setPermanentWorkDisabilityRequest!.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.check),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresPermanentWorkDisabilitySavedChanges,
+              () => context.goNamed(RoutesNames.editSocialProcedures.name)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.error),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresPermanentWorkDisabilityErrorSavingChanges,
+              () => GoRouter.of(context).pop()));
+    });
+  }
 
   @override
   void initState() {
@@ -174,11 +200,17 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        child: DefaultSendCancelButtons(
-          sendFunction: () => {},
-          cancelFunction: () => GoRouter.of(context).pop(),
-        ),
-      ),
+          child: FutureBuilder(
+        future: _setPermanentWorkDisabilityRequest,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.connectionState == ConnectionState.waiting
+              ? const Center(child: CircularProgressIndicator())
+              : DefaultSendCancelButtons(
+                  sendFunction: () => _setPermanentWorkDisability(),
+                  cancelFunction: () => GoRouter.of(context).pop(),
+                );
+        },
+      )),
     );
   }
 }
