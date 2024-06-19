@@ -58,26 +58,23 @@ class DefaultHome extends StatelessWidget {
                   SizedBox(
                     width: width,
                   ),
-                  const Icon(Icons.notification_important),
-                  Expanded(
-                      child: DefaultButton(
-                          function: () => context
-                              .goNamed(RoutesNames.notificationsHome.name),
-                          text:
-                              AppLocalizations.of(context)!.homeNotifications)),
-                  SizedBox(
-                    width: width,
-                  ),
                   Badge(
                     label: Text(
                         Provider.of<LoggedUserProvider>(context, listen: false)
                             .loggedUser!
                             .getPendingNotificationsNumber()
                             .toString()),
+                    child: const Icon(Icons.notification_important),
                   ),
                   SizedBox(
                     width: width,
                   ),
+                  Expanded(
+                      child: DefaultButton(
+                          function: () => context
+                              .goNamed(RoutesNames.notificationsHome.name),
+                          text:
+                              AppLocalizations.of(context)!.homeNotifications)),
                   const Icon(Icons.account_circle),
                   Expanded(
                       child: DefaultButton(
