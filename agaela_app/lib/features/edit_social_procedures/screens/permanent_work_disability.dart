@@ -33,6 +33,17 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
 
   Future<void>? _setPermanentWorkDisabilityRequest;
 
+  bool _validFields = false;
+
+  void _checkCorrectField() {
+    setState(() {
+      _validFields = _permanentWorkDisabilityModel
+              .processedTypeSelected.isNotEmpty &&
+          (_permanentWorkDisabilityModel.unresolvedProcedureSelected != null ||
+              _permanentWorkDisabilityModel.resolvedDisabilitySelected != null);
+    });
+  }
+
   void _setPermanentWorkDisability() {
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
@@ -106,6 +117,7 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                               onPressed: () => setState(() {
                                 _permanentWorkDisabilityModel
                                     .processedTypeSelected = key;
+                                _checkCorrectField();
                               }),
                               selected: _permanentWorkDisabilityModel
                                       .processedTypeSelected ==
@@ -133,6 +145,7 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                                       .unresolvedProcedureSelected = null
                                   : _permanentWorkDisabilityModel
                                       .resolvedDisabilitySelected = null;
+                              _checkCorrectField();
                             }),
                         selected:
                             _permanentWorkDisabilityModel.resolutionSelected,
@@ -162,6 +175,7 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                                   onPressed: () => setState(() {
                                     _permanentWorkDisabilityModel
                                         .resolvedDisabilitySelected = key;
+                                    _checkCorrectField();
                                   }),
                                   selected: _permanentWorkDisabilityModel
                                           .resolvedDisabilitySelected ==
@@ -187,6 +201,7 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                                   onPressed: () => setState(() {
                                     _permanentWorkDisabilityModel
                                         .unresolvedProcedureSelected = key;
+                                    _checkCorrectField();
                                   }),
                                   selected: _permanentWorkDisabilityModel
                                           .unresolvedProcedureSelected ==
@@ -206,7 +221,8 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
           return snapshot.connectionState == ConnectionState.waiting
               ? const Center(child: CircularProgressIndicator())
               : DefaultSendCancelButtons(
-                  sendFunction: () => _setPermanentWorkDisability(),
+                  sendFunction:
+                      _validFields ? () => _setPermanentWorkDisability() : null,
                   cancelFunction: () => GoRouter.of(context).pop(),
                 );
         },
