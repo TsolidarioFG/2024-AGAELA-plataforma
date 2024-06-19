@@ -114,5 +114,6 @@
     "editSocialProceduresErrorPermanentWorkDisability": "Error obteniendo incapacidad laboral permanente",
     "editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle": "Tipo incapacidade",
     "editSocialProceduresPermanentWorkDisabilitySavedChanges": "Todos os cambios foron gardados",
-    "editSocialProceduresPermanentWorkDisabilityErrorSavingChanges": "Houbo un erro gardando os cambios"
+    "editSocialProceduresPermanentWorkDisabilityErrorSavingChanges": "Houbo un erro gardando os cambios",
+    "editSocialProceduresDisabilityTitle": "Discapacidade"
 }
