@@ -10,4 +10,12 @@ class PermanentWorkDisabilityModel {
 
   PermanentWorkDisabilityModel(this.processedTypes,
       this.resolvedDisabilityTypes, this.unresolvedProceduresTypes);
+
+  Map<String, dynamic> toJson() => {
+        'idTipoTramitado': processedTypeSelected,
+        'notificadaViaUrgencia': notifiedUrgently ? 1 : 0,
+        'idTipoIncapacidadResuelta': resolvedDisabilitySelected,
+        'idTipoIncapacidadNoResuelta': unresolvedProcedureSelected,
+        'resolucion': resolutionSelected ? 1 : 0
+      };
 }
