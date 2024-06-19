@@ -76,10 +76,18 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                           String text = _permanentWorkDisabilityModel
                               .processedTypes.values
                               .elementAt(index);
+                          String key = _permanentWorkDisabilityModel
+                              .processedTypes.keys
+                              .elementAt(index);
                           return ListTile(
                             title: ListButton(
-                              onPressed: () => {},
-                              selected: false,
+                              onPressed: () => setState(() {
+                                _permanentWorkDisabilityModel
+                                    .processedTypeSelected = key;
+                              }),
+                              selected: _permanentWorkDisabilityModel
+                                      .processedTypeSelected ==
+                                  key,
                               text: text,
                             ),
                           );
@@ -95,6 +103,11 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                     YesNoListButton(
                         onPressed: () => setState(() {
                               _resolutionSelected = !_resolutionSelected;
+                              _resolutionSelected
+                                  ? _permanentWorkDisabilityModel
+                                      .unresolvedProcedureSelected = null
+                                  : _permanentWorkDisabilityModel
+                                      .resolvedDisabilitySelected = null;
                             }),
                         selected: _resolutionSelected,
                         title: AppLocalizations.of(context)!
@@ -105,30 +118,57 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                                 .editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle
                             : AppLocalizations.of(context)!
                                 .editSocialProceduresNoResolutionTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: _resolutionSelected
-                            ? _permanentWorkDisabilityModel
-                                .resolvedDisabilityTypes.length
-                            : _permanentWorkDisabilityModel
-                                .unresolvedProceduresTypes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String title = _resolutionSelected
-                              ? _permanentWorkDisabilityModel
+                    _resolutionSelected
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: _permanentWorkDisabilityModel
+                                .resolvedDisabilityTypes.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String title = _permanentWorkDisabilityModel
                                   .resolvedDisabilityTypes.values
-                                  .elementAt(index)
-                              : _permanentWorkDisabilityModel
+                                  .elementAt(index);
+                              String key = _permanentWorkDisabilityModel
+                                  .resolvedDisabilityTypes.keys
+                                  .elementAt(index);
+                              return ListTile(
+                                title: ListButton(
+                                  onPressed: () => setState(() {
+                                    _permanentWorkDisabilityModel
+                                        .resolvedDisabilitySelected = key;
+                                  }),
+                                  selected: _permanentWorkDisabilityModel
+                                          .resolvedDisabilitySelected ==
+                                      key,
+                                  text: title,
+                                ),
+                              );
+                            })
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: _permanentWorkDisabilityModel
+                                .unresolvedProceduresTypes.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String title = _permanentWorkDisabilityModel
                                   .unresolvedProceduresTypes.values
                                   .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => {},
-                              selected: false,
-                              text: title,
-                            ),
-                          );
-                        })
+                              String key = _permanentWorkDisabilityModel
+                                  .unresolvedProceduresTypes.keys
+                                  .elementAt(index);
+                              return ListTile(
+                                title: ListButton(
+                                  onPressed: () => setState(() {
+                                    _permanentWorkDisabilityModel
+                                        .unresolvedProcedureSelected = key;
+                                  }),
+                                  selected: _permanentWorkDisabilityModel
+                                          .unresolvedProcedureSelected ==
+                                      key,
+                                  text: title,
+                                ),
+                              );
+                            })
                   ],
                 );
         },
