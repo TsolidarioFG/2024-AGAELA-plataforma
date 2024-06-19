@@ -118,5 +118,7 @@
     "editSocialProceduresDisabilityTitle": "Discapacidade",
     "editSocialProceduresErrorDisability": "Error obtendo discapacidade",
     "editSocialProceduresDisabilityPercentageTitle": "Porcentaxe de discapacidade",
-    "editSocialProceduresDisabilityPercentageTitleTextField": "Discapacidade"
+    "editSocialProceduresDisabilityPercentageTitleTextField": "Discapacidade",
+    "editSocialProceduresDisabilityMobilityScaleTitle": "Baremo de movilidade",
+    "editSocialProceduresDisabilityThirdPartyScaleTitle": "Baremo de terceira persoa"
 }
