@@ -119,6 +119,22 @@ class _DisabilityState extends State<Disability> {
                                       .editSocialProceduresDisabilityPercentageTitleTextField,
                                 ),
                               ),
+                              YesNoListButton(
+                                  onPressed: () => setState(() {
+                                        _disabilityModel.mobilityScale =
+                                            !_disabilityModel.mobilityScale;
+                                      }),
+                                  selected: _disabilityModel.mobilityScale,
+                                  title: AppLocalizations.of(context)!
+                                      .editSocialProceduresDisabilityMobilityScaleTitle),
+                              YesNoListButton(
+                                  onPressed: () => setState(() {
+                                        _disabilityModel.thirdPartyScale =
+                                            !_disabilityModel.thirdPartyScale;
+                                      }),
+                                  selected: _disabilityModel.thirdPartyScale,
+                                  title: AppLocalizations.of(context)!
+                                      .editSocialProceduresDisabilityThirdPartyScaleTitle),
                             ],
                           )
                         : Column(
