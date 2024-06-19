@@ -39,18 +39,21 @@ class _EditProfileHomeState extends State<EditProfileHome> {
     super.initState();
     _actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _request = _editProfileService
-        .getUserProfileInformation(_actualUser.getActualCode());
-    _request!.then(
-        (userInformation) =>
-            Provider.of<UserProfileInformationProvider>(context, listen: false)
-                .setUserProfileInformation(userInformation),
-        onError: (_) => showDefaultAlertDialog(
-            context,
-            const Icon(Icons.report_problem),
-            AppLocalizations.of(context)!
-                .editProfileErrorGettingUserInformation,
-            () => goToHome(context)));
+    if (!_actualUser.isCarerAndNotCared()) {
+      _request = _editProfileService
+          .getUserProfileInformation(_actualUser.getActualCode());
+      _request!.then(
+          (userInformation) => Provider.of<UserProfileInformationProvider>(
+                  context,
+                  listen: false)
+              .setUserProfileInformation(userInformation),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.report_problem),
+              AppLocalizations.of(context)!
+                  .editProfileErrorGettingUserInformation,
+              () => goToHome(context)));
+    }
   }
 
   @override

@@ -106,10 +106,10 @@ class _CarerHomeState extends State<CarerHome> {
                       const Icon(Icons.account_circle),
                       Expanded(
                           child: DefaultButton(
-                              function: () =>
-                                  context.goNamed(RoutesNames.editProfile.name),
+                              function: () => context
+                                  .goNamed(RoutesNames.editPassword.name),
                               text: AppLocalizations.of(context)!
-                                  .carerHomeProfile)),
+                                  .editPasswordButton)),
                       SizedBox(
                         width: width,
                       ),

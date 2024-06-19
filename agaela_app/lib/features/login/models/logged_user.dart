@@ -35,6 +35,10 @@ abstract class LoggedUser {
 
   bool isCared() => _id != _selectedId;
 
+  bool isCarerAndNotCared() {
+    return !isCared() && _isCarer;
+  }
+
   Cared? getActualCared() {
     if (isCared()) {
       return (this as Carer)
