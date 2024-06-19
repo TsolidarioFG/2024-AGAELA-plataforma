@@ -89,7 +89,8 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
           (jsonResponseMap is List && jsonResponseMap.isEmpty)) {
         return CardsAndIncomeModel();
       }
-      return CardsAndIncomeModel.fromJson(jsonResponseMap);
+      return CardsAndIncomeModel.fromJson(
+          jsonResponseMap as Map<String, dynamic>);
     } else {
       return CardsAndIncomeModel();
     }
