@@ -22,6 +22,9 @@ const _getUnresolvedProceduresTypesPath = '/tiposTramitesNoResuelto';
 _getPreviousAnswersAndSetPermanentWorkDisabilityPath(String partnerCode) =>
     '/socio/incapacidad/$partnerCode';
 
+_getPreviousAnswersAndSetDisabilityPath(String partnerCode) =>
+    '/socio/discapacidad/$partnerCode';
+
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   Future<Map<String, String>> _getMap(String path) async {
     final response = await http.get(Uri.parse('$baseUrl$path'),
@@ -198,5 +201,18 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     disabilityModel.processedTypes = processedTypes;
     disabilityModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
     return disabilityModel;
+  }
+
+  @override
+  Future<void> setDisability(
+      String partnerCode, DisabilityModel disability) async {
+    final response = await http.post(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetDisabilityPath(partnerCode)}'),
+        headers: await headersAuthAndJson(),
+        body: jsonEncode(disability.toJson()));
+    if (response.statusCode != 200) {
+      throw Exception();
+    }
   }
 }
