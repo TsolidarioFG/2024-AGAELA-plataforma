@@ -3,6 +3,7 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/cards_and_income_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -21,28 +22,24 @@ class CardsAndIncome extends StatefulWidget {
 }
 
 class _CardsAndIncomeState extends State<CardsAndIncome> {
-  final incorrectValue = '-1';
-
   bool _correctValues = false;
 
-  List<Map<String, String>> _cardsAndIncomeTypes = [];
-
-  final List<String> _cardsAndIncomeTitles = [];
+  late CardsAndIncomeModel _cardsAndIncomeTypes;
 
   final EditSocialProceduresService _editSocialProceduresService =
       locator<EditSocialProceduresService>();
 
-  Future<List<Map<String, String>>>? _getCardsAndIncomeTypesRequest;
+  Future<CardsAndIncomeModel>? _getCardsAndIncomeTypesRequest;
 
   Future<void>? _saveCardsAndIncomeRequest;
 
-  Future<List<String>>? _getPreviousAnswersRequest;
-
-  List<String> _selectedAnswers = [];
+  Future<CardsAndIncomeModel>? _getPreviousAnswersRequest;
 
   void _checkCorrectValues() {
     setState(() {
-      _correctValues = !_selectedAnswers.contains(incorrectValue);
+      _correctValues = _cardsAndIncomeTypes.healthCardTypeSelected != null &&
+          _cardsAndIncomeTypes.netIncomeTypeSelected != null &&
+          _cardsAndIncomeTypes.parkingCardTypeSelected != null;
     });
   }
 
@@ -51,7 +48,7 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     setState(() {
       _saveCardsAndIncomeRequest = _editSocialProceduresService
-          .setCardsAndIncome(actualUser.getActualCode(), _selectedAnswers);
+          .setCardsAndIncome(actualUser.getActualCode(), _cardsAndIncomeTypes);
       _saveCardsAndIncomeRequest!.then(
           (_) => showDefaultAlertDialog(
               context,
@@ -74,13 +71,12 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
     _getPreviousAnswersRequest = _editSocialProceduresService
         .getPreviousCardsAndIncomeAnswers(actualUser.getActualCode());
     _getPreviousAnswersRequest!.then((answers) {
-      if (answers.isNotEmpty) {
-        _selectedAnswers = answers;
-      } else {
-        for (var _ in _cardsAndIncomeTypes) {
-          _selectedAnswers.add(incorrectValue);
-        }
-      }
+      _cardsAndIncomeTypes.healthCardTypeSelected =
+          answers.healthCardTypeSelected;
+      _cardsAndIncomeTypes.netIncomeTypeSelected =
+          answers.netIncomeTypeSelected;
+      _cardsAndIncomeTypes.parkingCardTypeSelected =
+          answers.parkingCardTypeSelected;
       _checkCorrectValues();
     },
         onError: (_) => showDefaultAlertDialog(
@@ -92,25 +88,12 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
   }
 
   @override
-  void didChangeDependencies() {
-    _cardsAndIncomeTitles.addAll([
-      AppLocalizations.of(context)!
-          .editSocialProceduresCardsAndIncomeHealthCardTitle,
-      AppLocalizations.of(context)!
-          .editSocialProceduresCardsAndIncomeParkingCardTitle,
-      AppLocalizations.of(context)!
-          .editSocialProceduresCardsAndIncomeNetIncomeTitle
-    ]);
-    super.didChangeDependencies();
-  }
-
-  @override
   void initState() {
     super.initState();
     _getCardsAndIncomeTypesRequest =
         _editSocialProceduresService.getCardsAndIncomeTypes();
-    _getCardsAndIncomeTypesRequest!.then((cardsAndIncomesList) {
-      _cardsAndIncomeTypes = cardsAndIncomesList;
+    _getCardsAndIncomeTypesRequest!.then((cardsAndIncomes) {
+      _cardsAndIncomeTypes = cardsAndIncomes;
       _getPreviousAnswers();
     },
         onError: (_) => showDefaultAlertDialog(
@@ -135,49 +118,100 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : ListView.builder(
-                    itemCount: _cardsAndIncomeTypes.length,
-                    itemBuilder:
-                        (BuildContext context, int cardsAndIncomeIndex) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          TextBoldStyle(
-                              text: _cardsAndIncomeTitles[cardsAndIncomeIndex]),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: _cardsAndIncomeTypes[cardsAndIncomeIndex]
-                                .length,
-                            itemBuilder: (BuildContext context, int typeIndex) {
-                              String title =
-                                  _cardsAndIncomeTypes[cardsAndIncomeIndex]
-                                      .values
-                                      .elementAt(typeIndex);
-                              String key =
-                                  _cardsAndIncomeTypes[cardsAndIncomeIndex]
-                                      .keys
-                                      .elementAt(typeIndex);
-                              String selectedKey =
-                                  _selectedAnswers[cardsAndIncomeIndex];
-                              return ListTile(
-                                title: ListButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _selectedAnswers[cardsAndIncomeIndex] =
-                                          key;
-                                      _checkCorrectValues();
-                                    });
-                                  },
-                                  text: title,
-                                  selected: selectedKey == key,
-                                ),
-                              );
-                            },
-                          )
-                        ],
-                      );
-                    },
+                : ListView(
+                    children: <Widget>[
+                      TextBoldStyle(
+                          text: AppLocalizations.of(context)!
+                              .editSocialProceduresCardsAndIncomeHealthCardTitle),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _cardsAndIncomeTypes.healthCardTypes.length,
+                        itemBuilder: (BuildContext context, int typeIndex) {
+                          String title = _cardsAndIncomeTypes
+                              .healthCardTypes.values
+                              .elementAt(typeIndex);
+                          String key = _cardsAndIncomeTypes.healthCardTypes.keys
+                              .elementAt(typeIndex);
+                          String? selectedKey =
+                              _cardsAndIncomeTypes.healthCardTypeSelected;
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () {
+                                setState(() {
+                                  _cardsAndIncomeTypes.healthCardTypeSelected =
+                                      key;
+                                  _checkCorrectValues();
+                                });
+                              },
+                              text: title,
+                              selected: selectedKey == key,
+                            ),
+                          );
+                        },
+                      ),
+                      TextBoldStyle(
+                          text: AppLocalizations.of(context)!
+                              .editSocialProceduresCardsAndIncomeParkingCardTitle),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _cardsAndIncomeTypes.parkingCardTypes.length,
+                        itemBuilder: (BuildContext context, int typeIndex) {
+                          String title = _cardsAndIncomeTypes
+                              .parkingCardTypes.values
+                              .elementAt(typeIndex);
+                          String key = _cardsAndIncomeTypes
+                              .parkingCardTypes.keys
+                              .elementAt(typeIndex);
+                          String? selectedKey =
+                              _cardsAndIncomeTypes.parkingCardTypeSelected;
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () {
+                                setState(() {
+                                  _cardsAndIncomeTypes.parkingCardTypeSelected =
+                                      key;
+                                  _checkCorrectValues();
+                                });
+                              },
+                              text: title,
+                              selected: selectedKey == key,
+                            ),
+                          );
+                        },
+                      ),
+                      TextBoldStyle(
+                          text: AppLocalizations.of(context)!
+                              .editSocialProceduresCardsAndIncomeNetIncomeTitle),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _cardsAndIncomeTypes.netIncomeTypes.length,
+                        itemBuilder: (BuildContext context, int typeIndex) {
+                          String title = _cardsAndIncomeTypes
+                              .netIncomeTypes.values
+                              .elementAt(typeIndex);
+                          String key = _cardsAndIncomeTypes.netIncomeTypes.keys
+                              .elementAt(typeIndex);
+                          String? selectedKey =
+                              _cardsAndIncomeTypes.netIncomeTypeSelected;
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () {
+                                setState(() {
+                                  _cardsAndIncomeTypes.netIncomeTypeSelected =
+                                      key;
+                                  _checkCorrectValues();
+                                });
+                              },
+                              text: title,
+                              selected: selectedKey == key,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   );
           },
         ),

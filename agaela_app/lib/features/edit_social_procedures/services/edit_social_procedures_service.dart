@@ -1,3 +1,4 @@
+import 'package:agaela_app/features/edit_social_procedures/models/cards_and_income_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 
 abstract class EditSocialProceduresService {
@@ -7,12 +8,13 @@ abstract class EditSocialProceduresService {
 
   Future<Map<String, String>> getNetIncomeCardTypes();
 
-  Future<List<Map<String, String>>> getCardsAndIncomeTypes();
+  Future<CardsAndIncomeModel> getCardsAndIncomeTypes();
 
-  Future<List<String>> getPreviousCardsAndIncomeAnswers(String partnerCode);
+  Future<CardsAndIncomeModel> getPreviousCardsAndIncomeAnswers(
+      String partnerCode);
 
   Future<void> setCardsAndIncome(
-      String partnerCode, List<String> cardsAndIncomeTypesId);
+      String partnerCode, CardsAndIncomeModel cardsAndIncomeTypes);
 
   Future<Map<String, String>> getProcessedTypes();
 
