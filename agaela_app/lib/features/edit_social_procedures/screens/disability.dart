@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
+import 'package:agaela_app/common_widgets/default_text_field.dart';
 import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
@@ -25,9 +26,13 @@ class _DisabilityState extends State<Disability> {
   final EditSocialProceduresService _editSocialProceduresService =
       locator<EditSocialProceduresService>();
 
+  final double padding = 10.0;
+
   Future<DisabilityModel>? _disabilityFieldsRequest;
 
   late DisabilityModel _disabilityModel;
+
+  final _disabilityPercentage = TextEditingController();
 
   @override
   void initState() {
@@ -99,6 +104,58 @@ class _DisabilityState extends State<Disability> {
                         selected: _disabilityModel.resolutionSelected,
                         title: AppLocalizations.of(context)!
                             .editSocialProceduresResolutionTitle),
+                    _disabilityModel.resolutionSelected
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              TextBoldStyle(
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresDisabilityPercentageTitle),
+                              Padding(
+                                padding: EdgeInsets.all(padding),
+                                child: DefaultTextField(
+                                  controller: _disabilityPercentage,
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresDisabilityPercentageTitleTextField,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              TextBoldStyle(
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresNoResolutionTitle),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  itemCount: _disabilityModel
+                                      .unresolvedProceduresTypes.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    String title = _disabilityModel
+                                        .unresolvedProceduresTypes.values
+                                        .elementAt(index);
+                                    String key = _disabilityModel
+                                        .unresolvedProceduresTypes.keys
+                                        .elementAt(index);
+                                    return ListTile(
+                                      title: ListButton(
+                                        onPressed: () => setState(() {
+                                          _disabilityModel
+                                                  .unresolvedProcedureSelected =
+                                              key;
+                                        }),
+                                        selected: _disabilityModel
+                                                .unresolvedProcedureSelected ==
+                                            key,
+                                        text: title,
+                                      ),
+                                    );
+                                  })
+                            ],
+                          )
                   ],
                 );
         },
