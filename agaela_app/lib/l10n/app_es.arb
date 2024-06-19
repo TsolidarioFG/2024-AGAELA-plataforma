@@ -15,6 +15,7 @@
     "errorNumberNotValid": "Tiene que ser un número",
     "errorPostalCodeNotValid": "El CP tiene un formato incorrecto",
     "errorGettingForm": "Error recuperando el formulario",
+    "errorPercentageNotValid": "Porcentaje no válido",
     "loginDniField": "DNI",
     "loginPasswordField": "Contraseña",
     "loginButton": "Autenticarse",

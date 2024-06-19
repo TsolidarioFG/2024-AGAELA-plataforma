@@ -34,4 +34,9 @@ extension StringUtils on String {
     final postalCodeRegExp = RegExp(r'^(?:0[1-9]|[1-4][0-9]|5[0-2])[0-9]{3}$');
     return postalCodeRegExp.hasMatch(this);
   }
+
+  bool get isValidPercentage {
+    final percentageRegExp = RegExp(r'^(?:\d{1,3}(?:(?:\.\d{1,2})?)?)$');
+    return percentageRegExp.hasMatch(this);
+  }
 }
