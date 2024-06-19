@@ -30,10 +30,6 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
 
   late PermanentWorkDisabilityModel _permanentWorkDisabilityModel;
 
-  bool _notifiedUrgentlySelected = false;
-
-  bool _resolutionSelected = false;
-
   @override
   void initState() {
     super.initState();
@@ -94,31 +90,35 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
                         }),
                     YesNoListButton(
                       onPressed: () => setState(() {
-                        _notifiedUrgentlySelected = !_notifiedUrgentlySelected;
+                        _permanentWorkDisabilityModel.notifiedUrgently =
+                            !_permanentWorkDisabilityModel.notifiedUrgently;
                       }),
-                      selected: _notifiedUrgentlySelected,
+                      selected: _permanentWorkDisabilityModel.notifiedUrgently,
                       title: AppLocalizations.of(context)!
                           .editSocialProceduresNotifiedUrgentlyTitle,
                     ),
                     YesNoListButton(
                         onPressed: () => setState(() {
-                              _resolutionSelected = !_resolutionSelected;
-                              _resolutionSelected
+                              _permanentWorkDisabilityModel.resolutionSelected =
+                                  !_permanentWorkDisabilityModel
+                                      .resolutionSelected;
+                              _permanentWorkDisabilityModel.resolutionSelected
                                   ? _permanentWorkDisabilityModel
                                       .unresolvedProcedureSelected = null
                                   : _permanentWorkDisabilityModel
                                       .resolvedDisabilitySelected = null;
                             }),
-                        selected: _resolutionSelected,
+                        selected:
+                            _permanentWorkDisabilityModel.resolutionSelected,
                         title: AppLocalizations.of(context)!
                             .editSocialProceduresResolutionTitle),
                     TextBoldStyle(
-                        text: _resolutionSelected
+                        text: _permanentWorkDisabilityModel.resolutionSelected
                             ? AppLocalizations.of(context)!
                                 .editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle
                             : AppLocalizations.of(context)!
                                 .editSocialProceduresNoResolutionTitle),
-                    _resolutionSelected
+                    _permanentWorkDisabilityModel.resolutionSelected
                         ? ListView.builder(
                             shrinkWrap: true,
                             physics: const ClampingScrollPhysics(),
