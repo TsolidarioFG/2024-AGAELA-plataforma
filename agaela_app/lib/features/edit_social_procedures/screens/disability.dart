@@ -7,6 +7,7 @@ import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
+import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
@@ -37,8 +38,29 @@ class _DisabilityState extends State<Disability> {
 
   final _disabilityPercentage = TextEditingController();
 
+  Future<void>? _setDisabilityRequest;
+
   void _setDisability() {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     _disabilityModel.disabilityPercentage = _disabilityPercentage.text;
+    setState(() {
+      _setDisabilityRequest = _editSocialProceduresService.setDisability(
+          actualUser.getActualCode(), _disabilityModel);
+      _setDisabilityRequest!.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.check),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresDisabilitySavedChanges,
+              () => context.goNamed(RoutesNames.editSocialProcedures.name)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.error),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresDisabilityErrorSavingChanges,
+              () => GoRouter.of(context).pop()));
+    });
   }
 
   @override
@@ -193,13 +215,20 @@ class _DisabilityState extends State<Disability> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        child: DefaultSendCancelButtons(
-          sendFunction: () => {
-            if (_disabilityFormKey.currentState!.validate()) _setDisability()
-          },
-          cancelFunction: () => GoRouter.of(context).pop(),
-        ),
-      ),
+          child: FutureBuilder(
+        future: _setDisabilityRequest,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.connectionState == ConnectionState.waiting
+              ? const Center(child: CircularProgressIndicator())
+              : DefaultSendCancelButtons(
+                  sendFunction: () => {
+                    if (_disabilityFormKey.currentState!.validate())
+                      _setDisability()
+                  },
+                  cancelFunction: () => GoRouter.of(context).pop(),
+                );
+        },
+      )),
     );
   }
 }
