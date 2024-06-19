@@ -10,4 +10,14 @@ class DisabilityModel {
   String? disabilityPercentage;
 
   DisabilityModel();
+
+  Map<String, dynamic> toJson() => {
+        'idTipoTramitado': processedTypeSelected,
+        'notificadaViaUrgencia': notifiedUrgently ? 1 : 0,
+        'porcentajeDiscapacidad': disabilityPercentage,
+        'baremoMovilidad': mobilityScale ? 1 : 0,
+        'baremoTerceraPersona': thirdPartyScale ? 1 : 0,
+        'idTipoTramiteNoResuelto': unresolvedProcedureSelected,
+        'resolucion': resolutionSelected ? 1 : 0
+      };
 }
