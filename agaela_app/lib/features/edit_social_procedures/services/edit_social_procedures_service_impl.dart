@@ -57,14 +57,20 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
-  Future<CardsAndIncomeModel> getCardsAndIncomeTypes() async {
+  Future<CardsAndIncomeModel> getCardsAndIncomeTypes(String partnerCode) async {
     Map<String, String> healthCardTypes = await getHealthCardTypes();
     Map<String, String> parkingCardTypes = await getParkingCardTypes();
     Map<String, String> netIncomeCardTypes = await getNetIncomeCardTypes();
+    CardsAndIncomeModel answers =
+        await getPreviousCardsAndIncomeAnswers(partnerCode);
     CardsAndIncomeModel cardsAndIncomeModel = CardsAndIncomeModel();
     cardsAndIncomeModel.healthCardTypes = healthCardTypes;
     cardsAndIncomeModel.parkingCardTypes = parkingCardTypes;
     cardsAndIncomeModel.netIncomeTypes = netIncomeCardTypes;
+    cardsAndIncomeModel.healthCardTypeSelected = answers.healthCardTypeSelected;
+    cardsAndIncomeModel.netIncomeTypeSelected = answers.netIncomeTypeSelected;
+    cardsAndIncomeModel.parkingCardTypeSelected =
+        answers.parkingCardTypeSelected;
     return cardsAndIncomeModel;
   }
 

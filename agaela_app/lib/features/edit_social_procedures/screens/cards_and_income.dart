@@ -33,8 +33,6 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
 
   Future<void>? _saveCardsAndIncomeRequest;
 
-  Future<CardsAndIncomeModel>? _getPreviousAnswersRequest;
-
   void _checkCorrectValues() {
     setState(() {
       _correctValues = _cardsAndIncomeTypes.healthCardTypeSelected != null &&
@@ -65,36 +63,16 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
     });
   }
 
-  void _getPreviousAnswers() {
-    LoggedUser actualUser =
-        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _getPreviousAnswersRequest = _editSocialProceduresService
-        .getPreviousCardsAndIncomeAnswers(actualUser.getActualCode());
-    _getPreviousAnswersRequest!.then((answers) {
-      _cardsAndIncomeTypes.healthCardTypeSelected =
-          answers.healthCardTypeSelected;
-      _cardsAndIncomeTypes.netIncomeTypeSelected =
-          answers.netIncomeTypeSelected;
-      _cardsAndIncomeTypes.parkingCardTypeSelected =
-          answers.parkingCardTypeSelected;
-      _checkCorrectValues();
-    },
-        onError: (_) => showDefaultAlertDialog(
-            context,
-            const Icon(Icons.error),
-            AppLocalizations.of(context)!
-                .editSocialProceduresErrorCardsAndIncome,
-            () => context.goNamed(RoutesNames.editSocialProcedures.name)));
-  }
-
   @override
   void initState() {
     super.initState();
-    _getCardsAndIncomeTypesRequest =
-        _editSocialProceduresService.getCardsAndIncomeTypes();
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    _getCardsAndIncomeTypesRequest = _editSocialProceduresService
+        .getCardsAndIncomeTypes(actualUser.getActualCode());
     _getCardsAndIncomeTypesRequest!.then((cardsAndIncomes) {
       _cardsAndIncomeTypes = cardsAndIncomes;
-      _getPreviousAnswers();
+      _checkCorrectValues();
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -112,7 +90,7 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
               '${AppLocalizations.of(context)!.editSocialProceduresCardsAndIncomeTitle} ${Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!.getCaredName()}',
         ),
         body: FutureBuilder(
-          future: _getPreviousAnswersRequest,
+          future: _getCardsAndIncomeTypesRequest,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             return snapshot.connectionState != ConnectionState.done
                 ? const Center(

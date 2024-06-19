@@ -8,7 +8,7 @@ abstract class EditSocialProceduresService {
 
   Future<Map<String, String>> getNetIncomeCardTypes();
 
-  Future<CardsAndIncomeModel> getCardsAndIncomeTypes();
+  Future<CardsAndIncomeModel> getCardsAndIncomeTypes(String partnerCode);
 
   Future<CardsAndIncomeModel> getPreviousCardsAndIncomeAnswers(
       String partnerCode);
