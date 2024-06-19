@@ -121,5 +121,7 @@
     "editSocialProceduresDisabilityPercentageTitle": "Porcentaje de discapacidad",
     "editSocialProceduresDisabilityPercentageTitleTextField": "Discapacidad",
     "editSocialProceduresDisabilityMobilityScaleTitle": "Baremo de movilidad",
-    "editSocialProceduresDisabilityThirdPartyScaleTitle": "Baremo de tercera persona"
+    "editSocialProceduresDisabilityThirdPartyScaleTitle": "Baremo de tercera persona",
+    "editSocialProceduresDisabilitySavedChanges": "Todos los cambios fueron guardados",
+    "editSocialProceduresDisabilityErrorSavingChanges": "Hubo un error guardando los cambios"
 }
