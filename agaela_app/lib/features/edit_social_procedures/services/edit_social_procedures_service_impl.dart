@@ -130,8 +130,14 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         await getResolvedDisabilityTypes();
     Map<String, String> unresolvedProceduresTypes =
         await getUnresolvedProceduresTypes();
-    return PermanentWorkDisabilityModel(
-        processedTypes, resolvedDisabilityTypes, unresolvedProceduresTypes);
+    PermanentWorkDisabilityModel permanentWorkDisabilityModel =
+        PermanentWorkDisabilityModel();
+    permanentWorkDisabilityModel.processedTypes = processedTypes;
+    permanentWorkDisabilityModel.resolvedDisabilityTypes =
+        resolvedDisabilityTypes;
+    permanentWorkDisabilityModel.unresolvedProceduresTypes =
+        unresolvedProceduresTypes;
+    return permanentWorkDisabilityModel;
   }
 
   @override
