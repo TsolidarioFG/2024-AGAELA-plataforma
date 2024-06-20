@@ -128,5 +128,7 @@
     "editSocialProceduresErrorDependency": "Error obteniendo dependencia",
     "editSocialProceduresDependencyDependencyLevelTitle": "Grado de dependencia",
     "editSocialProceduresDependencyIndividualizedAttentionPlanTitle": "Recibido Plan Individualizado atención (PIA)",
-    "editSocialProceduresDependencyGettingServicesTitle": "Recibiendo servicios / libranza"
+    "editSocialProceduresDependencyGettingServicesTitle": "Recibiendo servicios / libranza",
+    "editSocialProceduresDependencyServiceClarificationsTitle": "Aclaraciones servicio / libranza",
+    "editSocialProceduresDependencyServiceClarificationsTitleTextField": "Aclaraciones servicio / libranza"
 }
