@@ -130,5 +130,7 @@
     "editSocialProceduresDependencyIndividualizedAttentionPlanTitle": "Recibido Plan Individualizado atención (PIA)",
     "editSocialProceduresDependencyGettingServicesTitle": "Recibiendo servicios / libranza",
     "editSocialProceduresDependencyServiceClarificationsTitle": "Aclaraciones servicio / libranza",
-    "editSocialProceduresDependencyServiceClarificationsTitleTextField": "Aclaraciones servicio / libranza"
+    "editSocialProceduresDependencyServiceClarificationsTitleTextField": "Aclaraciones servicio / libranza",
+    "editSocialProceduresDependencySavedChanges": "Todos los cambios fueron guardados",
+    "editSocialProceduresDependencyErrorSavingChanges": "Hubo un error guardando los cambios"
 }
