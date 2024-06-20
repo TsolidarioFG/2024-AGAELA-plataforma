@@ -40,6 +40,17 @@ class _DisabilityState extends State<Disability> {
 
   Future<void>? _setDisabilityRequest;
 
+  bool _validFields = false;
+
+  void _checkCorrectField() {
+    setState(() {
+      _validFields = _disabilityModel.processedTypeSelected != null &&
+              !_disabilityModel.resolutionSelected
+          ? _disabilityModel.unresolvedProcedureSelected != null
+          : true;
+    });
+  }
+
   void _setDisability() {
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
@@ -73,6 +84,7 @@ class _DisabilityState extends State<Disability> {
     _disabilityFieldsRequest!.then((disabilityFields) {
       _disabilityModel = disabilityFields;
       _disabilityPercentage.text = _disabilityModel.disabilityPercentage ?? '';
+      _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -114,6 +126,7 @@ class _DisabilityState extends State<Disability> {
                               title: ListButton(
                                 onPressed: () => setState(() {
                                   _disabilityModel.processedTypeSelected = key;
+                                  _checkCorrectField();
                                 }),
                                 selected:
                                     _disabilityModel.processedTypeSelected ==
@@ -126,6 +139,7 @@ class _DisabilityState extends State<Disability> {
                         onPressed: () => setState(() {
                           _disabilityModel.notifiedUrgently =
                               !_disabilityModel.notifiedUrgently;
+                          _checkCorrectField();
                         }),
                         selected: _disabilityModel.notifiedUrgently,
                         title: AppLocalizations.of(context)!
@@ -135,6 +149,7 @@ class _DisabilityState extends State<Disability> {
                           onPressed: () => setState(() {
                                 _disabilityModel.resolutionSelected =
                                     !_disabilityModel.resolutionSelected;
+                                _checkCorrectField();
                               }),
                           selected: _disabilityModel.resolutionSelected,
                           title: AppLocalizations.of(context)!
@@ -203,6 +218,7 @@ class _DisabilityState extends State<Disability> {
                                             _disabilityModel
                                                     .unresolvedProcedureSelected =
                                                 key;
+                                            _checkCorrectField();
                                           }),
                                           selected: _disabilityModel
                                                   .unresolvedProcedureSelected ==
@@ -224,11 +240,13 @@ class _DisabilityState extends State<Disability> {
           return snapshot.connectionState == ConnectionState.waiting
               ? const Center(child: CircularProgressIndicator())
               : DefaultSendCancelButtons(
-                  sendFunction: () {
-                    if (_disabilityFormKey.currentState!.validate()) {
-                      _setDisability();
-                    }
-                  },
+                  sendFunction: _validFields
+                      ? () {
+                          if (_disabilityFormKey.currentState!.validate()) {
+                            _setDisability();
+                          }
+                        }
+                      : null,
                   cancelFunction: () => GoRouter.of(context).pop(),
                 );
         },
