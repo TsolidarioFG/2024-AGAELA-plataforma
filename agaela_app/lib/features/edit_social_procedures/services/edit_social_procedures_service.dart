@@ -42,4 +42,6 @@ abstract class EditSocialProceduresService {
   Future<DependencyModel> getDependencyFields(String partnerCode);
 
   Future<Map<String, String>> getDependencyLevelsTypes();
+
+  Future<void> setDependency(String partnerCode, DependencyModel dependency);
 }

@@ -28,6 +28,9 @@ _getPreviousAnswersAndSetDisabilityPath(String partnerCode) =>
 
 const _getDependencyLevelsTypesPath = '/tiposGradoDependencia';
 
+_getPreviousAnswersAndSetDependencyPath(String partnerCode) =>
+    '/socio/dependencia/$partnerCode';
+
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   Future<Map<String, String>> _getMap(String path) async {
     final response = await http.get(Uri.parse('$baseUrl$path'),
@@ -266,5 +269,18 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   @override
   Future<Map<String, String>> getDependencyLevelsTypes() async {
     return _getMap(_getDependencyLevelsTypesPath);
+  }
+
+  @override
+  Future<void> setDependency(
+      String partnerCode, DependencyModel dependency) async {
+    final response = await http.post(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetDependencyPath(partnerCode)}'),
+        headers: await headersAuthAndJson(),
+        body: jsonEncode(dependency.toJson()));
+    if (response.statusCode != 200) {
+      throw Exception();
+    }
   }
 }
