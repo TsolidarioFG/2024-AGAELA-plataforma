@@ -37,8 +37,29 @@ class _DependencyState extends State<Dependency> {
 
   Future<DependencyModel>? _dependencyFieldsRequest;
 
+  Future<void>? _setDependencyRequest;
+
   void _setDependency() {
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
     _dependencyModel.serviceClarifications = _serviceClarifications.text;
+    setState(() {
+      _setDependencyRequest = _editSocialProceduresService.setDependency(
+          actualUser.getActualCode(), _dependencyModel);
+      _setDependencyRequest!.then(
+          (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.check),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresDependencySavedChanges,
+              () => context.goNamed(RoutesNames.editSocialProcedures.name)),
+          onError: (_) => showDefaultAlertDialog(
+              context,
+              const Icon(Icons.error),
+              AppLocalizations.of(context)!
+                  .editSocialProceduresDependencyErrorSavingChanges,
+              () => GoRouter.of(context).pop()));
+    });
   }
 
   @override
@@ -223,15 +244,23 @@ class _DependencyState extends State<Dependency> {
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        child: DefaultSendCancelButtons(
-          sendFunction: () {
-            if (_dependencyFormKey.currentState!.validate()) {
-              _setDependency();
-            }
-          },
-          cancelFunction: () => GoRouter.of(context).pop(),
-        ),
-      ),
+          child: FutureBuilder(
+        future: _setDependencyRequest,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return snapshot.connectionState == ConnectionState.waiting
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : DefaultSendCancelButtons(
+                  sendFunction: () {
+                    if (_dependencyFormKey.currentState!.validate()) {
+                      _setDependency();
+                    }
+                  },
+                  cancelFunction: () => GoRouter.of(context).pop(),
+                );
+        },
+      )),
     );
   }
 }
