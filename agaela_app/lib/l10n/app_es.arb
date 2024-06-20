@@ -125,5 +125,8 @@
     "editSocialProceduresDisabilitySavedChanges": "Todos los cambios fueron guardados",
     "editSocialProceduresDisabilityErrorSavingChanges": "Hubo un error guardando los cambios",
     "editSocialProceduresDependencyTitle": "Dependencia",
-    "editSocialProceduresErrorDependency": "Error obteniendo dependencia"
+    "editSocialProceduresErrorDependency": "Error obteniendo dependencia",
+    "editSocialProceduresDependencyDependencyLevelTitle": "Grado de dependencia",
+    "editSocialProceduresDependencyIndividualizedAttentionPlanTitle": "Recibido Plan Individualizado atención (PIA)",
+    "editSocialProceduresDependencyGettingServicesTitle": "Recibiendo servicios / libranza"
 }
