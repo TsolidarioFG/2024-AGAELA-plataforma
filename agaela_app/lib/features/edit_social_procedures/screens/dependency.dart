@@ -107,6 +107,46 @@ class _DependencyState extends State<Dependency> {
                         selected: _dependencyModel.resolutionSelected,
                         title: AppLocalizations.of(context)!
                             .editSocialProceduresResolutionTitle),
+                    _dependencyModel.resolutionSelected
+                        ? const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[],
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              TextBoldStyle(
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresNoResolutionTitle),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  itemCount: _dependencyModel
+                                      .unresolvedProceduresTypes.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    String title = _dependencyModel
+                                        .unresolvedProceduresTypes.values
+                                        .elementAt(index);
+                                    String key = _dependencyModel
+                                        .unresolvedProceduresTypes.keys
+                                        .elementAt(index);
+                                    return ListTile(
+                                      title: ListButton(
+                                        onPressed: () => setState(() {
+                                          _dependencyModel
+                                                  .unresolvedProcedureSelected =
+                                              key;
+                                        }),
+                                        selected: _dependencyModel
+                                                .unresolvedProcedureSelected ==
+                                            key,
+                                        text: title,
+                                      ),
+                                    );
+                                  })
+                            ],
+                          )
                   ]));
         },
       ),
