@@ -1,5 +1,6 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
+import 'package:agaela_app/common_widgets/default_text_field.dart';
 import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
@@ -28,9 +29,17 @@ class _DependencyState extends State<Dependency> {
   final EditSocialProceduresService _editSocialProceduresService =
       locator<EditSocialProceduresService>();
 
+  final double padding = 10.0;
+
+  final _serviceClarifications = TextEditingController();
+
   late DependencyModel _dependencyModel;
 
   Future<DependencyModel>? _dependencyFieldsRequest;
+
+  void _setDependency() {
+    _dependencyModel.serviceClarifications = _serviceClarifications.text;
+  }
 
   @override
   void initState() {
@@ -41,6 +50,8 @@ class _DependencyState extends State<Dependency> {
         .getDependencyFields(actualUser.getActualCode());
     _dependencyFieldsRequest!.then((dependencyFields) {
       _dependencyModel = dependencyFields;
+      _serviceClarifications.text =
+          _dependencyModel.serviceClarifications ?? '';
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -160,6 +171,17 @@ class _DependencyState extends State<Dependency> {
                                 title: AppLocalizations.of(context)!
                                     .editSocialProceduresDependencyGettingServicesTitle,
                               ),
+                              TextBoldStyle(
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresDependencyServiceClarificationsTitle),
+                              Padding(
+                                padding: EdgeInsets.all(padding),
+                                child: DefaultTextField(
+                                  controller: _serviceClarifications,
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresDependencyServiceClarificationsTitleTextField,
+                                ),
+                              ),
                             ],
                           )
                         : Column(
@@ -202,7 +224,11 @@ class _DependencyState extends State<Dependency> {
       ),
       bottomNavigationBar: BottomAppBar(
         child: DefaultSendCancelButtons(
-          sendFunction: () => {},
+          sendFunction: () {
+            if (_dependencyFormKey.currentState!.validate()) {
+              _setDependency();
+            }
+          },
           cancelFunction: () => GoRouter.of(context).pop(),
         ),
       ),

@@ -9,6 +9,7 @@ class DependencyModel {
   String? processedTypeSelected;
   String? unresolvedProcedureSelected;
   String? dependencyLevelSelected;
+  String? serviceClarifications;
 
   DependencyModel();
 }
