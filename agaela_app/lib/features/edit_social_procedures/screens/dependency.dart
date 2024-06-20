@@ -108,9 +108,59 @@ class _DependencyState extends State<Dependency> {
                         title: AppLocalizations.of(context)!
                             .editSocialProceduresResolutionTitle),
                     _dependencyModel.resolutionSelected
-                        ? const Column(
+                        ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[],
+                            children: <Widget>[
+                              TextBoldStyle(
+                                  text: AppLocalizations.of(context)!
+                                      .editSocialProceduresDependencyDependencyLevelTitle),
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const ClampingScrollPhysics(),
+                                  itemCount: _dependencyModel
+                                      .dependencyLevelsTypes.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    String title = _dependencyModel
+                                        .dependencyLevelsTypes.values
+                                        .elementAt(index);
+                                    String key = _dependencyModel
+                                        .dependencyLevelsTypes.keys
+                                        .elementAt(index);
+                                    return ListTile(
+                                      title: ListButton(
+                                        onPressed: () => setState(() {
+                                          _dependencyModel
+                                              .dependencyLevelSelected = key;
+                                        }),
+                                        selected: _dependencyModel
+                                                .dependencyLevelSelected ==
+                                            key,
+                                        text: title,
+                                      ),
+                                    );
+                                  }),
+                              YesNoListButton(
+                                onPressed: () => setState(() {
+                                  _dependencyModel.individualizedAttentionPlan =
+                                      !_dependencyModel
+                                          .individualizedAttentionPlan;
+                                }),
+                                selected: _dependencyModel
+                                    .individualizedAttentionPlan,
+                                title: AppLocalizations.of(context)!
+                                    .editSocialProceduresDependencyIndividualizedAttentionPlanTitle,
+                              ),
+                              YesNoListButton(
+                                onPressed: () => setState(() {
+                                  _dependencyModel.gettingServices =
+                                      !_dependencyModel.gettingServices;
+                                }),
+                                selected: _dependencyModel.gettingServices,
+                                title: AppLocalizations.of(context)!
+                                    .editSocialProceduresDependencyGettingServicesTitle,
+                              ),
+                            ],
                           )
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

@@ -8,6 +8,7 @@ class DependencyModel {
   bool gettingServices = false;
   String? processedTypeSelected;
   String? unresolvedProcedureSelected;
+  String? dependencyLevelSelected;
 
   DependencyModel();
 }
