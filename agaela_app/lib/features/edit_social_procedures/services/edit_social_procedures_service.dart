@@ -1,4 +1,5 @@
 import 'package:agaela_app/features/edit_social_procedures/models/cards_and_income_model.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/dependency_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 
@@ -37,4 +38,6 @@ abstract class EditSocialProceduresService {
   Future<void> setDisability(String partnerCode, DisabilityModel disability);
 
   Future<DisabilityModel> getPreviousDisabilityAnswers(String partnerCode);
+
+  Future<DependencyModel> getDependencyFields(String partnerCode);
 }

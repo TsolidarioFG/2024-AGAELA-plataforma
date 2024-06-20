@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:agaela_app/constants/global_constants.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/cards_and_income_model.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/dependency_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
@@ -244,5 +245,16 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     } else {
       return DisabilityModel();
     }
+  }
+
+  @override
+  Future<DependencyModel> getDependencyFields(String partnerCode) async {
+    Map<String, String> processedTypes = await getProcessedTypes();
+    Map<String, String> unresolvedProceduresTypes =
+        await getUnresolvedProceduresTypes();
+    DependencyModel dependencyModel = DependencyModel();
+    dependencyModel.processedTypes = processedTypes;
+    dependencyModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
+    return dependencyModel;
   }
 }
