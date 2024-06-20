@@ -32,7 +32,9 @@ abstract class EditSocialProceduresService {
   Future<void> setPermanentWorkDisability(
       String partnerCode, PermanentWorkDisabilityModel permanentWorkDisability);
 
-  Future<DisabilityModel> getDisabilityFields();
+  Future<DisabilityModel> getDisabilityFields(String partnerCode);
 
   Future<void> setDisability(String partnerCode, DisabilityModel disability);
+
+  Future<DisabilityModel> getPreviousDisabilityAnswers(String partnerCode);
 }

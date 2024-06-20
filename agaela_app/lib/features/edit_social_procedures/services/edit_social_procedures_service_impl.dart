@@ -193,13 +193,22 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
-  Future<DisabilityModel> getDisabilityFields() async {
+  Future<DisabilityModel> getDisabilityFields(String partnerCode) async {
     Map<String, String> processedTypes = await getProcessedTypes();
     Map<String, String> unresolvedProceduresTypes =
         await getUnresolvedProceduresTypes();
+    DisabilityModel answers = await getPreviousDisabilityAnswers(partnerCode);
     DisabilityModel disabilityModel = DisabilityModel();
     disabilityModel.processedTypes = processedTypes;
     disabilityModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
+    disabilityModel.disabilityPercentage = answers.disabilityPercentage;
+    disabilityModel.mobilityScale = answers.mobilityScale;
+    disabilityModel.notifiedUrgently = answers.notifiedUrgently;
+    disabilityModel.processedTypeSelected = answers.processedTypeSelected;
+    disabilityModel.resolutionSelected = answers.resolutionSelected;
+    disabilityModel.thirdPartyScale = answers.thirdPartyScale;
+    disabilityModel.unresolvedProcedureSelected =
+        answers.unresolvedProcedureSelected;
     return disabilityModel;
   }
 
@@ -213,6 +222,27 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         body: jsonEncode(disability.toJson()));
     if (response.statusCode != 200) {
       throw Exception();
+    }
+  }
+
+  @override
+  Future<DisabilityModel> getPreviousDisabilityAnswers(
+      String partnerCode) async {
+    final response = await http.get(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetDisabilityPath(partnerCode)}'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      dynamic jsonResponseMap = json['data'];
+      if (jsonResponseMap == null ||
+          (jsonResponseMap is List && jsonResponseMap.isEmpty)) {
+        return DisabilityModel();
+      }
+      return DisabilityModel.fromJson(jsonResponseMap as Map<String, dynamic>);
+    } else {
+      return DisabilityModel();
     }
   }
 }

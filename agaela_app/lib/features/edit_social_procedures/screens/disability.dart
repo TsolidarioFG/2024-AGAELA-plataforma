@@ -66,10 +66,13 @@ class _DisabilityState extends State<Disability> {
   @override
   void initState() {
     super.initState();
-    _disabilityFieldsRequest =
-        _editSocialProceduresService.getDisabilityFields();
+    LoggedUser actualUser =
+        Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
+    _disabilityFieldsRequest = _editSocialProceduresService
+        .getDisabilityFields(actualUser.getActualCode());
     _disabilityFieldsRequest!.then((disabilityFields) {
       _disabilityModel = disabilityFields;
+      _disabilityPercentage.text = _disabilityModel.disabilityPercentage ?? '';
     },
         onError: (_) => showDefaultAlertDialog(
             context,
