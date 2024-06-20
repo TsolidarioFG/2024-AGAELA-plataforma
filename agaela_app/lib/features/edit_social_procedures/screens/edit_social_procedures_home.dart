@@ -68,7 +68,8 @@ class EditSocialProceduresHome extends StatelessWidget {
                   const Icon(Icons.supervisor_account),
                   Expanded(
                       child: DefaultButton(
-                    function: () => {},
+                    function: () =>
+                        context.goNamed(RoutesNames.dependency.name),
                     text: AppLocalizations.of(context)!
                         .editSocialProceduresDependency,
                   )),

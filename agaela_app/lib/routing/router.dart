@@ -6,6 +6,7 @@ import 'package:agaela_app/features/edit_profile/screens/edit_profile_home.dart'
 import 'package:agaela_app/features/edit_profile/screens/identification_and_contact.dart';
 import 'package:agaela_app/features/edit_profile/screens/localization_and_profession.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/cards_and_income.dart';
+import 'package:agaela_app/features/edit_social_procedures/screens/dependency.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/disability.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/edit_social_procedures_home.dart';
 import 'package:agaela_app/features/edit_social_procedures/screens/permanent_work_disability.dart';
@@ -36,6 +37,7 @@ enum RoutesNames {
   editSocialProcedures,
   cardsAndIncome,
   disability,
+  dependency,
   permanentWorkDisability
 }
 
@@ -116,6 +118,11 @@ final GoRouter router = GoRouter(initialLocation: '/login', routes: [
             name: RoutesNames.disability.name,
             path: 'disability',
             builder: (context, state) => const Disability()),
+        GoRoute(
+          name: RoutesNames.dependency.name,
+          path: 'dependency',
+          builder: (context, state) => const Dependency(),
+        ),
         GoRoute(
           name: RoutesNames.permanentWorkDisability.name,
           path: 'permanent_work_disability',
