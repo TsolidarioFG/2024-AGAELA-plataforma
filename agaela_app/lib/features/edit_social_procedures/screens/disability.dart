@@ -90,54 +90,54 @@ class _DisabilityState extends State<Disability> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.connectionState == ConnectionState.waiting
               ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: <Widget>[
-                    TextBoldStyle(
-                        text: AppLocalizations.of(context)!
-                            .editSocialProceduresProcessedTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: _disabilityModel.processedTypes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String text = _disabilityModel.processedTypes.values
-                              .elementAt(index);
-                          String key = _disabilityModel.processedTypes.keys
-                              .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => setState(() {
-                                _disabilityModel.processedTypeSelected = key;
-                              }),
-                              selected:
-                                  _disabilityModel.processedTypeSelected == key,
-                              text: text,
-                            ),
-                          );
-                        }),
-                    YesNoListButton(
-                      onPressed: () => setState(() {
-                        _disabilityModel.notifiedUrgently =
-                            !_disabilityModel.notifiedUrgently;
-                      }),
-                      selected: _disabilityModel.notifiedUrgently,
-                      title: AppLocalizations.of(context)!
-                          .editSocialProceduresNotifiedUrgentlyTitle,
-                    ),
-                    YesNoListButton(
+              : Form(
+                  key: _disabilityFormKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: ListView(
+                    children: <Widget>[
+                      TextBoldStyle(
+                          text: AppLocalizations.of(context)!
+                              .editSocialProceduresProcessedTitle),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: _disabilityModel.processedTypes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String text = _disabilityModel.processedTypes.values
+                                .elementAt(index);
+                            String key = _disabilityModel.processedTypes.keys
+                                .elementAt(index);
+                            return ListTile(
+                              title: ListButton(
+                                onPressed: () => setState(() {
+                                  _disabilityModel.processedTypeSelected = key;
+                                }),
+                                selected:
+                                    _disabilityModel.processedTypeSelected ==
+                                        key,
+                                text: text,
+                              ),
+                            );
+                          }),
+                      YesNoListButton(
                         onPressed: () => setState(() {
-                              _disabilityModel.resolutionSelected =
-                                  !_disabilityModel.resolutionSelected;
-                            }),
-                        selected: _disabilityModel.resolutionSelected,
+                          _disabilityModel.notifiedUrgently =
+                              !_disabilityModel.notifiedUrgently;
+                        }),
+                        selected: _disabilityModel.notifiedUrgently,
                         title: AppLocalizations.of(context)!
-                            .editSocialProceduresResolutionTitle),
-                    _disabilityModel.resolutionSelected
-                        ? Form(
-                            key: _disabilityFormKey,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            child: Column(
+                            .editSocialProceduresNotifiedUrgentlyTitle,
+                      ),
+                      YesNoListButton(
+                          onPressed: () => setState(() {
+                                _disabilityModel.resolutionSelected =
+                                    !_disabilityModel.resolutionSelected;
+                              }),
+                          selected: _disabilityModel.resolutionSelected,
+                          title: AppLocalizations.of(context)!
+                              .editSocialProceduresResolutionTitle),
+                      _disabilityModel.resolutionSelected
+                          ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 TextBoldStyle(
@@ -174,44 +174,44 @@ class _DisabilityState extends State<Disability> {
                                     title: AppLocalizations.of(context)!
                                         .editSocialProceduresDisabilityThirdPartyScaleTitle),
                               ],
-                            ))
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              TextBoldStyle(
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresNoResolutionTitle),
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: _disabilityModel
-                                      .unresolvedProceduresTypes.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String title = _disabilityModel
-                                        .unresolvedProceduresTypes.values
-                                        .elementAt(index);
-                                    String key = _disabilityModel
-                                        .unresolvedProceduresTypes.keys
-                                        .elementAt(index);
-                                    return ListTile(
-                                      title: ListButton(
-                                        onPressed: () => setState(() {
-                                          _disabilityModel
-                                                  .unresolvedProcedureSelected =
-                                              key;
-                                        }),
-                                        selected: _disabilityModel
-                                                .unresolvedProcedureSelected ==
-                                            key,
-                                        text: title,
-                                      ),
-                                    );
-                                  })
-                            ],
-                          )
-                  ],
-                );
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                TextBoldStyle(
+                                    text: AppLocalizations.of(context)!
+                                        .editSocialProceduresNoResolutionTitle),
+                                ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const ClampingScrollPhysics(),
+                                    itemCount: _disabilityModel
+                                        .unresolvedProceduresTypes.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      String title = _disabilityModel
+                                          .unresolvedProceduresTypes.values
+                                          .elementAt(index);
+                                      String key = _disabilityModel
+                                          .unresolvedProceduresTypes.keys
+                                          .elementAt(index);
+                                      return ListTile(
+                                        title: ListButton(
+                                          onPressed: () => setState(() {
+                                            _disabilityModel
+                                                    .unresolvedProcedureSelected =
+                                                key;
+                                          }),
+                                          selected: _disabilityModel
+                                                  .unresolvedProcedureSelected ==
+                                              key,
+                                          text: title,
+                                        ),
+                                      );
+                                    })
+                              ],
+                            )
+                    ],
+                  ));
         },
       ),
       bottomNavigationBar: BottomAppBar(
@@ -221,9 +221,10 @@ class _DisabilityState extends State<Disability> {
           return snapshot.connectionState == ConnectionState.waiting
               ? const Center(child: CircularProgressIndicator())
               : DefaultSendCancelButtons(
-                  sendFunction: () => {
-                    if (_disabilityFormKey.currentState!.validate())
-                      _setDisability()
+                  sendFunction: () {
+                    if (_disabilityFormKey.currentState!.validate()) {
+                      _setDisability();
+                    }
                   },
                   cancelFunction: () => GoRouter.of(context).pop(),
                 );
