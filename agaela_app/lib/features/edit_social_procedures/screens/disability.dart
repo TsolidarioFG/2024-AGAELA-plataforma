@@ -149,6 +149,14 @@ class _DisabilityState extends State<Disability> {
                           onPressed: () => setState(() {
                                 _disabilityModel.resolutionSelected =
                                     !_disabilityModel.resolutionSelected;
+                                if (_disabilityModel.resolutionSelected) {
+                                  _disabilityModel.unresolvedProcedureSelected =
+                                      null;
+                                } else {
+                                  _disabilityPercentage.text = '';
+                                  _disabilityModel.mobilityScale = false;
+                                  _disabilityModel.thirdPartyScale = false;
+                                }
                                 _checkCorrectField();
                               }),
                           selected: _disabilityModel.resolutionSelected,
