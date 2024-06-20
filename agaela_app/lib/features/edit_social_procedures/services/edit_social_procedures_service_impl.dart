@@ -26,6 +26,8 @@ _getPreviousAnswersAndSetPermanentWorkDisabilityPath(String partnerCode) =>
 _getPreviousAnswersAndSetDisabilityPath(String partnerCode) =>
     '/socio/discapacidad/$partnerCode';
 
+const _getDependencyLevelsTypesPath = '/tiposGradoDependencia';
+
 class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   Future<Map<String, String>> _getMap(String path) async {
     final response = await http.get(Uri.parse('$baseUrl$path'),
@@ -252,9 +254,17 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     Map<String, String> processedTypes = await getProcessedTypes();
     Map<String, String> unresolvedProceduresTypes =
         await getUnresolvedProceduresTypes();
+    Map<String, String> dependencyLevelsTypes =
+        await getDependencyLevelsTypes();
     DependencyModel dependencyModel = DependencyModel();
     dependencyModel.processedTypes = processedTypes;
     dependencyModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
+    dependencyModel.dependencyLevelsTypes = dependencyLevelsTypes;
     return dependencyModel;
+  }
+
+  @override
+  Future<Map<String, String>> getDependencyLevelsTypes() async {
+    return _getMap(_getDependencyLevelsTypesPath);
   }
 }
