@@ -124,5 +124,6 @@
     "editSocialProceduresDisabilityThirdPartyScaleTitle": "Baremo de tercera persona",
     "editSocialProceduresDisabilitySavedChanges": "Todos los cambios fueron guardados",
     "editSocialProceduresDisabilityErrorSavingChanges": "Hubo un error guardando los cambios",
-    "editSocialProceduresDependencyTitle": "Dependencia"
+    "editSocialProceduresDependencyTitle": "Dependencia",
+    "editSocialProceduresErrorDependency": "Error obteniendo dependencia"
 }
