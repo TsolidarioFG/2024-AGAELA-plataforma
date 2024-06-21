@@ -266,6 +266,7 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     Map<String, String> dependencyOrdersOfPaymentTypes =
         await getDependencyOrdersOfPayment();
     Map<String, String> dependencyServices = await getDependencyServices();
+    DependencyModel answers = await getPreviousDependencyAnswers(partnerCode);
     DependencyModel dependencyModel = DependencyModel();
     dependencyModel.processedTypes = processedTypes;
     dependencyModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
@@ -273,6 +274,20 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     dependencyModel.dependencyOrdersOfPaymentTypes =
         dependencyOrdersOfPaymentTypes;
     dependencyModel.dependencyServices = dependencyServices;
+    dependencyModel.dependencyLevelSelected = answers.dependencyLevelSelected;
+    dependencyModel.dependencyOrdersOfPaymentSelected =
+        answers.dependencyOrdersOfPaymentSelected;
+    dependencyModel.dependencyServicesSelected =
+        answers.dependencyServicesSelected;
+    dependencyModel.gettingServices = answers.gettingServices;
+    dependencyModel.individualizedAttentionPlan =
+        answers.individualizedAttentionPlan;
+    dependencyModel.notifiedUrgently = answers.notifiedUrgently;
+    dependencyModel.processedTypeSelected = answers.processedTypeSelected;
+    dependencyModel.resolutionSelected = answers.resolutionSelected;
+    dependencyModel.serviceClarifications = answers.serviceClarifications;
+    dependencyModel.unresolvedProcedureSelected =
+        answers.unresolvedProcedureSelected;
     return dependencyModel;
   }
 
@@ -302,5 +317,26 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   @override
   Future<Map<String, String>> getDependencyServices() async {
     return _getMap(_getDependencyServicesTypesPath);
+  }
+
+  @override
+  Future<DependencyModel> getPreviousDependencyAnswers(
+      String partnerCode) async {
+    final response = await http.get(
+        Uri.parse(
+            '$baseUrl${_getPreviousAnswersAndSetDependencyPath(partnerCode)}'),
+        headers: await authHeaders());
+    if (response.statusCode == 200) {
+      Map<String, dynamic> json =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      dynamic jsonResponseMap = json['data'];
+      if (jsonResponseMap == null ||
+          (jsonResponseMap is List && jsonResponseMap.isEmpty)) {
+        return DependencyModel();
+      }
+      return DependencyModel.fromJson(jsonResponseMap as Map<String, dynamic>);
+    } else {
+      return DependencyModel();
+    }
   }
 }

@@ -48,4 +48,6 @@ abstract class EditSocialProceduresService {
   Future<Map<String, String>> getDependencyOrdersOfPayment();
 
   Future<void> setDependency(String partnerCode, DependencyModel dependency);
+
+  Future<DependencyModel> getPreviousDependencyAnswers(String partnerCode);
 }
