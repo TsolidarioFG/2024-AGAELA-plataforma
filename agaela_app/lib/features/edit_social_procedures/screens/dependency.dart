@@ -239,7 +239,74 @@ class _DependencyState extends State<Dependency> {
                                     );
                                   })
                             ],
-                          )
+                          ),
+                    TextBoldStyle(
+                        text: AppLocalizations.of(context)!
+                            .editSocialProceduresDependencyRequestedServicesTitle),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _dependencyModel.dependencyServices.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String title = _dependencyModel
+                              .dependencyServices.values
+                              .elementAt(index);
+                          String key = _dependencyModel.dependencyServices.keys
+                              .elementAt(index);
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () => setState(() {
+                                _dependencyModel.dependencyServicesSelected
+                                        .contains(key)
+                                    ? _dependencyModel
+                                        .dependencyServicesSelected
+                                        .remove(key)
+                                    : _dependencyModel
+                                        .dependencyServicesSelected
+                                        .add(key);
+                              }),
+                              selected: _dependencyModel
+                                  .dependencyServicesSelected
+                                  .contains(key),
+                              text: title,
+                            ),
+                          );
+                        }),
+                    TextBoldStyle(
+                        text: AppLocalizations.of(context)!
+                            .editSocialProceduresDependencyOrdersOfPaymentTitle),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: _dependencyModel
+                            .dependencyOrdersOfPaymentTypes.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          String title = _dependencyModel
+                              .dependencyOrdersOfPaymentTypes.values
+                              .elementAt(index);
+                          String key = _dependencyModel
+                              .dependencyOrdersOfPaymentTypes.keys
+                              .elementAt(index);
+                          return ListTile(
+                            title: ListButton(
+                              onPressed: () => setState(() {
+                                _dependencyModel
+                                        .dependencyOrdersOfPaymentSelected
+                                        .contains(key)
+                                    ? _dependencyModel
+                                        .dependencyOrdersOfPaymentSelected
+                                        .remove(key)
+                                    : _dependencyModel
+                                        .dependencyOrdersOfPaymentSelected
+                                        .add(key);
+                              }),
+                              selected: _dependencyModel
+                                  .dependencyOrdersOfPaymentSelected
+                                  .contains(key),
+                              text: title,
+                            ),
+                          );
+                        }),
                   ]));
         },
       ),

@@ -12,6 +12,8 @@ class DependencyModel {
   String? unresolvedProcedureSelected;
   String? dependencyLevelSelected;
   String? serviceClarifications;
+  List<String> dependencyOrdersOfPaymentSelected = [];
+  List<String> dependencyServicesSelected = [];
 
   DependencyModel();
 
