@@ -216,10 +216,15 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
-  Future<DisabilityModel> getDisabilityFields(String partnerCode) async {
-    Map<String, String> processedTypes = await getProcessedTypes();
-    Map<String, String> unresolvedProceduresTypes =
-        await getUnresolvedProceduresTypes();
+  Future<DisabilityModel> getDisabilityFields(
+      String partnerCode,
+      Map<String, String>? processedTypesSaved,
+      Map<String, String>? unresolvedProceduresTypesSaved) async {
+    Map<String, String> processedTypes;
+    Map<String, String> unresolvedProceduresTypes;
+    processedTypes = processedTypesSaved ?? await getProcessedTypes();
+    unresolvedProceduresTypes =
+        unresolvedProceduresTypesSaved ?? await getUnresolvedProceduresTypes();
     DisabilityModel answers = await getPreviousDisabilityAnswers(partnerCode);
     DisabilityModel disabilityModel = DisabilityModel();
     disabilityModel.processedTypes = processedTypes;

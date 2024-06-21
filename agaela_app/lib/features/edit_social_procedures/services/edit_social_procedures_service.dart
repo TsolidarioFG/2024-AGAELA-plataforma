@@ -40,7 +40,10 @@ abstract class EditSocialProceduresService {
   Future<void> setPermanentWorkDisability(
       String partnerCode, PermanentWorkDisabilityModel permanentWorkDisability);
 
-  Future<DisabilityModel> getDisabilityFields(String partnerCode);
+  Future<DisabilityModel> getDisabilityFields(
+      String partnerCode,
+      Map<String, String>? processedTypes,
+      Map<String, String>? unresolvedProceduresTypes);
 
   Future<void> setDisability(String partnerCode, DisabilityModel disability);
 

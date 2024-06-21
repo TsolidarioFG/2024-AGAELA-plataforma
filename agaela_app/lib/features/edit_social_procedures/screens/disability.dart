@@ -5,6 +5,7 @@ import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/disability_model.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
@@ -79,11 +80,19 @@ class _DisabilityState extends State<Disability> {
     super.initState();
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _disabilityFieldsRequest = _editSocialProceduresService
-        .getDisabilityFields(actualUser.getActualCode());
+    EditSocialProceduresSavedTypes savedTypes =
+        Provider.of<EditSocialProceduresSavedTypes>(context, listen: false);
+    Map<String, String>? processedTypes = savedTypes.processedTypes;
+    Map<String, String>? unresolvedProceduresTypes =
+        savedTypes.unresolvedProceduresTypes;
+    _disabilityFieldsRequest = _editSocialProceduresService.getDisabilityFields(
+        actualUser.getActualCode(), processedTypes, unresolvedProceduresTypes);
     _disabilityFieldsRequest!.then((disabilityFields) {
       _disabilityModel = disabilityFields;
       _disabilityPercentage.text = _disabilityModel.disabilityPercentage ?? '';
+      savedTypes.processedTypes = _disabilityModel.processedTypes;
+      savedTypes.unresolvedProceduresTypes =
+          _disabilityModel.unresolvedProceduresTypes;
       _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(
