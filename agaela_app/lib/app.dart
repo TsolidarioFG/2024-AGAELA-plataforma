@@ -1,6 +1,7 @@
 import 'package:agaela_app/features/edit_functional_state/models/actual_form_provider.dart';
 import 'package:agaela_app/features/edit_functional_state/models/cached_questions.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,9 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => UserProfileInformationProvider()),
         ChangeNotifierProvider(create: (context) => ActualFormProvider()),
-        ChangeNotifierProvider(create: (context) => CachedQuestions())
+        ChangeNotifierProvider(create: (context) => CachedQuestions()),
+        ChangeNotifierProvider(
+            create: (context) => EditSocialProceduresSavedTypes())
       ],
       child: MaterialApp.router(
         routerConfig: router,
