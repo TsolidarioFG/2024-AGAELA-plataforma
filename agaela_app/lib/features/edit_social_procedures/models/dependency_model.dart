@@ -18,12 +18,14 @@ class DependencyModel {
   DependencyModel();
 
   Map<String, dynamic> toJson() => {
-        "idTipoTramitado": processedTypeSelected,
-        "notificadaViaUrgencia": notifiedUrgently ? 1 : 0,
-        "idTipoGradoDependecia": dependencyLevelSelected,
-        "recibiendoPIA": individualizedAttentionPlan ? 1 : 0,
-        "recibiendoServicio": gettingServices ? 1 : 0,
-        "aclaracionesRecibiendoServicio": serviceClarifications,
-        "idTipoTramiteNoResuelto": unresolvedProcedureSelected,
+        'idTipoTramitado': processedTypeSelected,
+        'notificadaViaUrgencia': notifiedUrgently ? 1 : 0,
+        'idTipoGradoDependecia': dependencyLevelSelected,
+        'recibiendoPIA': individualizedAttentionPlan ? 1 : 0,
+        'recibiendoServicio': gettingServices ? 1 : 0,
+        'aclaracionesRecibiendoServicio': serviceClarifications,
+        'idTipoTramiteNoResuelto': unresolvedProcedureSelected,
+        'servicios': dependencyServicesSelected,
+        'libranzas': dependencyOrdersOfPaymentSelected
       };
 }
