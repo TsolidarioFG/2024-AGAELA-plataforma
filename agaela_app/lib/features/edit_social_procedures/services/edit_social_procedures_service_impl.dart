@@ -28,6 +28,10 @@ _getPreviousAnswersAndSetDisabilityPath(String partnerCode) =>
 
 const _getDependencyLevelsTypesPath = '/tiposGradoDependencia';
 
+const _getDependencyOrdersOfPaymentTypesPath = '/tiposLibranzaDependencia';
+
+const _getDependencyServicesTypesPath = '/tiposServiciosDependencia';
+
 _getPreviousAnswersAndSetDependencyPath(String partnerCode) =>
     '/socio/dependencia/$partnerCode';
 
@@ -259,10 +263,16 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
         await getUnresolvedProceduresTypes();
     Map<String, String> dependencyLevelsTypes =
         await getDependencyLevelsTypes();
+    Map<String, String> dependencyOrdersOfPaymentTypes =
+        await getDependencyOrdersOfPayment();
+    Map<String, String> dependencyServices = await getDependencyServices();
     DependencyModel dependencyModel = DependencyModel();
     dependencyModel.processedTypes = processedTypes;
     dependencyModel.unresolvedProceduresTypes = unresolvedProceduresTypes;
     dependencyModel.dependencyLevelsTypes = dependencyLevelsTypes;
+    dependencyModel.dependencyOrdersOfPaymentTypes =
+        dependencyOrdersOfPaymentTypes;
+    dependencyModel.dependencyServices = dependencyServices;
     return dependencyModel;
   }
 
@@ -282,5 +292,15 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     if (response.statusCode != 200) {
       throw Exception();
     }
+  }
+
+  @override
+  Future<Map<String, String>> getDependencyOrdersOfPayment() async {
+    return _getMap(_getDependencyOrdersOfPaymentTypesPath);
+  }
+
+  @override
+  Future<Map<String, String>> getDependencyServices() async {
+    return _getMap(_getDependencyServicesTypesPath);
   }
 }
