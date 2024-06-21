@@ -3,6 +3,7 @@ import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
@@ -72,10 +73,26 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
     super.initState();
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _permanentWorkDisabilityFieldsRequest = _editSocialProceduresService
-        .getPermanentWorkDisabilityField(actualUser.getActualCode());
+    EditSocialProceduresSavedTypes savedTypes =
+        Provider.of<EditSocialProceduresSavedTypes>(context, listen: false);
+    Map<String, String>? processedTypes = savedTypes.processedTypes;
+    Map<String, String>? resolvedDisabilityTypes =
+        savedTypes.resolvedDisabilityTypes;
+    Map<String, String>? unresolvedProceduresTypes =
+        savedTypes.unresolvedProceduresTypes;
+    _permanentWorkDisabilityFieldsRequest =
+        _editSocialProceduresService.getPermanentWorkDisabilityField(
+            actualUser.getActualCode(),
+            processedTypes,
+            resolvedDisabilityTypes,
+            unresolvedProceduresTypes);
     _permanentWorkDisabilityFieldsRequest!.then((permanentWorkDisabilityModel) {
       _permanentWorkDisabilityModel = permanentWorkDisabilityModel;
+      savedTypes.processedTypes = _permanentWorkDisabilityModel.processedTypes;
+      savedTypes.resolvedDisabilityTypes =
+          _permanentWorkDisabilityModel.resolvedDisabilityTypes;
+      savedTypes.unresolvedProceduresTypes =
+          _permanentWorkDisabilityModel.unresolvedProceduresTypes;
       _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(

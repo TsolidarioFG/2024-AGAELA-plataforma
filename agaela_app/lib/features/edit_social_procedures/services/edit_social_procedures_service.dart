@@ -29,7 +29,10 @@ abstract class EditSocialProceduresService {
   Future<Map<String, String>> getUnresolvedProceduresTypes();
 
   Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
-      String partnerCode);
+      String partnerCode,
+      Map<String, String>? processedTypes,
+      Map<String, String>? resolvedDisabilityTypes,
+      Map<String, String>? unresolvedProceduresTypes);
 
   Future<PermanentWorkDisabilityModel>
       getPreviousPermanentWorkDisabilityAnswers(String partnerCode);

@@ -79,15 +79,9 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     Map<String, String> healthCardTypes;
     Map<String, String> parkingCardTypes;
     Map<String, String> netIncomeCardTypes;
-    healthCardTypesSaved == null
-        ? healthCardTypes = await getHealthCardTypes()
-        : healthCardTypes = healthCardTypesSaved;
-    parkingCardTypesSaved == null
-        ? parkingCardTypes = await getParkingCardTypes()
-        : parkingCardTypes = parkingCardTypesSaved;
-    netIncomeTypesSaved == null
-        ? netIncomeCardTypes = await getNetIncomeCardTypes()
-        : netIncomeCardTypes = netIncomeTypesSaved;
+    healthCardTypes = healthCardTypesSaved ?? await getHealthCardTypes();
+    parkingCardTypes = parkingCardTypesSaved ?? await getParkingCardTypes();
+    netIncomeCardTypes = netIncomeTypesSaved ?? await getNetIncomeCardTypes();
     CardsAndIncomeModel answers =
         await getPreviousCardsAndIncomeAnswers(partnerCode);
     CardsAndIncomeModel cardsAndIncomeModel = CardsAndIncomeModel();
@@ -153,12 +147,18 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
 
   @override
   Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
-      String partnerCode) async {
-    Map<String, String> processedTypes = await getProcessedTypes();
-    Map<String, String> resolvedDisabilityTypes =
-        await getResolvedDisabilityTypes();
-    Map<String, String> unresolvedProceduresTypes =
-        await getUnresolvedProceduresTypes();
+      String partnerCode,
+      Map<String, String>? processedTypesSaved,
+      Map<String, String>? resolvedDisabilityTypesSaved,
+      Map<String, String>? unresolvedProceduresTypesSaved) async {
+    Map<String, String> processedTypes;
+    Map<String, String> resolvedDisabilityTypes;
+    Map<String, String> unresolvedProceduresTypes;
+    processedTypes = processedTypesSaved ?? await getProcessedTypes();
+    resolvedDisabilityTypes =
+        resolvedDisabilityTypesSaved ?? await getResolvedDisabilityTypes();
+    unresolvedProceduresTypes =
+        unresolvedProceduresTypesSaved ?? await getUnresolvedProceduresTypes();
     PermanentWorkDisabilityModel answers =
         await getPreviousPermanentWorkDisabilityAnswers(partnerCode);
     PermanentWorkDisabilityModel permanentWorkDisabilityModel =
