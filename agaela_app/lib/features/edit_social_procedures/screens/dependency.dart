@@ -148,6 +148,17 @@ class _DependencyState extends State<Dependency> {
                         onPressed: () => setState(() {
                               _dependencyModel.resolutionSelected =
                                   !_dependencyModel.resolutionSelected;
+                              if (_dependencyModel.resolutionSelected) {
+                                _dependencyModel.unresolvedProcedureSelected =
+                                    null;
+                              } else {
+                                _dependencyModel.dependencyLevelSelected = null;
+                                _dependencyModel.individualizedAttentionPlan =
+                                    false;
+                                _dependencyModel.gettingServices = false;
+                                _serviceClarifications.text = '';
+                              }
+                              _checkCorrectField();
                             }),
                         selected: _dependencyModel.resolutionSelected,
                         title: AppLocalizations.of(context)!
