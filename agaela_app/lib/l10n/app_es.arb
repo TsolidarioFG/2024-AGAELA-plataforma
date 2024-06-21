@@ -132,5 +132,7 @@
     "editSocialProceduresDependencyServiceClarificationsTitle": "Aclaraciones servicio / libranza",
     "editSocialProceduresDependencyServiceClarificationsTitleTextField": "Aclaraciones servicio / libranza",
     "editSocialProceduresDependencySavedChanges": "Todos los cambios fueron guardados",
-    "editSocialProceduresDependencyErrorSavingChanges": "Hubo un error guardando los cambios"
+    "editSocialProceduresDependencyErrorSavingChanges": "Hubo un error guardando los cambios",
+    "editSocialProceduresDependencyRequestedServicesTitle": "Servicios solicitados",
+    "editSocialProceduresDependencyOrdersOfPaymentTitle": "Libranzas vinculadas al servicio"
 }
