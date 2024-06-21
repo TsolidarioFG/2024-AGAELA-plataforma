@@ -76,6 +76,7 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
         .getPermanentWorkDisabilityField(actualUser.getActualCode());
     _permanentWorkDisabilityFieldsRequest!.then((permanentWorkDisabilityModel) {
       _permanentWorkDisabilityModel = permanentWorkDisabilityModel;
+      _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(
             context,

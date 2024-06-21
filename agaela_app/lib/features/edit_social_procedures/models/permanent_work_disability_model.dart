@@ -19,9 +19,9 @@ class PermanentWorkDisabilityModel {
     Map<String, dynamic>? processedTypeSelectedMap =
         json['tipoTramitado'] as Map<String, dynamic>?;
     Map<String, dynamic>? resolvedDisabilitySelectedMap =
-        json['tipoIncapacidadResulta'] as Map<String, dynamic>?;
+        json['tipoIncapacidadResuelta'] as Map<String, dynamic>?;
     Map<String, dynamic>? unresolvedProcedureSelectedMap =
-        json['tipoIncapacidadNoResulta'] as Map<String, dynamic>?;
+        json['tipoIncapacidadNoResuelta'] as Map<String, dynamic>?;
     if (processedTypeSelectedMap == null) {
       processedTypeSelected = null;
     } else {
