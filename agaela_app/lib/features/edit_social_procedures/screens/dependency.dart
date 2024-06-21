@@ -39,6 +39,17 @@ class _DependencyState extends State<Dependency> {
 
   Future<void>? _setDependencyRequest;
 
+  bool _validFields = false;
+
+  void _checkCorrectField() {
+    setState(() {
+      _validFields = _dependencyModel.processedTypeSelected != null &&
+              !_dependencyModel.resolutionSelected
+          ? _dependencyModel.unresolvedProcedureSelected != null
+          : _dependencyModel.dependencyLevelSelected != null;
+    });
+  }
+
   void _setDependency() {
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
@@ -73,6 +84,7 @@ class _DependencyState extends State<Dependency> {
       _dependencyModel = dependencyFields;
       _serviceClarifications.text =
           _dependencyModel.serviceClarifications ?? '';
+      _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(
             context,
@@ -115,6 +127,7 @@ class _DependencyState extends State<Dependency> {
                             title: ListButton(
                               onPressed: () => setState(() {
                                 _dependencyModel.processedTypeSelected = key;
+                                _checkCorrectField();
                               }),
                               selected:
                                   _dependencyModel.processedTypeSelected == key,
@@ -164,6 +177,7 @@ class _DependencyState extends State<Dependency> {
                                         onPressed: () => setState(() {
                                           _dependencyModel
                                               .dependencyLevelSelected = key;
+                                          _checkCorrectField();
                                         }),
                                         selected: _dependencyModel
                                                 .dependencyLevelSelected ==
@@ -230,6 +244,7 @@ class _DependencyState extends State<Dependency> {
                                           _dependencyModel
                                                   .unresolvedProcedureSelected =
                                               key;
+                                          _checkCorrectField();
                                         }),
                                         selected: _dependencyModel
                                                 .unresolvedProcedureSelected ==
@@ -319,11 +334,13 @@ class _DependencyState extends State<Dependency> {
                   child: CircularProgressIndicator(),
                 )
               : DefaultSendCancelButtons(
-                  sendFunction: () {
-                    if (_dependencyFormKey.currentState!.validate()) {
-                      _setDependency();
-                    }
-                  },
+                  sendFunction: _validFields
+                      ? () {
+                          if (_dependencyFormKey.currentState!.validate()) {
+                            _setDependency();
+                          }
+                        }
+                      : null,
                   cancelFunction: () => GoRouter.of(context).pop(),
                 );
         },
