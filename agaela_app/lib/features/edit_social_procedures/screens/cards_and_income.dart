@@ -4,6 +4,7 @@ import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/cards_and_income_model.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -68,10 +69,22 @@ class _CardsAndIncomeState extends State<CardsAndIncome> {
     super.initState();
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _getCardsAndIncomeTypesRequest = _editSocialProceduresService
-        .getCardsAndIncomeTypes(actualUser.getActualCode());
+    EditSocialProceduresSavedTypes savedTypes =
+        Provider.of<EditSocialProceduresSavedTypes>(context, listen: false);
+    Map<String, String>? healthCardTypes = savedTypes.healthCardTypes;
+    Map<String, String>? parkingCardTypes = savedTypes.parkingCardTypes;
+    Map<String, String>? netIncomeTypes = savedTypes.netIncomeTypes;
+    _getCardsAndIncomeTypesRequest =
+        _editSocialProceduresService.getCardsAndIncomeTypes(
+            actualUser.getActualCode(),
+            healthCardTypes,
+            parkingCardTypes,
+            netIncomeTypes);
     _getCardsAndIncomeTypesRequest!.then((cardsAndIncomes) {
       _cardsAndIncomeTypes = cardsAndIncomes;
+      savedTypes.healthCardTypes = _cardsAndIncomeTypes.healthCardTypes;
+      savedTypes.parkingCardTypes = _cardsAndIncomeTypes.parkingCardTypes;
+      savedTypes.netIncomeTypes = _cardsAndIncomeTypes.netIncomeTypes;
       _checkCorrectValues();
     },
         onError: (_) => showDefaultAlertDialog(

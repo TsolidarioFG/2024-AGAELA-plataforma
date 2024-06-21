@@ -10,7 +10,11 @@ abstract class EditSocialProceduresService {
 
   Future<Map<String, String>> getNetIncomeCardTypes();
 
-  Future<CardsAndIncomeModel> getCardsAndIncomeTypes(String partnerCode);
+  Future<CardsAndIncomeModel> getCardsAndIncomeTypes(
+      String partnerCode,
+      Map<String, String>? healthCardTypes,
+      Map<String, String>? parkingCardTypes,
+      Map<String, String>? netIncomeTypes);
 
   Future<CardsAndIncomeModel> getPreviousCardsAndIncomeAnswers(
       String partnerCode);
