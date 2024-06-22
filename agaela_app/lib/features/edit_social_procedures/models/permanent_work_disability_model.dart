@@ -1,12 +1,8 @@
-class PermanentWorkDisabilityModel {
-  Map<String, String> processedTypes = {};
+import 'package:agaela_app/features/edit_social_procedures/models/common_fields_model.dart';
+
+class PermanentWorkDisabilityModel extends CommonFieldsModel {
   Map<String, String> resolvedDisabilityTypes = {};
-  Map<String, String> unresolvedProceduresTypes = {};
-  bool notifiedUrgently = false;
-  bool resolutionSelected = false;
-  String? processedTypeSelected;
   String? resolvedDisabilitySelected;
-  String? unresolvedProcedureSelected;
 
   PermanentWorkDisabilityModel();
 
