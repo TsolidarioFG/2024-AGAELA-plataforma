@@ -10,13 +10,16 @@ class CommonFields extends StatefulWidget {
       {super.key,
       required this.child,
       required this.commonFieldsModel,
-      required this.onChanged});
-
-  final Widget child;
+      required this.onChanged,
+      this.endingChild});
 
   final CommonFieldsModel commonFieldsModel;
 
   final VoidCallback onChanged;
+
+  final Widget child;
+
+  final Widget? endingChild;
 
   @override
   State<CommonFields> createState() => _CommonFieldsState();
@@ -104,6 +107,7 @@ class _CommonFieldsState extends State<CommonFields> {
                     })
               ],
             ),
+      if (widget.endingChild != null) widget.endingChild!
     ]);
   }
 }
