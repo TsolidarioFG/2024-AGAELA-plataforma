@@ -1,12 +1,8 @@
-class DisabilityModel {
-  Map<String, String> processedTypes = {};
-  Map<String, String> unresolvedProceduresTypes = {};
-  bool notifiedUrgently = false;
-  bool resolutionSelected = false;
+import 'package:agaela_app/features/edit_social_procedures/models/common_fields_model.dart';
+
+class DisabilityModel extends CommonFieldsModel {
   bool mobilityScale = false;
   bool thirdPartyScale = false;
-  String? processedTypeSelected;
-  String? unresolvedProcedureSelected;
   String? disabilityPercentage;
 
   DisabilityModel();
