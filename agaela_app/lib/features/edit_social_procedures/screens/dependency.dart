@@ -7,6 +7,7 @@ import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/dependency_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
+import 'package:agaela_app/features/edit_social_procedures/widgets/common_fields.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -134,230 +135,149 @@ class _DependencyState extends State<Dependency> {
               : Form(
                   key: _dependencyFormKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: ListView(children: <Widget>[
-                    TextBoldStyle(
-                        text: AppLocalizations.of(context)!
-                            .editSocialProceduresProcessedTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: _dependencyModel.processedTypes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String text = _dependencyModel.processedTypes.values
-                              .elementAt(index);
-                          String key = _dependencyModel.processedTypes.keys
-                              .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => setState(() {
-                                _dependencyModel.processedTypeSelected = key;
-                                _checkCorrectField();
-                              }),
-                              selected:
-                                  _dependencyModel.processedTypeSelected == key,
-                              text: text,
-                            ),
-                          );
-                        }),
-                    YesNoListButton(
-                      onPressed: () => setState(() {
-                        _dependencyModel.notifiedUrgently =
-                            !_dependencyModel.notifiedUrgently;
-                      }),
-                      selected: _dependencyModel.notifiedUrgently,
-                      title: AppLocalizations.of(context)!
-                          .editSocialProceduresNotifiedUrgentlyTitle,
-                    ),
-                    YesNoListButton(
-                        onPressed: () => setState(() {
-                              _dependencyModel.resolutionSelected =
-                                  !_dependencyModel.resolutionSelected;
-                              if (_dependencyModel.resolutionSelected) {
-                                _dependencyModel.unresolvedProcedureSelected =
-                                    null;
-                              } else {
-                                _dependencyModel.dependencyLevelSelected = null;
-                                _dependencyModel.individualizedAttentionPlan =
-                                    false;
-                                _dependencyModel.gettingServices = false;
-                                _serviceClarifications.text = '';
-                              }
-                              _checkCorrectField();
-                            }),
-                        selected: _dependencyModel.resolutionSelected,
-                        title: AppLocalizations.of(context)!
-                            .editSocialProceduresResolutionTitle),
-                    _dependencyModel.resolutionSelected
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              TextBoldStyle(
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresDependencyDependencyLevelTitle),
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: _dependencyModel
-                                      .dependencyLevelsTypes.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String title = _dependencyModel
-                                        .dependencyLevelsTypes.values
-                                        .elementAt(index);
-                                    String key = _dependencyModel
-                                        .dependencyLevelsTypes.keys
-                                        .elementAt(index);
-                                    return ListTile(
-                                      title: ListButton(
-                                        onPressed: () => setState(() {
-                                          _dependencyModel
-                                              .dependencyLevelSelected = key;
-                                          _checkCorrectField();
-                                        }),
-                                        selected: _dependencyModel
-                                                .dependencyLevelSelected ==
-                                            key,
-                                        text: title,
-                                      ),
-                                    );
+                  child: CommonFields(
+                    commonFieldsModel: _dependencyModel,
+                    onChanged: () => _checkCorrectField(),
+                    endingChild: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextBoldStyle(
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDependencyRequestedServicesTitle),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount:
+                                _dependencyModel.dependencyServices.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String title = _dependencyModel
+                                  .dependencyServices.values
+                                  .elementAt(index);
+                              String key = _dependencyModel
+                                  .dependencyServices.keys
+                                  .elementAt(index);
+                              return ListTile(
+                                title: ListButton(
+                                  onPressed: () => setState(() {
+                                    _dependencyModel.dependencyServicesSelected
+                                            .contains(key)
+                                        ? _dependencyModel
+                                            .dependencyServicesSelected
+                                            .remove(key)
+                                        : _dependencyModel
+                                            .dependencyServicesSelected
+                                            .add(key);
                                   }),
-                              YesNoListButton(
-                                onPressed: () => setState(() {
-                                  _dependencyModel.individualizedAttentionPlan =
-                                      !_dependencyModel
-                                          .individualizedAttentionPlan;
-                                }),
-                                selected: _dependencyModel
-                                    .individualizedAttentionPlan,
-                                title: AppLocalizations.of(context)!
-                                    .editSocialProceduresDependencyIndividualizedAttentionPlanTitle,
-                              ),
-                              YesNoListButton(
-                                onPressed: () => setState(() {
-                                  _dependencyModel.gettingServices =
-                                      !_dependencyModel.gettingServices;
-                                }),
-                                selected: _dependencyModel.gettingServices,
-                                title: AppLocalizations.of(context)!
-                                    .editSocialProceduresDependencyGettingServicesTitle,
-                              ),
-                              TextBoldStyle(
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresDependencyServiceClarificationsTitle),
-                              Padding(
-                                padding: EdgeInsets.all(padding),
-                                child: DefaultTextField(
-                                  controller: _serviceClarifications,
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresDependencyServiceClarificationsTitleTextField,
+                                  selected: _dependencyModel
+                                      .dependencyServicesSelected
+                                      .contains(key),
+                                  text: title,
                                 ),
-                              ),
-                            ],
-                          )
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              TextBoldStyle(
-                                  text: AppLocalizations.of(context)!
-                                      .editSocialProceduresNoResolutionTitle),
-                              ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const ClampingScrollPhysics(),
-                                  itemCount: _dependencyModel
-                                      .unresolvedProceduresTypes.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    String title = _dependencyModel
-                                        .unresolvedProceduresTypes.values
-                                        .elementAt(index);
-                                    String key = _dependencyModel
-                                        .unresolvedProceduresTypes.keys
-                                        .elementAt(index);
-                                    return ListTile(
-                                      title: ListButton(
-                                        onPressed: () => setState(() {
-                                          _dependencyModel
-                                                  .unresolvedProcedureSelected =
-                                              key;
-                                          _checkCorrectField();
-                                        }),
-                                        selected: _dependencyModel
-                                                .unresolvedProcedureSelected ==
-                                            key,
-                                        text: title,
-                                      ),
-                                    );
-                                  })
-                            ],
+                              );
+                            }),
+                        TextBoldStyle(
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDependencyOrdersOfPaymentTitle),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: _dependencyModel
+                                .dependencyOrdersOfPaymentTypes.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String title = _dependencyModel
+                                  .dependencyOrdersOfPaymentTypes.values
+                                  .elementAt(index);
+                              String key = _dependencyModel
+                                  .dependencyOrdersOfPaymentTypes.keys
+                                  .elementAt(index);
+                              return ListTile(
+                                title: ListButton(
+                                  onPressed: () => setState(() {
+                                    _dependencyModel
+                                            .dependencyOrdersOfPaymentSelected
+                                            .contains(key)
+                                        ? _dependencyModel
+                                            .dependencyOrdersOfPaymentSelected
+                                            .remove(key)
+                                        : _dependencyModel
+                                            .dependencyOrdersOfPaymentSelected
+                                            .add(key);
+                                  }),
+                                  selected: _dependencyModel
+                                      .dependencyOrdersOfPaymentSelected
+                                      .contains(key),
+                                  text: title,
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextBoldStyle(
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDependencyDependencyLevelTitle),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const ClampingScrollPhysics(),
+                            itemCount:
+                                _dependencyModel.dependencyLevelsTypes.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              String title = _dependencyModel
+                                  .dependencyLevelsTypes.values
+                                  .elementAt(index);
+                              String key = _dependencyModel
+                                  .dependencyLevelsTypes.keys
+                                  .elementAt(index);
+                              return ListTile(
+                                title: ListButton(
+                                  onPressed: () => setState(() {
+                                    _dependencyModel.dependencyLevelSelected =
+                                        key;
+                                    _checkCorrectField();
+                                  }),
+                                  selected: _dependencyModel
+                                          .dependencyLevelSelected ==
+                                      key,
+                                  text: title,
+                                ),
+                              );
+                            }),
+                        YesNoListButton(
+                          onPressed: () => setState(() {
+                            _dependencyModel.individualizedAttentionPlan =
+                                !_dependencyModel.individualizedAttentionPlan;
+                          }),
+                          selected:
+                              _dependencyModel.individualizedAttentionPlan,
+                          title: AppLocalizations.of(context)!
+                              .editSocialProceduresDependencyIndividualizedAttentionPlanTitle,
+                        ),
+                        YesNoListButton(
+                          onPressed: () => setState(() {
+                            _dependencyModel.gettingServices =
+                                !_dependencyModel.gettingServices;
+                          }),
+                          selected: _dependencyModel.gettingServices,
+                          title: AppLocalizations.of(context)!
+                              .editSocialProceduresDependencyGettingServicesTitle,
+                        ),
+                        TextBoldStyle(
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDependencyServiceClarificationsTitle),
+                        Padding(
+                          padding: EdgeInsets.all(padding),
+                          child: DefaultTextField(
+                            controller: _serviceClarifications,
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDependencyServiceClarificationsTitleTextField,
                           ),
-                    TextBoldStyle(
-                        text: AppLocalizations.of(context)!
-                            .editSocialProceduresDependencyRequestedServicesTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: _dependencyModel.dependencyServices.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String title = _dependencyModel
-                              .dependencyServices.values
-                              .elementAt(index);
-                          String key = _dependencyModel.dependencyServices.keys
-                              .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => setState(() {
-                                _dependencyModel.dependencyServicesSelected
-                                        .contains(key)
-                                    ? _dependencyModel
-                                        .dependencyServicesSelected
-                                        .remove(key)
-                                    : _dependencyModel
-                                        .dependencyServicesSelected
-                                        .add(key);
-                              }),
-                              selected: _dependencyModel
-                                  .dependencyServicesSelected
-                                  .contains(key),
-                              text: title,
-                            ),
-                          );
-                        }),
-                    TextBoldStyle(
-                        text: AppLocalizations.of(context)!
-                            .editSocialProceduresDependencyOrdersOfPaymentTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: _dependencyModel
-                            .dependencyOrdersOfPaymentTypes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String title = _dependencyModel
-                              .dependencyOrdersOfPaymentTypes.values
-                              .elementAt(index);
-                          String key = _dependencyModel
-                              .dependencyOrdersOfPaymentTypes.keys
-                              .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => setState(() {
-                                _dependencyModel
-                                        .dependencyOrdersOfPaymentSelected
-                                        .contains(key)
-                                    ? _dependencyModel
-                                        .dependencyOrdersOfPaymentSelected
-                                        .remove(key)
-                                    : _dependencyModel
-                                        .dependencyOrdersOfPaymentSelected
-                                        .add(key);
-                              }),
-                              selected: _dependencyModel
-                                  .dependencyOrdersOfPaymentSelected
-                                  .contains(key),
-                              text: title,
-                            ),
-                          );
-                        }),
-                  ]));
+                        ),
+                      ],
+                    ),
+                  ),
+                );
         },
       ),
       bottomNavigationBar: BottomAppBar(
