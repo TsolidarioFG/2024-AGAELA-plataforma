@@ -9,4 +9,5 @@ class EditSocialProceduresSavedTypes extends ChangeNotifier {
   Map<String, String>? unresolvedProceduresTypes;
   Map<String, String>? dependencyOrdersOfPayment;
   Map<String, String>? dependencyServices;
+  Map<String, String>? dependencyLevelsTypes;
 }

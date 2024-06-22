@@ -275,15 +275,27 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
   }
 
   @override
-  Future<DependencyModel> getDependencyFields(String partnerCode) async {
-    Map<String, String> processedTypes = await getProcessedTypes();
-    Map<String, String> unresolvedProceduresTypes =
-        await getUnresolvedProceduresTypes();
-    Map<String, String> dependencyLevelsTypes =
-        await getDependencyLevelsTypes();
-    Map<String, String> dependencyOrdersOfPaymentTypes =
+  Future<DependencyModel> getDependencyFields(
+      String partnerCode,
+      Map<String, String>? processedTypesSaved,
+      Map<String, String>? unresolvedProceduresTypesSaved,
+      Map<String, String>? dependencyLevelTypesSaved,
+      Map<String, String>? dependencyServicesTypesSaved,
+      Map<String, String>? dependencyOrdersOfPaymenTypesSaved) async {
+    Map<String, String> processedTypes;
+    Map<String, String> unresolvedProceduresTypes;
+    Map<String, String> dependencyLevelsTypes;
+    Map<String, String> dependencyOrdersOfPaymentTypes;
+    Map<String, String> dependencyServices;
+    processedTypes = processedTypesSaved ?? await getProcessedTypes();
+    unresolvedProceduresTypes =
+        unresolvedProceduresTypesSaved ?? await getUnresolvedProceduresTypes();
+    dependencyLevelsTypes =
+        dependencyLevelTypesSaved ?? await getDependencyLevelsTypes();
+    dependencyOrdersOfPaymentTypes = dependencyOrdersOfPaymenTypesSaved ??
         await getDependencyOrdersOfPayment();
-    Map<String, String> dependencyServices = await getDependencyServices();
+    dependencyServices =
+        dependencyServicesTypesSaved ?? await getDependencyServices();
     DependencyModel answers = await getPreviousDependencyAnswers(partnerCode);
     DependencyModel dependencyModel = DependencyModel();
     dependencyModel.processedTypes = processedTypes;

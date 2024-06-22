@@ -5,6 +5,7 @@ import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/dependency_model.dart';
+import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
@@ -78,12 +79,35 @@ class _DependencyState extends State<Dependency> {
     super.initState();
     LoggedUser actualUser =
         Provider.of<LoggedUserProvider>(context, listen: false).loggedUser!;
-    _dependencyFieldsRequest = _editSocialProceduresService
-        .getDependencyFields(actualUser.getActualCode());
+    EditSocialProceduresSavedTypes savedTypes =
+        Provider.of<EditSocialProceduresSavedTypes>(context, listen: false);
+    Map<String, String>? processedTypes = savedTypes.processedTypes;
+    Map<String, String>? unresolvedProceduresTypes =
+        savedTypes.unresolvedProceduresTypes;
+    Map<String, String>? dependencyLevelsTypes =
+        savedTypes.dependencyLevelsTypes;
+    Map<String, String>? dependencyServicesTypes =
+        savedTypes.dependencyServices;
+    Map<String, String>? dependencyOrdersOfPaymentTypes =
+        savedTypes.dependencyOrdersOfPayment;
+    _dependencyFieldsRequest = _editSocialProceduresService.getDependencyFields(
+        actualUser.getActualCode(),
+        processedTypes,
+        unresolvedProceduresTypes,
+        dependencyLevelsTypes,
+        dependencyServicesTypes,
+        dependencyOrdersOfPaymentTypes);
     _dependencyFieldsRequest!.then((dependencyFields) {
       _dependencyModel = dependencyFields;
       _serviceClarifications.text =
           _dependencyModel.serviceClarifications ?? '';
+      savedTypes.processedTypes = _dependencyModel.processedTypes;
+      savedTypes.unresolvedProceduresTypes =
+          _dependencyModel.unresolvedProceduresTypes;
+      savedTypes.dependencyLevelsTypes = _dependencyModel.dependencyLevelsTypes;
+      savedTypes.dependencyServices = _dependencyModel.dependencyServices;
+      savedTypes.dependencyOrdersOfPayment =
+          _dependencyModel.dependencyOrdersOfPaymentTypes;
       _checkCorrectField();
     },
         onError: (_) => showDefaultAlertDialog(

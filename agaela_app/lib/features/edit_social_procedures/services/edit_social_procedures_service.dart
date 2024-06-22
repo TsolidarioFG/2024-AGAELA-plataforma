@@ -49,7 +49,13 @@ abstract class EditSocialProceduresService {
 
   Future<DisabilityModel> getPreviousDisabilityAnswers(String partnerCode);
 
-  Future<DependencyModel> getDependencyFields(String partnerCode);
+  Future<DependencyModel> getDependencyFields(
+      String partnerCode,
+      Map<String, String>? processedTypes,
+      Map<String, String>? unresolvedProceduresTypes,
+      Map<String, String>? dependencyLevelTypes,
+      Map<String, String>? dependencyServicesTypes,
+      Map<String, String>? dependencyOrdersOfPaymenTypes);
 
   Future<Map<String, String>> getDependencyLevelsTypes();
 
