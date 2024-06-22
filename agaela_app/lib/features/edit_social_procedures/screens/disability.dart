@@ -1,12 +1,12 @@
 import 'package:agaela_app/common_widgets/default_alert_dialog.dart';
 import 'package:agaela_app/common_widgets/default_send_cancel_buttons.dart';
 import 'package:agaela_app/common_widgets/default_text_field.dart';
-import 'package:agaela_app/common_widgets/list_button.dart';
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
+import 'package:agaela_app/features/edit_social_procedures/widgets/common_fields.dart';
 import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -117,136 +117,47 @@ class _DisabilityState extends State<Disability> {
               : Form(
                   key: _disabilityFormKey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: ListView(
-                    children: <Widget>[
-                      TextBoldStyle(
-                          text: AppLocalizations.of(context)!
-                              .editSocialProceduresProcessedTitle),
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: _disabilityModel.processedTypes.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            String text = _disabilityModel.processedTypes.values
-                                .elementAt(index);
-                            String key = _disabilityModel.processedTypes.keys
-                                .elementAt(index);
-                            return ListTile(
-                              title: ListButton(
-                                onPressed: () => setState(() {
-                                  _disabilityModel.processedTypeSelected = key;
-                                  _checkCorrectField();
+                  child: CommonFields(
+                    commonFieldsModel: _disabilityModel,
+                    onChanged: () => _checkCorrectField(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextBoldStyle(
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDisabilityPercentageTitle),
+                        Padding(
+                          padding: EdgeInsets.all(padding),
+                          child: DefaultTextField(
+                            controller: _disabilityPercentage,
+                            text: AppLocalizations.of(context)!
+                                .editSocialProceduresDisabilityPercentageTitleTextField,
+                            validator: (String? dni) {
+                              return !dni!.isValidPercentage
+                                  ? AppLocalizations.of(context)!
+                                      .errorPercentageNotValid
+                                  : null;
+                            },
+                          ),
+                        ),
+                        YesNoListButton(
+                            onPressed: () => setState(() {
+                                  _disabilityModel.mobilityScale =
+                                      !_disabilityModel.mobilityScale;
                                 }),
-                                selected:
-                                    _disabilityModel.processedTypeSelected ==
-                                        key,
-                                text: text,
-                              ),
-                            );
-                          }),
-                      YesNoListButton(
-                        onPressed: () => setState(() {
-                          _disabilityModel.notifiedUrgently =
-                              !_disabilityModel.notifiedUrgently;
-                          _checkCorrectField();
-                        }),
-                        selected: _disabilityModel.notifiedUrgently,
-                        title: AppLocalizations.of(context)!
-                            .editSocialProceduresNotifiedUrgentlyTitle,
-                      ),
-                      YesNoListButton(
-                          onPressed: () => setState(() {
-                                _disabilityModel.resolutionSelected =
-                                    !_disabilityModel.resolutionSelected;
-                                if (_disabilityModel.resolutionSelected) {
-                                  _disabilityModel.unresolvedProcedureSelected =
-                                      null;
-                                } else {
-                                  _disabilityPercentage.text = '';
-                                  _disabilityModel.mobilityScale = false;
-                                  _disabilityModel.thirdPartyScale = false;
-                                }
-                                _checkCorrectField();
-                              }),
-                          selected: _disabilityModel.resolutionSelected,
-                          title: AppLocalizations.of(context)!
-                              .editSocialProceduresResolutionTitle),
-                      _disabilityModel.resolutionSelected
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                TextBoldStyle(
-                                    text: AppLocalizations.of(context)!
-                                        .editSocialProceduresDisabilityPercentageTitle),
-                                Padding(
-                                  padding: EdgeInsets.all(padding),
-                                  child: DefaultTextField(
-                                    controller: _disabilityPercentage,
-                                    text: AppLocalizations.of(context)!
-                                        .editSocialProceduresDisabilityPercentageTitleTextField,
-                                    validator: (String? dni) {
-                                      return !dni!.isValidPercentage
-                                          ? AppLocalizations.of(context)!
-                                              .errorPercentageNotValid
-                                          : null;
-                                    },
-                                  ),
-                                ),
-                                YesNoListButton(
-                                    onPressed: () => setState(() {
-                                          _disabilityModel.mobilityScale =
-                                              !_disabilityModel.mobilityScale;
-                                        }),
-                                    selected: _disabilityModel.mobilityScale,
-                                    title: AppLocalizations.of(context)!
-                                        .editSocialProceduresDisabilityMobilityScaleTitle),
-                                YesNoListButton(
-                                    onPressed: () => setState(() {
-                                          _disabilityModel.thirdPartyScale =
-                                              !_disabilityModel.thirdPartyScale;
-                                        }),
-                                    selected: _disabilityModel.thirdPartyScale,
-                                    title: AppLocalizations.of(context)!
-                                        .editSocialProceduresDisabilityThirdPartyScaleTitle),
-                              ],
-                            )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                TextBoldStyle(
-                                    text: AppLocalizations.of(context)!
-                                        .editSocialProceduresNoResolutionTitle),
-                                ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const ClampingScrollPhysics(),
-                                    itemCount: _disabilityModel
-                                        .unresolvedProceduresTypes.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      String title = _disabilityModel
-                                          .unresolvedProceduresTypes.values
-                                          .elementAt(index);
-                                      String key = _disabilityModel
-                                          .unresolvedProceduresTypes.keys
-                                          .elementAt(index);
-                                      return ListTile(
-                                        title: ListButton(
-                                          onPressed: () => setState(() {
-                                            _disabilityModel
-                                                    .unresolvedProcedureSelected =
-                                                key;
-                                            _checkCorrectField();
-                                          }),
-                                          selected: _disabilityModel
-                                                  .unresolvedProcedureSelected ==
-                                              key,
-                                          text: title,
-                                        ),
-                                      );
-                                    })
-                              ],
-                            )
-                    ],
+                            selected: _disabilityModel.mobilityScale,
+                            title: AppLocalizations.of(context)!
+                                .editSocialProceduresDisabilityMobilityScaleTitle),
+                        YesNoListButton(
+                            onPressed: () => setState(() {
+                                  _disabilityModel.thirdPartyScale =
+                                      !_disabilityModel.thirdPartyScale;
+                                }),
+                            selected: _disabilityModel.thirdPartyScale,
+                            title: AppLocalizations.of(context)!
+                                .editSocialProceduresDisabilityThirdPartyScaleTitle),
+                      ],
+                    ),
                   ));
         },
       ),
