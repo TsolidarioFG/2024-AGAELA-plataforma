@@ -6,7 +6,7 @@ import 'package:agaela_app/common_widgets/text_bold_style.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/edit_social_procedures_saved_types.dart';
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 import 'package:agaela_app/features/edit_social_procedures/services/edit_social_procedures_service.dart';
-import 'package:agaela_app/features/edit_social_procedures/widgets/yes_no_list_button.dart';
+import 'package:agaela_app/features/edit_social_procedures/widgets/common_fields.dart';
 import 'package:agaela_app/features/login/models/logged_user.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/locators.dart';
@@ -115,123 +115,43 @@ class _PermanentWorkDisabilityState extends State<PermanentWorkDisability> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return snapshot.connectionState == ConnectionState.waiting
               ? const Center(child: CircularProgressIndicator())
-              : ListView(
-                  children: <Widget>[
-                    TextBoldStyle(
-                        text: AppLocalizations.of(context)!
-                            .editSocialProceduresProcessedTitle),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount:
-                            _permanentWorkDisabilityModel.processedTypes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          String text = _permanentWorkDisabilityModel
-                              .processedTypes.values
-                              .elementAt(index);
-                          String key = _permanentWorkDisabilityModel
-                              .processedTypes.keys
-                              .elementAt(index);
-                          return ListTile(
-                            title: ListButton(
-                              onPressed: () => setState(() {
-                                _permanentWorkDisabilityModel
-                                    .processedTypeSelected = key;
-                                _checkCorrectField();
-                              }),
-                              selected: _permanentWorkDisabilityModel
-                                      .processedTypeSelected ==
-                                  key,
-                              text: text,
-                            ),
-                          );
-                        }),
-                    YesNoListButton(
-                      onPressed: () => setState(() {
-                        _permanentWorkDisabilityModel.notifiedUrgently =
-                            !_permanentWorkDisabilityModel.notifiedUrgently;
-                      }),
-                      selected: _permanentWorkDisabilityModel.notifiedUrgently,
-                      title: AppLocalizations.of(context)!
-                          .editSocialProceduresNotifiedUrgentlyTitle,
-                    ),
-                    YesNoListButton(
-                        onPressed: () => setState(() {
-                              _permanentWorkDisabilityModel.resolutionSelected =
-                                  !_permanentWorkDisabilityModel
-                                      .resolutionSelected;
-                              _permanentWorkDisabilityModel.resolutionSelected
-                                  ? _permanentWorkDisabilityModel
-                                      .unresolvedProcedureSelected = null
-                                  : _permanentWorkDisabilityModel
-                                      .resolvedDisabilitySelected = null;
-                              _checkCorrectField();
-                            }),
-                        selected:
-                            _permanentWorkDisabilityModel.resolutionSelected,
-                        title: AppLocalizations.of(context)!
-                            .editSocialProceduresResolutionTitle),
-                    TextBoldStyle(
-                        text: _permanentWorkDisabilityModel.resolutionSelected
-                            ? AppLocalizations.of(context)!
-                                .editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle
-                            : AppLocalizations.of(context)!
-                                .editSocialProceduresNoResolutionTitle),
-                    _permanentWorkDisabilityModel.resolutionSelected
-                        ? ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: _permanentWorkDisabilityModel
-                                .resolvedDisabilityTypes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              String title = _permanentWorkDisabilityModel
-                                  .resolvedDisabilityTypes.values
-                                  .elementAt(index);
-                              String key = _permanentWorkDisabilityModel
-                                  .resolvedDisabilityTypes.keys
-                                  .elementAt(index);
-                              return ListTile(
-                                title: ListButton(
-                                  onPressed: () => setState(() {
-                                    _permanentWorkDisabilityModel
-                                        .resolvedDisabilitySelected = key;
-                                    _checkCorrectField();
-                                  }),
-                                  selected: _permanentWorkDisabilityModel
-                                          .resolvedDisabilitySelected ==
-                                      key,
-                                  text: title,
-                                ),
-                              );
-                            })
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: _permanentWorkDisabilityModel
-                                .unresolvedProceduresTypes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              String title = _permanentWorkDisabilityModel
-                                  .unresolvedProceduresTypes.values
-                                  .elementAt(index);
-                              String key = _permanentWorkDisabilityModel
-                                  .unresolvedProceduresTypes.keys
-                                  .elementAt(index);
-                              return ListTile(
-                                title: ListButton(
-                                  onPressed: () => setState(() {
-                                    _permanentWorkDisabilityModel
-                                        .unresolvedProcedureSelected = key;
-                                    _checkCorrectField();
-                                  }),
-                                  selected: _permanentWorkDisabilityModel
-                                          .unresolvedProcedureSelected ==
-                                      key,
-                                  text: title,
-                                ),
-                              );
-                            })
-                  ],
-                );
+              : CommonFields(
+                  commonFieldsModel: _permanentWorkDisabilityModel,
+                  onChanged: () => _checkCorrectField(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextBoldStyle(
+                          text: AppLocalizations.of(context)!
+                              .editSocialProceduresPermanentWorkDisabilityAffirmativeResolutionTitle),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: _permanentWorkDisabilityModel
+                              .resolvedDisabilityTypes.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String title = _permanentWorkDisabilityModel
+                                .resolvedDisabilityTypes.values
+                                .elementAt(index);
+                            String key = _permanentWorkDisabilityModel
+                                .resolvedDisabilityTypes.keys
+                                .elementAt(index);
+                            return ListTile(
+                              title: ListButton(
+                                onPressed: () => setState(() {
+                                  _permanentWorkDisabilityModel
+                                      .resolvedDisabilitySelected = key;
+                                  _checkCorrectField();
+                                }),
+                                selected: _permanentWorkDisabilityModel
+                                        .resolvedDisabilitySelected ==
+                                    key,
+                                text: title,
+                              ),
+                            );
+                          })
+                    ],
+                  ));
         },
       ),
       bottomNavigationBar: BottomAppBar(
