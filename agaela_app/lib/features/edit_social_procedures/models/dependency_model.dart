@@ -1,15 +1,11 @@
-class DependencyModel {
-  Map<String, String> processedTypes = {};
-  Map<String, String> unresolvedProceduresTypes = {};
+import 'package:agaela_app/features/edit_social_procedures/models/common_fields_model.dart';
+
+class DependencyModel extends CommonFieldsModel {
   Map<String, String> dependencyLevelsTypes = {};
   Map<String, String> dependencyOrdersOfPaymentTypes = {};
   Map<String, String> dependencyServices = {};
-  bool notifiedUrgently = false;
-  bool resolutionSelected = false;
   bool individualizedAttentionPlan = false;
   bool gettingServices = false;
-  String? processedTypeSelected;
-  String? unresolvedProcedureSelected;
   String? dependencyLevelSelected;
   String? serviceClarifications;
   List<String> dependencyOrdersOfPaymentSelected = [];
