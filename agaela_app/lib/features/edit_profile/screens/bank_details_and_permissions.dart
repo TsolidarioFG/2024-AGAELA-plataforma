@@ -1,7 +1,6 @@
 import 'package:agaela_app/common_widgets/text_appbar.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information.dart';
 import 'package:agaela_app/features/edit_profile/models/user_profile_information_provider.dart';
-import 'package:agaela_app/features/edit_profile/widgets/click_color_button.dart';
 import 'package:agaela_app/features/edit_profile/widgets/edit_profile_text_field.dart';
 import 'package:agaela_app/features/edit_profile/widgets/send_cancel_buttons_edit_profile.dart';
 import 'package:agaela_app/features/login/models/logged_user_provider.dart';
@@ -107,20 +106,6 @@ class _BankDetailsAndPermissionsState extends State<BankDetailsAndPermissions> {
                       : null;
                 },
               ),
-              ClickColorButton(
-                  function: () => _acceptNews = !_acceptNews,
-                  clickedText: AppLocalizations.of(context)!
-                      .editProfileBankDetailsAndPermissionsClickedNewsButton,
-                  notClickedText: AppLocalizations.of(context)!
-                      .editProfileBankDetailsAndPermissionsNotClickedNewsButton,
-                  initialState: _acceptNews),
-              ClickColorButton(
-                  function: () => _acceptLegalNotice = !_acceptLegalNotice,
-                  clickedText: AppLocalizations.of(context)!
-                      .editProfileBankDetailsAndPermissionsClickedLegalNoticeButton,
-                  notClickedText: AppLocalizations.of(context)!
-                      .editProfileBankDetailsAndPermissionsNotClickedLegalNoticeButton,
-                  initialState: _acceptLegalNotice),
             ],
           ),
         ),
