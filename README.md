@@ -34,3 +34,9 @@ Additionally, there are more folders and files outside the `features` folder to 
 - app.dart: Basic configuration of the app like configuring routing
 - locators.dart: Utility to implement dependency injection
 - main.dart: Initializes the app
+
+## AGAELA APP building and execution
+
+To run this app you will need [flutter](https://docs.flutter.dev/get-started/install).
+
+Once it is installed, go to the agaela_app folder and run: `flutter run`
