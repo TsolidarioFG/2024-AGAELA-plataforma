@@ -81,7 +81,7 @@ class DependencyModel extends CommonFieldsModel {
         'recibiendoServicio': gettingServices ? 1 : 0,
         'aclaracionesRecibiendoServicio': serviceClarifications,
         'idTipoTramiteNoResuelto': unresolvedProcedureSelected,
-        'resolucion': resolutionSelected,
+        'resolucion': resolutionSelected ? 1 : 0,
         'servicios': dependencyServicesSelected,
         'libranzas': dependencyOrdersOfPaymentSelected
       };
