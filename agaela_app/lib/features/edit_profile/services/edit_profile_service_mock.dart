@@ -52,14 +52,14 @@ class EditProfileServiceMock implements EditProfileService {
   @override
   Future<void> setUserProfileInformation(
       String code, UserProfileInformation userInformation) async {
-    const error = false;
+    const error = 'no';
     await Future.delayed(const Duration(seconds: 1));
-    if (error) throw Exception();
+    if (error == 'error') throw Exception();
   }
 
   @override
   Future<List<Country>> getCountries() async {
-    const error = false;
+    const error = 'no';
     Country spain = Country(1, 'España');
     Country france = Country(2, 'Francia');
     Country germany = Country(3, 'Alemania');
@@ -68,13 +68,13 @@ class EditProfileServiceMock implements EditProfileService {
     countries.add(france);
     countries.add(germany);
     await Future.delayed(const Duration(seconds: 1));
-    if (error) throw Exception();
+    if (error == 'error') throw Exception();
     return countries;
   }
 
   @override
   Future<List<Province>> getProvinces(int countryCode) async {
-    const error = false;
+    const error = 'no';
     Province coruna = Province(1, 'A Coruña', 1);
     Province lugo = Province(2, 'Lugo', 1);
     Province ourense = Province(3, 'Ourense', 1);
@@ -82,7 +82,7 @@ class EditProfileServiceMock implements EditProfileService {
     List<Province> provinces = [];
     provinces.addAll([coruna, lugo, ourense, pontevedra]);
     await Future.delayed(const Duration(seconds: 1));
-    if (error) throw Exception();
+    if (error == 'error') throw Exception();
     return provinces;
   }
 }
