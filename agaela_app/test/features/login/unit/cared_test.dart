@@ -49,4 +49,19 @@ void main() {
   test('Carer getCaredName method should be cared name', () {
     expect(carer.getCaredName(), caredName);
   });
+
+  test('Carer from json method works correctly', () {
+    String id = '1';
+    String name = 'test';
+    String code = 'testing';
+    Map<String, dynamic> json = {
+      'data': {
+        'perfil': {'id': id, 'nombre': name, 'codigo': code}
+      }
+    };
+    Carer example = Carer.fromJson(json, [], []);
+    expect(example.id.toString(), id);
+    expect(example.name, name);
+    expect(example.code, code);
+  });
 }
