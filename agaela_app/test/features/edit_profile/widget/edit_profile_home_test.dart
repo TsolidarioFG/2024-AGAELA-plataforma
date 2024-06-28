@@ -32,7 +32,7 @@ void main() {
                 equals(mockData))
           });
 
-  testWidgets("Edit profile loading indicator", (tester) async {
+  testWidgets('Edit profile loading indicator', (tester) async {
     await pumpL10nWidget(tester, const EditProfileHome());
 
     final circularProgressIndicatorFinder =
