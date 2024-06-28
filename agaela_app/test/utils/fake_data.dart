@@ -83,5 +83,17 @@ CachedQuestions getFakeCachedQuestions() {
 }
 
 EditSocialProceduresSavedTypes getFakeEditSocialProceduresSavedTypes() {
-  return EditSocialProceduresSavedTypes();
+  EditSocialProceduresSavedTypes editSocialProceduresSavedTypes =
+      EditSocialProceduresSavedTypes();
+  Map<String, String> example = {'1': 'A', '2': 'B'};
+  editSocialProceduresSavedTypes.dependencyLevelsTypes = example;
+  editSocialProceduresSavedTypes.dependencyOrdersOfPayment = example;
+  editSocialProceduresSavedTypes.dependencyServices = example;
+  editSocialProceduresSavedTypes.healthCardTypes = example;
+  editSocialProceduresSavedTypes.netIncomeTypes = example;
+  editSocialProceduresSavedTypes.parkingCardTypes = example;
+  editSocialProceduresSavedTypes.processedTypes = example;
+  editSocialProceduresSavedTypes.resolvedDisabilityTypes = example;
+  editSocialProceduresSavedTypes.unresolvedProceduresTypes = example;
+  return editSocialProceduresSavedTypes;
 }
