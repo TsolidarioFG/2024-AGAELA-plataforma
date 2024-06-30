@@ -9,11 +9,13 @@ Object _body(String name, String message) {
   return jsonEncode(<String, dynamic>{'nombre': name, 'mensaje': message});
 }
 
-String _reportIncidentPath(code) => '/socio/incidencia/$code';
+String _reportIncidentPath(code) =>
+    '/socio/incidencia${code != null ? '/$code' : ''}';
 
 class ReportIncidentServiceImpl implements ReportIncidentService {
   @override
-  Future<void> reportIncident(String code, String name, String incident) async {
+  Future<void> reportIncident(
+      String? code, String name, String incident) async {
     final response = await http.post(
         Uri.parse('$baseUrl${_reportIncidentPath(code)}'),
         headers: await headersAuthAndJson(),
