@@ -4,12 +4,6 @@ import 'package:agaela_app/features/edit_social_procedures/models/disability_mod
 import 'package:agaela_app/features/edit_social_procedures/models/permanent_work_disability_model.dart';
 
 abstract class EditSocialProceduresService {
-  Future<Map<String, String>> getHealthCardTypes();
-
-  Future<Map<String, String>> getParkingCardTypes();
-
-  Future<Map<String, String>> getNetIncomeCardTypes();
-
   Future<CardsAndIncomeModel> getCardsAndIncomeTypes(
       String partnerCode,
       Map<String, String>? healthCardTypes,
@@ -21,12 +15,6 @@ abstract class EditSocialProceduresService {
 
   Future<void> setCardsAndIncome(
       String partnerCode, CardsAndIncomeModel cardsAndIncomeTypes);
-
-  Future<Map<String, String>> getProcessedTypes();
-
-  Future<Map<String, String>> getResolvedDisabilityTypes();
-
-  Future<Map<String, String>> getUnresolvedProceduresTypes();
 
   Future<PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
       String partnerCode,
@@ -56,12 +44,6 @@ abstract class EditSocialProceduresService {
       Map<String, String>? dependencyLevelTypes,
       Map<String, String>? dependencyServicesTypes,
       Map<String, String>? dependencyOrdersOfPaymenTypes);
-
-  Future<Map<String, String>> getDependencyLevelsTypes();
-
-  Future<Map<String, String>> getDependencyServices();
-
-  Future<Map<String, String>> getDependencyOrdersOfPayment();
 
   Future<void> setDependency(String partnerCode, DependencyModel dependency);
 

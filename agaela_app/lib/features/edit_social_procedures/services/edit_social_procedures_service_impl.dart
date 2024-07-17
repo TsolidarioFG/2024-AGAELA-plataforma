@@ -55,17 +55,14 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     }
   }
 
-  @override
   Future<Map<String, String>> getHealthCardTypes() async {
     return _getMap(_getHealthCardTypesPath);
   }
 
-  @override
   Future<Map<String, String>> getNetIncomeCardTypes() async {
     return _getMap(_getNetIncomeTypesPath);
   }
 
-  @override
   Future<Map<String, String>> getParkingCardTypes() async {
     return _getMap(_getParkingCardTypesPath);
   }
@@ -130,17 +127,14 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     }
   }
 
-  @override
   Future<Map<String, String>> getProcessedTypes() async {
     return _getMap(_getProcessedTypesPath);
   }
 
-  @override
   Future<Map<String, String>> getResolvedDisabilityTypes() async {
     return _getMap(_getResolvedDisabilityTypesPath);
   }
 
-  @override
   Future<Map<String, String>> getUnresolvedProceduresTypes() async {
     return _getMap(_getUnresolvedProceduresTypesPath);
   }
@@ -321,7 +315,6 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     return dependencyModel;
   }
 
-  @override
   Future<Map<String, String>> getDependencyLevelsTypes() async {
     return _getMap(_getDependencyLevelsTypesPath);
   }
@@ -339,12 +332,10 @@ class EditSocialProceduresServiceImpl implements EditSocialProceduresService {
     }
   }
 
-  @override
   Future<Map<String, String>> getDependencyOrdersOfPayment() async {
     return _getMap(_getDependencyOrdersOfPaymentTypesPath);
   }
 
-  @override
   Future<Map<String, String>> getDependencyServices() async {
     return _getMap(_getDependencyServicesTypesPath);
   }
