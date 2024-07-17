@@ -391,34 +391,6 @@ class MockEditSocialProceduresService extends _i1.Mock
   }
 
   @override
-  _i9.Future<Map<String, String>> getHealthCardTypes() => (super.noSuchMethod(
-        Invocation.method(
-          #getHealthCardTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getParkingCardTypes() => (super.noSuchMethod(
-        Invocation.method(
-          #getParkingCardTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getNetIncomeCardTypes() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getNetIncomeCardTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
   _i9.Future<_i4.CardsAndIncomeModel> getCardsAndIncomeTypes(
     String? partnerCode,
     Map<String, String>? healthCardTypes,
@@ -484,35 +456,6 @@ class MockEditSocialProceduresService extends _i1.Mock
         returnValue: _i9.Future<void>.value(),
         returnValueForMissingStub: _i9.Future<void>.value(),
       ) as _i9.Future<void>);
-
-  @override
-  _i9.Future<Map<String, String>> getProcessedTypes() => (super.noSuchMethod(
-        Invocation.method(
-          #getProcessedTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getResolvedDisabilityTypes() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getResolvedDisabilityTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getUnresolvedProceduresTypes() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getUnresolvedProceduresTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
 
   @override
   _i9.Future<_i5.PermanentWorkDisabilityModel> getPermanentWorkDisabilityField(
@@ -682,36 +625,6 @@ class MockEditSocialProceduresService extends _i1.Mock
           ),
         )),
       ) as _i9.Future<_i7.DependencyModel>);
-
-  @override
-  _i9.Future<Map<String, String>> getDependencyLevelsTypes() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getDependencyLevelsTypes,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getDependencyServices() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getDependencyServices,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
-
-  @override
-  _i9.Future<Map<String, String>> getDependencyOrdersOfPayment() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getDependencyOrdersOfPayment,
-          [],
-        ),
-        returnValue: _i9.Future<Map<String, String>>.value(<String, String>{}),
-      ) as _i9.Future<Map<String, String>>);
 
   @override
   _i9.Future<void> setDependency(
