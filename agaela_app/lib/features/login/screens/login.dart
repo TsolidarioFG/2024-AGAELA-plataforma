@@ -9,10 +9,7 @@ import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/notifications/services/notifications_service.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
-import 'package:agaela_app/utils/go_home.dart';
 import 'package:agaela_app/utils/string_utils.dart';
-import 'package:agaela_app/utils/token_utils.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
@@ -50,19 +47,11 @@ class _LoginState extends State<Login> {
     });
   }
 
-  Future<void> onBackgroundMessage(RemoteMessage message) async {
-    String? token = await getToken();
-    if (token != null) {
-      _loginWithToken(
-          () => context.goNamed(RoutesNames.notificationsHome.name));
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    _notificationsService.initNotifications(onBackgroundMessage);
-    _loginWithToken(() => goToHome(context));
+    _notificationsService.initNotifications();
+    //_loginWithToken(() => goToHome(context));
   }
 
   void _startLogin() {
