@@ -7,8 +7,8 @@ class PersonWithAls extends LoggedUser {
 
   factory PersonWithAls.fromJson(Map<String, dynamic> json, String partnerCode,
       List<PendingForm> pendingForms) {
-    int id = int.parse(json['data']['perfil']['id'] as String);
-    String name = json['data']['perfil']['nombre'] as String;
+    int id = int.parse(json['id'] as String);
+    String name = json['nombre'] as String;
     return PersonWithAls(id, name, pendingForms, false, id, partnerCode);
   }
 }

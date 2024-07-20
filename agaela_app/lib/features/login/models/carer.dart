@@ -14,9 +14,9 @@ class Carer extends LoggedUser {
 
   factory Carer.fromJson(Map<String, dynamic> json, List<Cared> careds,
       List<PendingForm> pendingForms) {
-    int id = int.parse(json['data']['perfil']['id'] as String);
-    String name = json['data']['perfil']['nombre'] as String;
-    String code = json['data']['perfil']['codigo'] as String;
+    int id = int.parse(json['id'] as String);
+    String name = json['nombre'] as String;
+    String code = json['codigo'] as String;
     return Carer(careds, id, name, pendingForms, true, id, code);
   }
 }

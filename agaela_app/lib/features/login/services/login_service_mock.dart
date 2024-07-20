@@ -57,4 +57,10 @@ class LoginServiceMock implements LoginService {
     // TODO: implement getCareds
     throw UnimplementedError();
   }
+
+  @override
+  Future<LoggedUser> loginWithToken() {
+    // TODO: implement loginWithToken
+    throw UnimplementedError();
+  }
 }

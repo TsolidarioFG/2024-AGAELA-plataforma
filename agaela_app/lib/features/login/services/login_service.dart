@@ -5,4 +5,6 @@ abstract class LoginService {
   Future<LoggedUser> login(String dni, String password);
 
   Future<List<Cared>> getCareds();
+
+  Future<LoggedUser> loginWithToken();
 }
