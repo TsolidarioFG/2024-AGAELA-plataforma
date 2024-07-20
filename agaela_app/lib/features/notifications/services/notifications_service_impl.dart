@@ -75,9 +75,21 @@ class NotificationsServiceImpl implements NotificationsService {
 
   Future<void> onMessageWhileAppRunning() async {
     await updateNotifications();
+    LoggedUser? loggedUser = Provider.of<LoggedUserProvider>(
+            globalNavigatorKey.currentContext!,
+            listen: false)
+        .loggedUser;
     final snackBar = SnackBar(
       content: Text(AppLocalizations.of(globalNavigatorKey.currentContext!)!
           .newNotificationText),
+      action: SnackBarAction(
+        label: AppLocalizations.of(globalNavigatorKey.currentContext!)!
+            .goToNotificationScreenSnackBar,
+        onPressed: () => loggedUser != null
+            ? GoRouter.of(globalNavigatorKey.currentContext!)
+                .goNamed(RoutesNames.notificationsHome.name)
+            : {},
+      ),
     );
     ScaffoldMessenger.of(globalNavigatorKey.currentContext!)
         .showSnackBar(snackBar);
