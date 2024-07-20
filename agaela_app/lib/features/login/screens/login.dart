@@ -9,6 +9,7 @@ import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/notifications/services/notifications_service.dart';
 import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
+import 'package:agaela_app/utils/go_home.dart';
 import 'package:agaela_app/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,13 +37,13 @@ class _LoginState extends State<Login> {
 
   Future<LoggedUser>? _request;
 
-  void _loginWithToken(VoidCallback routeOnSuccess) {
+  void _loginWithToken() {
     setState(() {
       _request = _loginService.loginWithToken();
       _request!.then((loggedUser) {
         Provider.of<LoggedUserProvider>(context, listen: false)
             .setLoggedUser(loggedUser);
-        routeOnSuccess();
+        goToHome(context);
       }, onError: (_) => {});
     });
   }
@@ -51,7 +52,7 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     _notificationsService.initNotifications();
-    //_loginWithToken(() => goToHome(context));
+    _loginWithToken();
   }
 
   void _startLogin() {
