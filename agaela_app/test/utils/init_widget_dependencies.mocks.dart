@@ -177,6 +177,21 @@ class MockLoginService extends _i1.Mock implements _i10.LoginService {
         ),
         returnValue: _i9.Future<List<_i11.Cared>>.value(<_i11.Cared>[]),
       ) as _i9.Future<List<_i11.Cared>>);
+
+  @override
+  _i9.Future<_i2.LoggedUser> loginWithToken() => (super.noSuchMethod(
+        Invocation.method(
+          #loginWithToken,
+          [],
+        ),
+        returnValue: _i9.Future<_i2.LoggedUser>.value(_FakeLoggedUser_0(
+          this,
+          Invocation.method(
+            #loginWithToken,
+            [],
+          ),
+        )),
+      ) as _i9.Future<_i2.LoggedUser>);
 }
 
 /// A class which mocks [EditProfileService].
@@ -379,6 +394,16 @@ class MockNotificationsService extends _i1.Mock
         returnValue:
             _i9.Future<List<_i20.PendingForm>>.value(<_i20.PendingForm>[]),
       ) as _i9.Future<List<_i20.PendingForm>>);
+
+  @override
+  _i9.Future<void> initNotifications() => (super.noSuchMethod(
+        Invocation.method(
+          #initNotifications,
+          [],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [EditSocialProceduresService].
