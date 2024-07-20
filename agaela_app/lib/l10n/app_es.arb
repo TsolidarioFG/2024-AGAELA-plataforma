@@ -135,5 +135,6 @@
     "editSocialProceduresDependencyErrorSavingChanges": "Hubo un error guardando los cambios",
     "editSocialProceduresDependencyRequestedServicesTitle": "Servicios solicitados",
     "editSocialProceduresDependencyOrdersOfPaymentTitle": "Libranzas vinculadas al servicio",
-    "newNotificationText": "¡Puedes tener nuevas notificaciones!"
+    "newNotificationText": "¡Puedes tener nuevas notificaciones!",
+    "goToNotificationScreenSnackBar": "Ver notificaciones"
 }
