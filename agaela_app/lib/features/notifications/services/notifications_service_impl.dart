@@ -82,14 +82,14 @@ class NotificationsServiceImpl implements NotificationsService {
     final snackBar = SnackBar(
       content: Text(AppLocalizations.of(globalNavigatorKey.currentContext!)!
           .newNotificationText),
-      action: SnackBarAction(
-        label: AppLocalizations.of(globalNavigatorKey.currentContext!)!
-            .goToNotificationScreenSnackBar,
-        onPressed: () => loggedUser != null
-            ? GoRouter.of(globalNavigatorKey.currentContext!)
-                .goNamed(RoutesNames.notificationsHome.name)
-            : {},
-      ),
+      action: loggedUser != null
+          ? SnackBarAction(
+              label: AppLocalizations.of(globalNavigatorKey.currentContext!)!
+                  .goToNotificationScreenSnackBar,
+              onPressed: () => GoRouter.of(globalNavigatorKey.currentContext!)
+                  .goNamed(RoutesNames.notificationsHome.name),
+            )
+          : null,
     );
     ScaffoldMessenger.of(globalNavigatorKey.currentContext!)
         .showSnackBar(snackBar);
