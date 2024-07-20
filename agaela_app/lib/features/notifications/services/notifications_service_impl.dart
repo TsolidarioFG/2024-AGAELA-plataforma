@@ -6,9 +6,7 @@ import 'package:agaela_app/features/login/models/logged_user_provider.dart';
 import 'package:agaela_app/features/login/models/pending_form.dart';
 import 'package:agaela_app/features/login/models/pending_form_carer.dart';
 import 'package:agaela_app/features/login/models/pending_form_person_with_als.dart';
-import 'package:agaela_app/features/login/services/login_service.dart';
 import 'package:agaela_app/features/notifications/services/notifications_service.dart';
-import 'package:agaela_app/locators.dart';
 import 'package:agaela_app/routing/router.dart';
 import 'package:agaela_app/utils/common_headers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -22,24 +20,16 @@ import 'package:provider/provider.dart';
 const _notificationsPath = '/perfil/notificaciones';
 
 @pragma('vm:entry-point')
-Future<void> onBackgroundMessage(RemoteMessage message) async {
-  initLocator();
-  final loginService = locator<LoginService>();
-  loginService.loginWithToken().then((loggedUser) {
-    Provider.of<LoggedUserProvider>(globalNavigatorKey.currentContext!,
-            listen: false)
-        .setLoggedUser(loggedUser);
-    GoRouter.of(globalNavigatorKey.currentContext!)
-        .goNamed(RoutesNames.notificationsHome.name);
-  });
-}
+Future<void> onBackgroundMessage(RemoteMessage message) async {}
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', 'High Importance Channel',
-    description: 'This channel is used for important notifications',
-    importance: Importance.max,
-    playSound: true,
-    enableLights: true);
+  'high_importance_channel',
+  'High Importance Channel',
+  description: 'This channel is used for important notifications',
+  importance: Importance.max,
+  playSound: true,
+  enableLights: true,
+);
 
 class NotificationsServiceImpl implements NotificationsService {
   final _firebaseMessaging = FirebaseMessaging.instance;
