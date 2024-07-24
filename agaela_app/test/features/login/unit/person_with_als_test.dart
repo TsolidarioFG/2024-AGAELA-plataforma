@@ -46,11 +46,7 @@ void main() {
     String id = '1';
     String name = 'test';
     String code = 'testing';
-    Map<String, dynamic> json = {
-      'data': {
-        'perfil': {'id': id, 'nombre': name, 'codigo': code}
-      }
-    };
+    Map<String, dynamic> json = {'id': id, 'nombre': name, 'codigo': code};
     PersonWithAls example = PersonWithAls.fromJson(json, code, []);
     expect(example.id.toString(), id);
     expect(example.name, name);

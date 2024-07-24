@@ -54,11 +54,7 @@ void main() {
     String id = '1';
     String name = 'test';
     String code = 'testing';
-    Map<String, dynamic> json = {
-      'data': {
-        'perfil': {'id': id, 'nombre': name, 'codigo': code}
-      }
-    };
+    Map<String, dynamic> json = {'id': id, 'nombre': name, 'codigo': code};
     Carer example = Carer.fromJson(json, [], []);
     expect(example.id.toString(), id);
     expect(example.name, name);
