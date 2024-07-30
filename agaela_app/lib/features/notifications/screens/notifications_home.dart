@@ -63,7 +63,7 @@ class _NotificationsHomeState extends State<NotificationsHome> {
     _formsNames[barthelIndexFormId] =
         AppLocalizations.of(context)!.editFunctionalStateBarthelIndex;
     _formsNames[caregiverOverloadFormId] =
-        AppLocalizations.of(context)!.carerHomeCaregiverOverloadTitle;
+        AppLocalizations.of(context)!.editFunctionalStateCaregiverOverloadTitle;
     super.didChangeDependencies();
   }
 

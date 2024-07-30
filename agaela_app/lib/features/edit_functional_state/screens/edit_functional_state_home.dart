@@ -87,6 +87,31 @@ class _EditFunctionalStateHomeState extends State<EditFunctionalStateHome> {
               SizedBox(
                 height: height,
               ),
+              if (Provider.of<LoggedUserProvider>(context, listen: false)
+                  .loggedUser!
+                  .isCarer)
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: width,
+                    ),
+                    const Icon(Icons.supervisor_account),
+                    Expanded(
+                      child: DefaultButton(
+                          function: () => _startFormRequest(
+                                AppLocalizations.of(context)!
+                                    .editFunctionalStateCaregiverOverloadTitle,
+                                caregiverOverloadFormId,
+                              ),
+                          text: AppLocalizations.of(context)!
+                              .editFunctionalStateCaregiverOverload),
+                    ),
+                    const Expanded(child: SizedBox(child: null)),
+                  ],
+                ),
+              SizedBox(
+                height: height,
+              ),
               DefaultBackButton(backPage: () => goToHome(context))
             ],
           ),

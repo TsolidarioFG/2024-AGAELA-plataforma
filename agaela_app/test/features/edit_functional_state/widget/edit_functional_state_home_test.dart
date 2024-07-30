@@ -9,8 +9,8 @@ import '../../../utils/pump_l10n_widget.dart';
 void main() {
   setUp(() => initWidgetDependencies());
 
-  testWidgets('The edit functional state home has 3 buttons', (tester) async {
-    const defaultButtonsExpected = 2;
+  testWidgets('The edit functional state home has 4 buttons', (tester) async {
+    const defaultButtonsExpected = 3;
 
     await pumpL10nWidget(tester, const EditFunctionalStateHome());
 
